@@ -1,0 +1,42 @@
+{
+  "name": {
+    "message": "Online Radio"
+  },
+  "description": {
+    "message": "All your favorite radio stations in one extension."
+  },
+
+  "loading": {
+    "message": "Buffering"
+  },
+  "error": {
+    "message": "Error"
+  },
+  "link": {
+    "message": "Open station website"
+  },
+  "play": {
+    "message": "Play"
+  },
+  "stop": {
+    "message": "Stop"
+  },
+  "stopped": {
+    "message": "Stopped"
+  },
+  "like": {
+    "message": "Add to favorites"
+  },
+  "dislike": {
+    "message": "Remove from favorites"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "add": {
+    "message": "Add station"
+  },
+  "feedback": {
+    "message": "Feedback"
+  }
+}

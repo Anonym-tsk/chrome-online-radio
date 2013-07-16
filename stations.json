@@ -1,0 +1,44 @@
+{
+  "nashe": {
+    "title": "НАШЕ радио",
+    "url": "http://www.nashe.ru/online.php",
+    "image": "http://www.nashe.ru/upload/iblock/497/l1_thumb_069084767f03b445.jpg",
+    "stream": "http://mp3.nashe.ru/nashe-128.mp3"
+  },
+  "maximum": {
+    "title": "Максимум",
+    "url": "http://www.maximum.ru/online/",
+    "image": "http://www.maximum.ru/images/logo.png",
+    "stream": "http://maximum.fmtuner.ru/"
+  },
+  "hitfm": {
+    "title": "Хит FМ",
+    "url": "http://www.hitfm.ru/online_player.asp",
+    "image": "http://www.hitfm.ru/upload/images/newlogo.png",
+    "stream": "http://rhit.fmtuner.ru/"
+  },
+  "dfm": {
+    "title": "DFM",
+    "url": "http://www.dfm.ru/listen/dfmonline/",
+    "image": "http://www.dfm.ru/upload/contents/406/dancefm_logo.png",
+    "stream": "http://dfm.fmtuner.ru/"
+  },
+  "russkoe": {
+    "title": "Русское Радио",
+    "url": "http://www.rusradio.ru/",
+    "image": "http://www.rusradio.ru/upload/images/logorr.gif",
+    "stream": "http://rr.fmtuner.ru/"
+  },
+  "chillout": {
+    "title": "Chillоut",
+    "url": "http://chillout.101.ru",
+    "image": "http://101.ru/vardata/modules/channel/dynamics/pro/24.jpg",
+    "stream": "http://eu4.101.ru:8000/c15_3?setst=051433100137284426120130705"
+  },
+  "error": {
+    "title": "Test error radio",
+    "url": "www.example.com/play?bar#foo",
+    "image": "http://www.example.com/foo.jpg",
+    "stream": "http://www.example.com/foo.mp3"
+  }
+}
