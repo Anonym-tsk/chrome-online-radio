@@ -244,20 +244,16 @@
     },
 
     translate: function() {
-      var $player = $('#player');
-      var $imageIcons = $player.children('.image');
-      var $icons = $player.children('.icons');
-      $imageIcons.children('.icon-loader').attr('title', chrome.i18n.getMessage('loading'));
-      $imageIcons.children('.icon-play-big').attr('title', chrome.i18n.getMessage('play'));
-      $imageIcons.children('.icon-stop-big').attr('title', chrome.i18n.getMessage('stop'));
-      $imageIcons.children('.icon-error').attr('title', chrome.i18n.getMessage('error'));
-      $icons.children('.icon-like').attr('title', chrome.i18n.getMessage('like'));
-      $icons.children('.icon-dislike').attr('title', chrome.i18n.getMessage('dislike'));
-      $player.children('.title').text(chrome.i18n.getMessage('name'));
-      $player.children('.description').text(chrome.i18n.getMessage('description'));
-      $('.icon-options').text(chrome.i18n.getMessage('settings'));
-      $('.icon-add').text(chrome.i18n.getMessage('add'));
-      $('.icon-feedback').text(chrome.i18n.getMessage('feedback'));
+      $('[data-i18n]').each(function() {
+        var $this = $(this);
+        var i18nName = $this.data('i18n');
+        $this.text(chrome.i18n.getMessage(i18nName));
+      });
+      $('[data-i18n-title]').each(function() {
+        var $this = $(this);
+        var i18nName = $this.data('i18n-title');
+        $this.attr('title', chrome.i18n.getMessage(i18nName));
+      });
     },
 
     init: function() {
