@@ -4,11 +4,54 @@
 <head>
   <meta charset="UTF-8">
   <title>Online Radio</title>
+  <link href="css/options.css" rel="stylesheet">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/options.js"></script>
 </head>
 
-<body>
-<div id="content">
-  <!-- TODO: Add content -->
+<body data-page="options">
+<div id="wrapper">
+  <div id="sidebar">
+    <h1>Радио Онлайн</h1>
+    <ul class="menu">
+      <li data-page="options">Настройки</li>
+      <li data-page="stations">Станции</li>
+      <li data-page="add">Добавить станцию</li>
+    </ul>
+  </div>
+  <div id="content">
+    <section data-page="options">
+      <h1>Настройки</h1>
+    </section>
+    <section data-page="stations">
+      <h1>Станции</h1>
+      <div id="stations"></div>
+    </section>
+    <section data-page="add">
+      <h1>Добавить станцию</h1>
+      <form id="addStation">
+        <div class="field">
+          <label>Название станции</label>
+          <input type="text" name="title" required="required">
+        </div>
+        <div class="field">
+          <label>Ссылка на сайт</label>
+          <input type="url" name="url" required="required">
+        </div>
+        <div class="field">
+          <label>Изображение</label>
+          <input type="url" name="image">
+        </div>
+        <div class="field">
+          <label>URL потока</label>
+          <input type="url" name="stream" required="required">
+        </div>
+        <div class="field">
+          <input type="submit" value="Добавить станцию">
+        </div>
+      </form>
+    </section>
+  </div>
 </div>
 </body>
 </html>

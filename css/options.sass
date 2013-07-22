@@ -1,0 +1,317 @@
+html
+  margin: 0
+  padding: 0
+  height: 100%
+  font-size: 100%
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+  -webkit-text-size-adjust: 100%
+
+body
+  font-family: Arial, Helvetica, sans-serif
+  font-weight: 400
+  font-size: 15px
+  line-height: 23px
+  -webkit-font-smoothing: antialiased
+  -webkit-user-select: none
+  color: #333
+  height: 100%
+  position: relative
+  margin: 0
+  padding: 0
+
+a, a:link, a:visited
+  color: #0088cc
+  text-decoration: underline
+  text-shadow: 1px 0px 0px #fff
+  -webkit-transition: color .3s ease-in-out
+  transition: color .3s ease-in-out
+  &:hover, &:active
+    text-decoration: none
+    color: #00719f
+    text-shadow: 1px 0px 0px #eee
+
+h1, h2, h3, h4, h5, h6
+  line-height: 1.3em
+  margin: 0 0 0.8em 0
+  font-weight: normal
+  text-shadow: 0px 1px #fff
+
+h1
+  font-size: 1.6em
+
+h2
+  font-size: 1.45em
+
+h3
+  font-size: 1.32em
+
+h4
+  font-size: 1.2em
+  font-weight: bold
+
+h5
+  font-size: 1.1em
+  font-weight: bold
+
+h6
+  font-size: 1em
+  font-weight: bold
+
+.title
+  margin-bottom: 40px
+  padding-bottom: 12px
+  box-shadow: inset 0px -1px 0px 0px #BDBDBD, 0px 2px 1px -1px #fff
+
+p
+  margin: 0 0 1em 0
+
+ul, ol
+  margin-left: 0
+  padding-left: 2em
+
+pre, code, tt
+  font: 13px "andale mono", "lucida console", monospace
+  line-height: 1.5
+
+ul
+  list-style-type: disc
+  ul
+    list-style-type: circle
+    ul
+      list-style-type: square
+      ul
+        list-style-type: circle
+
+ol
+  list-style-type: decimal
+  ol
+    list-style-type: lower-alpha
+    ol
+      list-style-type: decimal
+
+blockquote
+  margin-left: 1px
+  box-shadow: -1px 0px 0px 0px #BDBDBD, inset 2px 0px 1px -1px #FFF
+  padding-left: 30px
+  font-style: italic
+
+hr
+  box-shadow: 0px -1px 0px 0px #BDBDBD, inset 0px 2px 1px -1px #FFF
+  border: 0
+  height: 1px
+  width: 100%
+  margin: 8px 0
+
+form,
+input,
+textarea
+  font-family: Arial, Helvetica, sans-serif
+
+input,
+textarea
+  padding: 3px 5px
+  margin: 3px 0 7px 0
+  border: 1px solid #ccc
+  font-size: 14px
+  color: #505050
+  line-height: 19px
+  height: 19px
+  outline: none
+  display: block
+  &:focus
+    box-shadow: 0px 0px 2px 0px #1389D8
+
+input[type="submit"]
+  background-color: #02abda
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#02abda), color-stop(100%,#00607E))
+  background-image: -webkit-linear-gradient(top, #02abda 0%, #00607E 100%)
+  background-image: linear-gradient(top, #02abda 0%, #00607E 100%)
+  box-shadow: 0px 1px 3px rgba(153,153,153,0.5), inset 0px 0px 1px rgba(042,056,093,1)
+  border-radius: 4px
+  text-shadow: 0px 1px 0px rgba(041,068,140,0.2), 0px 1px 0px rgba(041,068,140,0.3)
+  color: #fff
+  border: 1px solid #fff
+  height: 34px
+  line-height: 32px
+  font-size: 13px
+  font-weight: normal
+  text-align: center
+  padding: 0 20px
+  margin: 0
+  cursor: pointer
+  &:hover
+    background-color: #037699
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#037699), color-stop(100%,#02abda))
+    background-image: -webkit-linear-gradient(top, #037699 0%, #02abda 100%)
+    background-image: linear-gradient(top, #037699 0%, #02abda 100%)
+    line-height: 33px
+
+#wrapper
+  overflow: hidden
+  padding: 0
+  margin: 0
+  height: 100%
+  position: relative
+
+#sidebar
+  float: left
+  min-height: 100%
+  box-shadow: inset -1px 0px 0px 0px #bdbdbd, 2px 0px 1px -1px #fff
+  padding: 0
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0%,#FFF), color-stop(100%,#efefef))
+  background-image: -webkit-linear-gradient(left, #FFF 0%, #efefef 100%)
+  background-image: linear-gradient(left, #FFF 0%, #efefef 100%)
+
+  min-width: 200px
+  h1
+    margin: 26px 30px 40px 25px
+    padding: 0 0 0 50px
+    line-height: 32px
+    background: url('../icons/32.png') no-repeat left
+
+#content
+  overflow: auto
+  height: 100%
+  padding: 0 0 0 50px
+  background: #FAFAFA
+
+ul.menu
+  list-style: none
+  padding: 0 1px 0 0
+  margin: 0
+  li
+    cursor: pointer
+    list-style: none
+    padding: 0 30px 0 40px
+    margin: 0
+    text-align: right
+    line-height: 36px
+    color: #0088cc
+    -webkit-transition: color .3s ease-in-out
+    transition: color .3s ease-in-out
+    text-shadow: 0px 1px #fff
+    &.active
+      box-shadow: inset 0px -1px 0px 0px #bdbdbd, inset 0px 1px 0px 0px #fff
+      color: #037699
+    &:hover
+      color: #037699
+    &:active
+      box-shadow: inset 0px 1px 0px 0px #bdbdbd, inset 0px -1px 0px 0px #fff
+
+section
+  display: none
+  padding: 26px 30% 30px 0
+  h1
+    margin: 0 0 40px 0
+    padding: 0
+    line-height: 32px
+
+body[data-page="options"]
+  section[data-page="options"]
+    display: block
+  ul.menu
+    li[data-page="options"]
+      @extend .active
+
+body[data-page="stations"]
+  section[data-page="stations"]
+    display: block
+  ul.menu
+    li[data-page="stations"]
+      @extend .active
+
+body[data-page="add"]
+  section[data-page="add"]
+    display: block
+  ul.menu
+    li[data-page="add"]
+      @extend .active
+
+.icon-hide
+  width: 31px
+  height: 24px
+  background-repeat: no-repeat
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAYCAYAAAACqyaBAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAhJJREFUeNq0VktuwjAQDaj7cgPSE5AbEPaVSE+Ab1C6aneFXXfQEzQ5AanafZMTNLkBnKBwgnamepYGy3E+gCXLmNh+b9587J73+OGd0n5fbo/mvafPiIYNpkv6vqja2/fO3+bid+xaeFZwstqnYYxpTlZvXeuvWp4fog+oBwDc01CgR02tbgrOYIr6zLFmaswPZHUteM8RcD7Yjzt44JV6xuq4Aq4KnINmdYL7bwTxkpUjEkVdwA2wyQV8qAEuMWrFRqwCUrASfACpZhWAd9Qn1K9rwNdGunnYsyECqgo8BkublSxZajnURjIVUb8zvr8RgdAEXxsRm8Nve8wzoY6rpeRb3jMU506EK/7XEIFAgzPLe/HxAem1dViXOyQ3y29GncGWwgWxBg8Ni2V+agKBkJ/bwhJ4JUc0qpxnrNfEtAI+r+vDj4mI0Aw57sF/uoj4AGVZvyyBFwtiR+CQOUNMMemQS6/2uRKyjLBpLsD14XuokFgsjwGisyVh/9N/TOYb55YoPIUZ7QsExwFWrQCYC1VSQVamTQJlMhEX7AJ227OoeqG8bGwVTheaaU06yRts4qj/nG5zAk3b1PYQJIY16bWDK34sJDnI1ki/VreaDjwt8diRXsogE7tAm1huu+UiKDI1LhElikzR+PHR4Q0XIHq5vRNY1PXq6/KMUm1eK5cC3xl14OLgSlS2k6zm9ifAAIsSs15g3aEDAAAAAElFTkSuQmCC)
+.icon-show
+  width: 31px
+  height: 17px
+  background-repeat: no-repeat
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAARCAYAAAAlpHdJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAaxJREFUeNqsVcFNhFAQBeIdOlg6kA6gABPYCvhUoDe9iTePuxXIdoDRu2wH2AF2ABXojHnfTCbAgruTTJb98N97zLw/uM79m7MiQmSi1nvK9vv5plkD5i4gDygN8noB5itlTUKqc8iZ9A7pO+vji7KcEzFFzmXlTRvn/DhSZiSi1ze8kYe5vB8XIuaIKTv34T06Rc5v+zIBsqfcopxTvd7iVwe3rdECJHlJmc/0j3sfzVQk5TcEjrNEgCdK/SgeHCgL9IujEV6YC+5ti/0cT8AZlIDQkvPFTpUvRAtsdIrk84SI1l7A7aFoh2+xPZTJF+XNMDRkRAJ0QAuGEdJamOxPNDudknEP9j6X3wOQXdwAIFBgqapQNXL2j1xyAjVi7bddtBZQVsJTBT/r4S2NEJDiDRNB7oC4w7puA+/NmEQIZDF8xBLg5dZLdvDoIWOw2RegLO5W/DdqzvNM72GiWozgAkJz4RMDQ05OOGu2WDjfV8duh5J28EMGUf7Enj1Gbb90tusq/He0llNfu6uZjRXKaGDKzaVI13xS5XEz+I3VvQGmqvE57ZYA/ggwANzgn+pDxCA8AAAAAElFTkSuQmCC)
+
+#stations
+  position: relative
+  width: 100%
+  height: 400px
+  outline: none
+  .station
+    height: 32px
+    padding: 8px 10px
+    position: relative
+    border-bottom: 1px solid #D9D9D9
+    -webkit-transition: background-color .07s ease-in-out
+    transition: background-color .07s ease-in-out
+    cursor: pointer
+    .image
+      float: left
+      width: 30px
+      height: 30px
+      margin: 0 14px 0 0
+      text-align: center
+      border: 1px solid transparent
+      box-shadow: 0px 0px 0px 1px #d9d9d9
+      background-color: transparent
+      background-repeat: no-repeat
+      background-size: contain
+      background-position: center
+      background-image: url('../icons/32.png')
+    .title
+      font-size: 15px
+      font-weight: normal
+      margin: 0
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+      line-height: 32px
+      box-shadow: none
+    .icon
+      float: right
+      height: 32px
+      background-position: center
+      display: none
+    .icon-hide
+      background-position: 0px 4px
+    .icon-show
+      display: none
+      background-position: 0px 7px
+    &:hover
+      background: #EAF5FB
+      .icon-hide
+        display: block
+    &:last-child
+      border-bottom: none
+    &.hidden
+      .icon-hide
+        display: block
+      .icon-show
+        display: none
+      &:hover
+        .icon-hide
+          display: none
+        .icon-show
+          display: block
+
+#addStation
+  .field
+    overflow: hidden
+    margin: 0 0 2px 0
+    padding: 3px 3px 3px 0
+    label
+      width: 150px
+      float: left
+      line-height: 24px
+    input
+      width: 400px
+      margin: 0
+      &[type="submit"]
+        margin: 20px 0 0 148px
+        width: 415px
