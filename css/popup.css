@@ -228,10 +228,11 @@ h1, h2, h3 {
       text-align: center;
       border: 1px solid transparent;
       box-shadow: 0px 0px 0px 1px #d9d9d9;
-      background-color: transparent;
+      background-color: #fafafa;
       background-repeat: no-repeat;
       background-size: contain;
-      background-position: center; }
+      background-position: center;
+      background-image: url("../icons/32.png"); }
     #stations .station .icon {
       display: none; }
     #stations .station .icon-play,

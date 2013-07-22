@@ -44,7 +44,7 @@
         }
 
         setTimeout(function() {
-          this.element.css('backgroundImage', 'url('+ this.image +')');
+          this.element.css('backgroundImage', this.image ? 'url('+ this.image +')' : '');
         }.bind({element: $player.find('.image'), image: station.image}), 50);
         $player.find('.title').text(station.title);
         var linkText = station.url.match(/^[a-z]+:\/\/([^/^?^&^#]+)/);
@@ -143,7 +143,7 @@
       }
 
       setTimeout(function() {
-        this.element.css('backgroundImage', 'url('+ this.image +')');
+        this.element.css('backgroundImage', this.image ? 'url('+ this.image +')' : '');
       }.bind({element: $image, image: image}), 50);
 
       $station
