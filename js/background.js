@@ -38,6 +38,9 @@
             var station = this.Storage.getStationByName(message.data);
             chrome.tabs.create({url: station.url});
             break;
+          case 'add':
+            this.Storage.addStation(message.data);
+            break;
         }
 
         console.warn(message);
