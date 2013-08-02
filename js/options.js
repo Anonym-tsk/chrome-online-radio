@@ -23,7 +23,7 @@
     },
 
     renderStations: function() {
-      var $container = $('#stations');
+      var $container = $('#stations').empty();
       var stations = this.Storage.getStations();
 
       $.each(stations, function(name, station) {
@@ -33,7 +33,7 @@
     },
 
     initEvents: function() {
-      var $popup = this;
+      var $page = this;
 
       $('ul.menu').on('click', 'li', function(e) {
         e.preventDefault();
@@ -46,27 +46,30 @@
           e.preventDefault();
           var $station = $(this).parent('.station'),
               name = $station.data('name');
-          $popup.sendMessage('hide', name);
+          // TODO: Сохранять состояние станции
           $station.addClass('hidden');
         })
         .on('click', '.station > .icon-show', function(e) {
           e.preventDefault();
           var $station = $(this).parent('.station'),
               name = $station.data('name');
-          $popup.sendMessage('show', name);
+          // TODO: Сохранять состояние станции
           $station.removeClass('hidden');
         });
 
-      // TODO: Обновление списка после сабмита
       $('#addStation').on('submit', function(e) {
         e.preventDefault();
         var $this = $(this);
-        $popup.sendMessage('add', {
+        // TODO: Рефакторить
+        $page.Storage.addStation({
           title: $this.find('[name="title"]').val(),
           url: $this.find('[name="url"]').val(),
           image: $this.find('[name="image"]').val(),
           stream: $this.find('[name="stream"]').val()
         });
+        $page.renderStations();
+        $('body').attr('data-page', 'stations');
+        // TODO: Очистить форму
       });
     }
   };
