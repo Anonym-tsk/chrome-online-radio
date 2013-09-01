@@ -227,8 +227,6 @@ h1, h2, h3 {
       margin: 0 14px 0 0;
       text-align: center;
       border: 1px solid transparent;
-      box-shadow: 0px 0px 0px 1px #d9d9d9;
-      background-color: #fafafa;
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;
@@ -267,7 +265,8 @@ h1, h2, h3 {
       #stations .station:hover .icon, #stations .station.move .icon {
         display: block; }
       #stations .station:hover .icon-stop,
-      #stations .station:hover .icon-dislike, #stations .station.move .icon-stop, #stations .station.move .icon-dislike {
+      #stations .station:hover .icon-dislike, #stations .station.move .icon-stop,
+      #stations .station.move .icon-dislike {
         display: none; }
     #stations .station:last-child {
       border-bottom: none; }

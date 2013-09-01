@@ -2,31 +2,31 @@
   "nashe": {
     "title": "НАШЕ радио",
     "url": "http://www.nashe.ru/online.php",
-    "image": "http://www.nashe.ru/upload/iblock/497/l1_thumb_069084767f03b445.jpg",
+    "image": "http://nasheradio.advera.ru/logo.jpg",
     "stream": "http://mp3.nashe.ru/nashe-128.mp3"
   },
   "maximum": {
     "title": "Максимум",
     "url": "http://www.maximum.ru/online/",
-    "image": "http://www.maximum.ru/images/logo.png",
+    "image": "http://onlainradio.ru/image/radio/radio_maxsimum.jpg",
     "stream": "http://maximum.fmtuner.ru/"
   },
   "hitfm": {
     "title": "Хит FМ",
     "url": "http://www.hitfm.ru/online_player.asp",
-    "image": "http://www.hitfm.ru/upload/images/newlogo.png",
+    "image": "http://onlainradio.ru/image/radio/hit_fm_pryamoi_efir.jpg",
     "stream": "http://rhit.fmtuner.ru/"
   },
   "dfm": {
     "title": "DFM",
     "url": "http://www.dfm.ru/listen/dfmonline/",
-    "image": "http://www.dfm.ru/upload/contents/406/dancefm_logo.png",
+    "image": "http://onlainradio.ru/image/radio/dfm_radio.jpg",
     "stream": "http://dfm.fmtuner.ru/"
   },
   "russkoe": {
     "title": "Русское Радио",
     "url": "http://www.rusradio.ru/",
-    "image": "http://www.rusradio.ru/upload/images/logorr.gif",
+    "image": "http://onlainradio.ru/image/radio/russkoe_radio1.jpg",
     "stream": "http://rr.fmtuner.ru/"
   },
   "chillout": {
@@ -35,9 +35,16 @@
     "image": "http://101.ru/vardata/modules/channel/dynamics/pro/24.jpg",
     "stream": "http://eu4.101.ru:8000/c15_3?setst=051433100137284426120130705"
   },
-  "error": {
-    "title": "Test error radio",
-    "url": "www.example.com/play?bar#foo",
-    "stream": "http://www.example.com/foo.mp3"
+  "rockfm": {
+    "title": "Rock FM",
+    "url": "http://www.rockfm.ru",
+    "image": "http://archicompany.com/wp-content/uploads/2012/09/rock-fm_ru.jpg",
+    "stream": "http://mp3.nashe.ru/rock-128.mp3"
+  },
+  "montecarlo": {
+    "title": "Монте-Карло",
+    "url": "http://montecarlo.ru/",
+    "image": "http://station.ru/upload/images/st_mc_140.png",
+    "stream": "http://mc.fmtuner.ru/"
   }
 }
