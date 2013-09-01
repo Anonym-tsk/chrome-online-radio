@@ -1,6 +1,5 @@
 (function(window, $) {
   var Options = function() {
-    // TODO: Переводы
     this.Background = chrome.extension.getBackgroundPage();
     this.Storage = this.Background.Radio.Storage;
     this._port = chrome.extension.connect();
@@ -24,8 +23,8 @@
     _renderStation: function(name, title, image, hidden) {
       var $station = $('<div/>', {'class': 'station' + (hidden ? ' hidden' : ''), 'data-name': name});
       $('<div/>', {'class': 'image'}).css('backgroundImage', image ? 'url('+ image +')' : '').appendTo($station);
-      $('<i/>', {'class': 'icon icon-delete', 'title': 'Удалить'}).appendTo($station);
-      $('<i/>', {'class': 'icon icon-restore', 'title': 'Восстановить'}).appendTo($station);
+      $('<i/>', {'class': 'icon icon-delete', 'title': chrome.i18n.getMessage('delete')}).appendTo($station);
+      $('<i/>', {'class': 'icon icon-restore', 'title': chrome.i18n.getMessage('restore')}).appendTo($station);
       $('<h3/>', {'class': 'title', 'text': title}).appendTo($station);
 
       return $station;
@@ -54,7 +53,7 @@
           e.preventDefault();
           var $station = $(this).parent('.station'),
               name = $station.data('name');
-          if (confirm('Вы действительно хотите удалить станцию?')) {
+          if (confirm(chrome.i18n.getMessage('reallyDelete'))) {
             $page.Storage.deleteStation(name);
             $page.renderStations();
           }

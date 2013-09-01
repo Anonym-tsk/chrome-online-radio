@@ -38,5 +38,32 @@
   },
   "feedback": {
     "message": "Feedback"
+  },
+  "delete": {
+    "message": "Delete station"
+  },
+  "restore": {
+    "message": "Restore station"
+  },
+  "reallyDelete": {
+    "message": "Are you sure you want to delete this station?"
+  },
+  "stations": {
+    "message": "Stations"
+  },
+  "stationName": {
+    "message": "Station name"
+  },
+  "siteLink": {
+    "message": "Site link"
+  },
+  "imageLink": {
+    "message": "Image link"
+  },
+  "streamUrl": {
+    "message": "Stream URL"
+  },
+  "optional": {
+    "message": "optional"
   }
 }

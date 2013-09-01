@@ -38,5 +38,32 @@
   },
   "feedback": {
     "message": "Обратная связь"
+  },
+  "delete": {
+    "message": "Удалить станцию"
+  },
+  "restore": {
+    "message": "Восстановить станцию"
+  },
+  "reallyDelete": {
+    "message": "Вы действительно хотите удалить эту радиостанцию?"
+  },
+  "stations": {
+    "message": "Радиостанции"
+  },
+  "stationName": {
+    "message": "Название радиостанции"
+  },
+  "siteLink": {
+    "message": "Ссылка на сайт"
+  },
+  "imageLink": {
+    "message": "Ссылка на изображение"
+  },
+  "streamUrl": {
+    "message": "URL потока"
+  },
+  "optional": {
+    "message": "необязательно"
   }
 }

@@ -6,44 +6,45 @@
   <title>Online Radio</title>
   <link href="css/options.css" rel="stylesheet">
   <script src="js/jquery.min.js"></script>
+  <script src="js/translate.js"></script>
   <script src="js/options.js"></script>
 </head>
 
 <body data-page="stations">
 <div id="wrapper">
   <div id="sidebar">
-    <h1>Радио Онлайн</h1>
+    <h1>Online Radio</h1>
     <ul class="menu">
-      <li data-page="stations">Радиостанции</li>
-      <li data-page="add">Добавить станцию</li>
+      <li data-page="stations" data-i18n="stations"></li>
+      <li data-page="add" data-i18n="add"></li>
     </ul>
   </div>
   <div id="content">
     <section data-page="stations">
-      <h1>Радиостанции</h1>
+      <h1 data-i18n="stations"></h1>
       <div id="stations"></div>
     </section>
     <section data-page="add">
-      <h1>Добавить станцию</h1>
+      <h1 data-i18n="add"></h1>
       <form id="addStation">
         <div class="field">
-          <label>Название станции</label>
+          <label data-i18n="stationName"></label>
           <input type="text" name="title" required="required">
         </div>
         <div class="field">
-          <label>Ссылка на сайт</label>
+          <label data-i18n="siteLink"></label>
           <input type="url" name="url" required="required">
         </div>
         <div class="field">
-          <label>Изображение</label>
-          <input type="url" name="image" placeholder="необязательно">
+          <label data-i18n="imageLink"></label>
+          <input type="url" name="image" data-i18n-placeholder="optional">
         </div>
         <div class="field">
-          <label>URL потока</label>
+          <label data-i18n="streamUrl"></label>
           <input type="url" name="stream" required="required">
         </div>
         <div class="field">
-          <input type="submit" value="Добавить станцию">
+          <input type="submit" data-i18n-value="add">
         </div>
       </form>
     </section>

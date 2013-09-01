@@ -284,12 +284,12 @@ body[data-page="add"] section[data-page="add"] {
   margin: 0 0 2px 0;
   padding: 3px 3px 3px 0; }
   #addStation .field label {
-    width: 150px;
+    width: 200px;
     float: left;
     line-height: 24px; }
   #addStation .field input {
     width: 400px;
     margin: 0; }
     #addStation .field input[type="submit"] {
-      margin: 20px 0 0 148px;
+      margin: 20px 0 0 198px;
       width: 415px; }
