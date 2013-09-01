@@ -73,7 +73,7 @@
         }
         else {
           this._attempts = 0;
-          this.setStatus('error')
+          this.setStatus('error');
           this.sendMessage(this.status);
         }
       }
