@@ -231,7 +231,8 @@
         })
         .on('click', '.icon-feedback', function(e) {
           e.preventDefault();
-          // TODO: send mail
+          // Send mail
+          chrome.tabs.create({url: 'mailto:chrome@css3.su?Subject=Online%20Radio%20Extension'});
         });
     },
 
