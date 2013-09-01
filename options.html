@@ -28,20 +28,20 @@
       <h1 data-i18n="add"></h1>
       <form id="addStation">
         <div class="field">
-          <label data-i18n="stationName"></label>
-          <input type="text" name="title" required="required">
+          <label data-i18n="stationName" for="addStation-title"></label>
+          <input type="text" name="title" id="addStation-title" required="required">
         </div>
         <div class="field">
-          <label data-i18n="siteLink"></label>
-          <input type="url" name="url" required="required">
+          <label data-i18n="siteLink" for="addStation-url"></label>
+          <input type="url" name="url" id="addStation-url" required="required">
         </div>
         <div class="field">
-          <label data-i18n="imageLink"></label>
-          <input type="url" name="image" data-i18n-placeholder="optional">
+          <label data-i18n="imageLink" for="addStation-image"></label>
+          <input type="url" name="image" id="addStation-image" data-i18n-placeholder="optional">
         </div>
         <div class="field">
-          <label data-i18n="streamUrl"></label>
-          <input type="url" name="stream" required="required">
+          <label data-i18n="streamUrl" for="addStation-streamUrl"></label>
+          <input type="url" name="stream" id="addStation-streamUrl" required="required">
         </div>
         <div class="field">
           <input type="submit" data-i18n-value="add">
