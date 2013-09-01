@@ -5,6 +5,14 @@
     this.Storage = this.Background.Radio.Storage;
     this._port = chrome.extension.connect();
 
+    // Open tab
+    if (window.location.hash) {
+      var hash = window.location.hash.substring(1);
+      if (hash == 'add') {
+        $('body').attr('data-page', hash);
+      }
+    }
+
     // send message to background
     this.sendMessage = function(action, data) {
       data = data || {};
