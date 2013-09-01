@@ -69,7 +69,6 @@
       $('#addStation').on('submit', function(e) {
         e.preventDefault();
         var $this = $(this);
-        // TODO: Рефакторить
         $page.Storage.addStation({
           title: $this.find('[name="title"]').val(),
           url: $this.find('[name="url"]').val(),
@@ -78,7 +77,7 @@
         });
         $page.renderStations();
         $('body').attr('data-page', 'stations');
-        // TODO: Очистить форму
+        $('#addStation').get(0).reset();
       });
     }
   };
