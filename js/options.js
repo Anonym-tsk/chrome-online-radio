@@ -1,5 +1,6 @@
 (function(window, $) {
   var Options = function() {
+    // TODO: Переводы
     this.Background = chrome.extension.getBackgroundPage();
     this.Storage = this.Background.Radio.Storage;
     this._port = chrome.extension.connect();
@@ -12,11 +13,11 @@
   };
 
   Options.prototype = {
-    _renderStation: function(name, title, image) {
-      var $station = $('<div/>', {'class': 'station', 'data-name': name});
+    _renderStation: function(name, title, image, hidden) {
+      var $station = $('<div/>', {'class': 'station' + (hidden ? ' hidden' : ''), 'data-name': name});
       $('<div/>', {'class': 'image'}).css('backgroundImage', image ? 'url('+ image +')' : '').appendTo($station);
-      $('<i/>', {'class': 'icon icon-hide', 'title': 'Скрыть'}).appendTo($station);
-      $('<i/>', {'class': 'icon icon-show', 'title': 'Показать'}).appendTo($station);
+      $('<i/>', {'class': 'icon icon-delete', 'title': 'Удалить'}).appendTo($station);
+      $('<i/>', {'class': 'icon icon-restore', 'title': 'Восстановить'}).appendTo($station);
       $('<h3/>', {'class': 'title', 'text': title}).appendTo($station);
 
       return $station;
@@ -27,7 +28,7 @@
       var stations = this.Storage.getStations();
 
       $.each(stations, function(name, station) {
-        var rendered = this._renderStation(name, station.title, station.image);
+        var rendered = this._renderStation(name, station.title, station.image, station.hidden);
         $container.append(rendered);
       }.bind(this));
     },
@@ -40,21 +41,22 @@
         $('body').attr('data-page', $(this).data('page'));
       });
 
-      // TODO: Удаление станции
       $('#stations')
-        .on('click', '.station > .icon-hide', function(e) {
+        .on('click', '.station > .icon-delete', function(e) {
           e.preventDefault();
           var $station = $(this).parent('.station'),
               name = $station.data('name');
-          // TODO: Сохранять состояние станции
-          $station.addClass('hidden');
+          if (confirm('Вы действительно хотите удалить станцию?')) {
+            $page.Storage.deleteStation(name);
+            $page.renderStations();
+          }
         })
-        .on('click', '.station > .icon-show', function(e) {
+        .on('click', '.station > .icon-restore', function(e) {
           e.preventDefault();
           var $station = $(this).parent('.station'),
               name = $station.data('name');
-          // TODO: Сохранять состояние станции
-          $station.removeClass('hidden');
+          $page.Storage.restoreStation(name);
+          $page.renderStations();
         });
 
       $('#addStation').on('submit', function(e) {

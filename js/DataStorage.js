@@ -10,6 +10,7 @@
     this._coreStations = {};
     this._userStations = JSON.parse(localStorage.getItem('_stations')) || {};
     this._stations = {};
+    this._hidden = JSON.parse(localStorage.getItem('_hidden')) || {};
 
     // Load stations list
     var xhr = new XMLHttpRequest();
@@ -43,10 +44,12 @@
       for (var i in this._coreStations) if (this._coreStations.hasOwnProperty(i)) {
         stations[i] = this._coreStations[i];
         stations[i]['type'] = 'core';
+        stations[i]['hidden'] = this._hidden.hasOwnProperty(i);
       }
       for (var i in this._userStations) if (this._userStations.hasOwnProperty(i)) {
         stations[i] = this._userStations[i];
         stations[i]['type'] = 'user';
+        stations[i]['hidden'] = false;
       }
       this._stations = stations;
     },
@@ -156,6 +159,23 @@
       if (this._userStations.hasOwnProperty(name)) {
         delete this._userStations[name];
         this._save('_stations', JSON.stringify(this._userStations));
+        this._updateStationsList();
+      }
+      else if (this._coreStations.hasOwnProperty(name)) {
+        this._hidden[name] = 1;
+        this._save('_hidden', JSON.stringify(this._hidden));
+        this._updateStationsList();
+      }
+    },
+
+    /**
+     * Restore deleted core station.
+     * @param name Station name.
+     */
+    restoreStation: function(name) {
+      if (this._hidden.hasOwnProperty(name)) {
+        delete this._hidden[name];
+        this._save('_hidden', JSON.stringify(this._hidden));
         this._updateStationsList();
       }
     }
