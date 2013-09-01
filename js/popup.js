@@ -235,7 +235,7 @@
       var favorites = this.Storage.getFavorites();
 
       $.each(favorites, function(name, weight) {
-        if (stations.hasOwnProperty(name)) {
+        if (stations.hasOwnProperty(name) && !stations[name].hidden) {
           var rendered = this._renderStation(name, stations[name].title, stations[name].image);
           $fContainer.prepend(rendered);
         }
@@ -245,7 +245,7 @@
       }.bind(this));
 
       $.each(stations, function(name, station) {
-        if (!favorites.hasOwnProperty(name)) {
+        if (!favorites.hasOwnProperty(name) && !station.hidden) {
           var rendered = this._renderStation(name, station.title, station.image);
           $container.append(rendered);
         }
