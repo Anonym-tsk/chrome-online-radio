@@ -42,29 +42,11 @@
     },
 
     /**
-     * Set player volume.
-     * @param volume Volume value from 0 to 100.
-     * @returns {*} AudioPlayer
-     */
-    setVolume: function(volume) {
-      this._audio.volume = volume/100;
-      return this;
-    },
-
-    /**
      * Is playing now?
      * @returns {boolean}
      */
     isPlaying: function() {
       return !this._audio.paused && !this._audio.ended && (this._audio.readyState === 4 || this._audio.networkState === 2);
-    },
-
-    /**
-     * Returns players error.
-     * @returns {Function|Error|MediaError|Function|Function|.ajax.error|On.error|Function|C.error}
-     */
-    getError: function() {
-      return this._audio.error;
     }
   };
 
