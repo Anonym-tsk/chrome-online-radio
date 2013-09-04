@@ -11,39 +11,41 @@
 
     // Connection with popup opened (when opened popup)
     chrome.extension.onConnect.addListener(function(port) {
-      this._port = port;
+      if (port.hasOwnProperty('name') && port.name == 'popup') {
+        this._port = port;
 
-      // Listen messages from background
-      port.onMessage.addListener(function(message) {
-        switch (message.action) {
-          case 'play':
-            if (message.data == this.Storage.getLastName() && this.Player.isPlaying()) {
-              this.Player.stop();
-            }
-            else {
+        // Listen messages from background
+        port.onMessage.addListener(function(message) {
+          switch (message.action) {
+            case 'play':
+              if (message.data == this.Storage.getLastName() && this.Player.isPlaying()) {
+                this.Player.stop();
+              }
+              else {
+                var station = this.Storage.getStationByName(message.data);
+                this.Storage.setLast(message.data);
+                this.Player.play(station.stream);
+              }
+              break;
+            case 'like':
+              if (this.Storage.isFavorite(message.data)) {
+                this.Storage.dislike(message.data);
+              }
+              else {
+                this.Storage.like(message.data);
+              }
+              break;
+            case 'link':
               var station = this.Storage.getStationByName(message.data);
-              this.Storage.setLast(message.data);
-              this.Player.play(station.stream);
-            }
-            break;
-          case 'like':
-            if (this.Storage.isFavorite(message.data)) {
-              this.Storage.dislike(message.data);
-            }
-            else {
-              this.Storage.like(message.data);
-            }
-            break;
-          case 'link':
-            var station = this.Storage.getStationByName(message.data);
-            chrome.tabs.create({url: station.url});
-            break;
-        }
-      }.bind(this));
+              chrome.tabs.create({url: station.url});
+              break;
+          }
+        }.bind(this));
 
-      port.onDisconnect.addListener(function() {
-        this._port = _port;
-      }.bind(this));
+        port.onDisconnect.addListener(function() {
+          this._port = _port;
+        }.bind(this));
+      }
     }.bind(this));
 
     // Player events

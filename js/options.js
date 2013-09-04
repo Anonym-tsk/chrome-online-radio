@@ -2,7 +2,6 @@
   var Options = function() {
     this.Background = chrome.extension.getBackgroundPage();
     this.Storage = this.Background.Radio.Storage;
-    this._port = chrome.extension.connect();
 
     // Open tab
     if (window.location.hash) {
@@ -11,12 +10,6 @@
         $('body').attr('data-page', hash);
       }
     }
-
-    // send message to background
-    this.sendMessage = function(action, data) {
-      data = data || {};
-      this._port.postMessage({action: action, data: data});
-    };
   };
 
   Options.prototype = {

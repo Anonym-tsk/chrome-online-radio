@@ -2,7 +2,7 @@
   var Popup = function() {
     this.Background = chrome.extension.getBackgroundPage();
     this.Storage = this.Background.Radio.Storage;
-    this._port  = chrome.extension.connect();
+    this._port  = chrome.extension.connect({name: 'popup'});
 
     // send message to background
     this.sendMessage = function(action, data) {
