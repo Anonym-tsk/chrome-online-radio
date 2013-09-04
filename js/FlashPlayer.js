@@ -64,6 +64,7 @@
      */
     play: function(url) {
       url = url || this._url;
+      this._url = url;
       this.sendMessage('play', url);
       return this;
     },
