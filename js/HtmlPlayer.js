@@ -69,7 +69,7 @@
 
     /**
      * Check browser can play media.
-     * @param {String} type
+     * @param {String} [type]
      * @returns {boolean}
      */
     canPlayType: function(type) {
