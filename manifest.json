@@ -5,8 +5,18 @@
   "version": "1.0.0",
   "name": "__MSG_name__",
   "description": "__MSG_description__",
+  "content_scripts": [
+    {
+      "matches": ["http://anonym-tsk.github.io/chrome-online-radio/*"],
+      "js": ["js/proxy.js"],
+      "all_frames": true,
+      "run_at": "document_end"
+    }
+  ],
   "background": {
     "scripts": [
+      "js/HtmlPlayer.js",
+      "js/FlashPlayer.js",
       "js/AudioPlayer.js",
       "js/DataStorage.js",
       "js/background.js"

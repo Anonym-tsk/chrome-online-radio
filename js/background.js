@@ -52,22 +52,16 @@
     this.Player.bind('play', function() {
       this.setStatus('buffering');
       this.sendMessage(this.status);
-    }.bind(this));
-    this.Player.bind('loadstart', function() {
-      if (this.status !== 'buffering' && this.status !== 'stopped') {
-        this.setStatus('buffering');
-        this.sendMessage(this.status);
-      }
-    }.bind(this));
+    }, this);
     this.Player.bind('playing', function() {
       this._attempts = 0;
       this.setStatus('playing');
       this.sendMessage(this.status);
-    }.bind(this));
+    }, this);
     this.Player.bind('abort', function() {
       this.setStatus('stopped');
       this.sendMessage(this.status);
-    }.bind(this));
+    }, this);
     this.Player.bind('error', function() {
       if (this.status !== 'stopped') {
         if (this._attempts++ < 4) {
@@ -79,7 +73,7 @@
           this.sendMessage(this.status);
         }
       }
-    }.bind(this));
+    }, this);
 
     this.setStatus();
   };
