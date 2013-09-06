@@ -13,7 +13,7 @@ Chrome Online Radio
 
 ###Как установить
 * [Chrome Web Store](https://chrome.google.com/webstore/detail/online-radio/ccjcjodilinmaelnmmombddiaeomcfgc)
-* Opera Web Store (проходит проверку)
+* [Opera Web Store](https://addons.opera.com/ru/extensions/details/online-radio/)
 
 ###Основные планы
 * Пополнение списка станций
