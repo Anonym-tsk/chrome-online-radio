@@ -7,7 +7,11 @@ var Player = (function(window) {
         swfPath: 'js/',
         supplied: 'mp3',
         cssSelectorAncestor: '',
-        cssSelector: {},
+        cssSelector: {
+          videoPlay: '', play: '', pause: '', stop: '', seekBar: '', playBar: '', mute: '', unmute: '',
+          volumeBar: '', volumeBarValue: '', volumeMax: '', currentTime: '', duration: '',
+          fullScreen: '', restoreScreen: '', repeat: '', repeatOff: '', gui: '', noSolution: ''
+        },
         solution: 'flash',
         volume: 1,
         ready: readyCallback,
