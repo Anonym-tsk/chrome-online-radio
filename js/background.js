@@ -39,6 +39,19 @@
               var station = this.Storage.getStationByName(message.data);
               chrome.tabs.create({url: station.url});
               break;
+            case 'options':
+              var optionsUrl = chrome.extension.getURL('options.html');
+              var fullUrl = (typeof message.data == 'string') ? optionsUrl + '#' + message.data : optionsUrl;
+              chrome.tabs.query({url: optionsUrl}, function(tabs) {
+                if (tabs.length) {
+                  chrome.tabs.update(tabs[0].id, {active: true, url: fullUrl});
+                  chrome.tabs.reload(tabs[0].id);
+                }
+                else {
+                  chrome.tabs.create({url: fullUrl});
+                }
+              });
+              break;
           }
         }.bind(this));
 

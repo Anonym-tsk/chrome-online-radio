@@ -157,20 +157,6 @@
       return $station;
     },
 
-    _openOptions: function(page) {
-      var optionsUrl = chrome.extension.getURL('options.html');
-      var fullUrl = page ? optionsUrl + '#' + page : optionsUrl;
-      chrome.tabs.query({url: optionsUrl}, function(tabs) {
-        if (tabs.length) {
-          chrome.tabs.update(tabs[0].id, {active: true, url: fullUrl});
-          chrome.tabs.reload(tabs[0].id);
-        }
-        else {
-          chrome.tabs.create({url: fullUrl});
-        }
-      });
-    },
-
     initEvents: function() {
       var $popup = this;
       $('.station')
@@ -221,13 +207,11 @@
       $('#footer')
         .on('click', '.icon-options', function(e) {
           e.preventDefault();
-          // Open options tab
-          $popup._openOptions();
+          $popup.sendMessage('options');
         })
         .on('click', '.icon-add', function(e) {
           e.preventDefault();
-          // Open options on "add" page
-          $popup._openOptions('add');
+          $popup.sendMessage('options', 'add');
         })
         .on('click', '.icon-feedback', function(e) {
           e.preventDefault();
