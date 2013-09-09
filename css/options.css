@@ -197,6 +197,8 @@ ul.menu {
       color: #037699; }
     ul.menu li:active {
       box-shadow: inset 0px 1px 0px 0px #bdbdbd, inset 0px -1px 0px 0px white; }
+    ul.menu li[data-page="flash"] {
+      display: none; }
 
 section {
   display: none;
@@ -213,6 +215,8 @@ body[data-page="add"] section[data-page="add"] {
   display: block; }
 
 body[data-page="flash"] section[data-page="flash"] {
+  display: block; }
+body[data-page="flash"] ul.menu li[data-page="flash"] {
   display: block; }
 
 .icon-delete {
@@ -296,3 +300,12 @@ body[data-page="flash"] section[data-page="flash"] {
     #addStation .field input[type="submit"] {
       margin: 20px 0 0 198px;
       width: 415px; }
+
+.error {
+  background: #ffecec;
+  border: 1px solid #ca0000;
+  color: #ca0000;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-shadow: 0px 1px #ffe5e5;
+  margin: 0 0 25px 0; }

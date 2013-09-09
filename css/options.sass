@@ -197,6 +197,8 @@ ul.menu
       color: #037699
     &:active
       box-shadow: inset 0px 1px 0px 0px #bdbdbd, inset 0px -1px 0px 0px #fff
+    &[data-page="flash"]
+      display: none
 
 section
   display: none
@@ -225,6 +227,7 @@ body[data-page="flash"]
     display: block
   ul.menu
     li[data-page="flash"]
+      display: block
       @extend .active
 
 .icon-delete
@@ -309,3 +312,12 @@ body[data-page="flash"]
       &[type="submit"]
         margin: 20px 0 0 198px
         width: 415px
+
+.error
+  background: #FFECEC
+  border: 1px solid #CA0000
+  color: #CA0000
+  border-radius: 5px
+  padding: 10px 20px
+  text-shadow: 0px 1px #FFE5E5
+  margin: 0 0 25px 0
