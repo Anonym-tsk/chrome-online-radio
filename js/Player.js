@@ -1,5 +1,4 @@
 var Player = (function(window) {
-  var isReady = false;
   var element = null;
   var id = 'player';
 
@@ -8,7 +7,6 @@ var Player = (function(window) {
       element = $('#' + id);
       element.jPlayer({
         ready: function () {
-          isReady = true;
           if (typeof callback == 'function') {
             if (typeof scope != 'undefined') {
               callback.call(scope);
