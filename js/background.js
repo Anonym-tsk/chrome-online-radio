@@ -40,17 +40,7 @@
               chrome.tabs.create({url: station.url});
               break;
             case 'options':
-              var optionsUrl = chrome.extension.getURL('options.html');
-              var fullUrl = (typeof message.data == 'string') ? optionsUrl + '#' + message.data : optionsUrl;
-              chrome.tabs.query({url: optionsUrl}, function(tabs) {
-                if (tabs.length) {
-                  chrome.tabs.update(tabs[0].id, {active: true, url: fullUrl});
-                  chrome.tabs.reload(tabs[0].id);
-                }
-                else {
-                  chrome.tabs.create({url: fullUrl});
-                }
-              });
+              this.openOptions(message.data);
               break;
           }
         }.bind(this));
@@ -92,6 +82,20 @@
   };
 
   Radio.prototype = {
+    openOptions: function(page) {
+      var optionsUrl = chrome.extension.getURL('options.html');
+      var fullUrl = (typeof page == 'string') ? optionsUrl + '#' + page : optionsUrl;
+      chrome.tabs.query({url: optionsUrl}, function(tabs) {
+        if (tabs.length) {
+          chrome.tabs.update(tabs[0].id, {active: true, url: fullUrl});
+          chrome.tabs.reload(tabs[0].id);
+        }
+        else {
+          chrome.tabs.create({url: fullUrl});
+        }
+      });
+    },
+
     setIconText: function(text, color) {
       text = text || '';
       color = color || [255, 79, 87, 255];
