@@ -6,7 +6,7 @@
     // Open tab
     if (window.location.hash) {
       var hash = window.location.hash.substring(1);
-      if (hash == 'add') {
+      if (hash) {
         $('body').attr('data-page', hash);
       }
     }
