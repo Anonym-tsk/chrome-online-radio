@@ -30,6 +30,10 @@
                 this._bindings[message.action]();
               }
               break;
+            case 'flash':
+              var bg = chrome.extension.getBackgroundPage();
+              bg.Radio.openOptions('flash');
+              break;
           }
         }.bind(this));
       }

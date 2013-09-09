@@ -65,5 +65,14 @@
   },
   "optional": {
     "message": "optional"
+  },
+  "flash_error": {
+    "message": "Adobe Flash Player required for this extension"
+  },
+  "flash_message": {
+    "message": "Click on the link below to install the plugin."
+  },
+  "flash_install": {
+    "message": "Install Adobe Flash Player"
   }
 }
