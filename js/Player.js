@@ -1,27 +1,17 @@
 var Player = (function(window) {
   var element = null;
-  var id = 'player';
-
   var _Player = {
-    init: function(callback, scope) {
+    init: function(id, readyCallback, errorCallback) {
       element = $('#' + id);
       element.jPlayer({
-        ready: function () {
-          if (typeof callback == 'function') {
-            if (typeof scope != 'undefined') {
-              callback.call(scope);
-            }
-            else {
-              callback();
-            }
-          }
-        },
         swfPath: 'js/',
         supplied: 'mp3',
         cssSelectorAncestor: '',
         cssSelector: {},
         solution: 'flash',
-        volume: 1
+        volume: 1,
+        ready: readyCallback,
+        error: errorCallback
       });
     },
     bind: function(name, callback) {

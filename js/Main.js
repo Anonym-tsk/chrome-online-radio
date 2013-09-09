@@ -1,20 +1,5 @@
 (function(window) {
   $(document).ready(function() {
-    Player.init(function() {
-      Player.bind($.jPlayer.event.loadstart, function(event) {
-        sendMessage('play');
-      });
-      Player.bind($.jPlayer.event.play, function(event) {
-        sendMessage('playing');
-      });
-      Player.bind($.jPlayer.event.error, function(event) {
-        sendMessage('error');
-      });
-      Player.bind($.jPlayer.event.pause, function(event) {
-        sendMessage('abort');
-      });
-    });
-
     var sendMessage = function(action, data) {
       var message = {
         type: 'fallback_from',
@@ -23,6 +8,31 @@
       }
       window.postMessage(message, '*');
     };
+
+    Player.init(
+      'player',
+      function(event) {
+        Player.bind($.jPlayer.event.loadstart, function(event) {
+          sendMessage('play');
+        });
+        Player.bind($.jPlayer.event.play, function(event) {
+          sendMessage('playing');
+        });
+        Player.bind($.jPlayer.event.pause, function(event) {
+          sendMessage('abort');
+        });
+      },
+      function(event) {
+        switch (event.jPlayer.error.type) {
+          case $.jPlayer.error.URL:
+          case $.jPlayer.error.URL_NOT_SET:
+            sendMessage('error');
+            break;
+          default:
+            sendMessage('flash');
+        }
+      }
+    );
 
     window.addEventListener('message', function(event) {
       if (event.source != window) {
