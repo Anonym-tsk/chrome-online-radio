@@ -6,7 +6,7 @@
 
     // send message to background
     this.sendMessage = function(action, data) {
-      data = data || {};
+      if (typeof data == 'undefined') data = {};
       this._port.postMessage({action: action, data: data});
     };
 
@@ -51,6 +51,7 @@
         linkText = linkText && linkText[1] ? linkText[1] : station.url;
         var $link = $('<span/>', {'class': 'link', 'text': linkText, 'title': chrome.i18n.getMessage('link')});
         $player.find('.description').html($link);
+        $player.find('.volume > input').val(this.Background.Radio.Player.getVolume());
         $player.addClass('ready');
       }
     },
@@ -197,6 +198,17 @@
           else {
             $popup.like(name);
           }
+        })
+        .on('change', '.volume > input', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $popup.sendMessage('volume', e.target.value);
+        })
+        .on('click', '.icon-mute, .icon-unmute', function(e) {
+          // TODO: Устанавливать нужную иконку при открытии и при перемещении ползунка
+          e.preventDefault();
+          e.stopPropagation();
+          $popup.sendMessage('volume', 0);
         })
         .on('click', '.icon-play-big, .icon-stop-big', function(e) {
           e.preventDefault();
