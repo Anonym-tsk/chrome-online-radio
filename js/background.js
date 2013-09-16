@@ -27,6 +27,9 @@
                 this.Player.play(station.stream);
               }
               break;
+            case 'volume':
+              this.Player.setVolume(message.data);
+              break;
             case 'like':
               if (this.Storage.isFavorite(message.data)) {
                 this.Storage.dislike(message.data);
