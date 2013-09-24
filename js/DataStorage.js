@@ -11,6 +11,7 @@
     this._userStations = JSON.parse(localStorage.getItem('_stations')) || {};
     this._stations = {};
     this._hidden = JSON.parse(localStorage.getItem('_hidden')) || {};
+    this._volume = localStorage.getItem('_volume') || 80;
 
     // Load stations list
     var xhr = new XMLHttpRequest();
@@ -137,6 +138,23 @@
      */
     getLastStation: function() {
       return this.getStationByName(this._last);
+    },
+
+    /**
+     * Save volume value.
+     * @param volume Volume.
+     */
+    setVolume: function(volume) {
+      this._volume = volume;
+      this._save('_volume', this._volume);
+    },
+
+    /**
+     * Get volume.
+     * @returns {Number}
+     */
+    getVolume: function() {
+      return this._volume;
     },
 
     /**
