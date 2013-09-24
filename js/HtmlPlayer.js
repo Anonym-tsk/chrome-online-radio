@@ -62,11 +62,11 @@
 
     /**
      * Set player volume.
-     * @param volume Volume value from 0 to 1.
+     * @param volume Volume value from 0 to 100.
      * @returns {*} AudioPlayer
      */
     setVolume: function(volume) {
-      this._audio.volume = volume;
+      this._audio.volume = (volume / 100).toFixed(2);
       return this;
     },
 
@@ -75,7 +75,7 @@
      * @returns {number}
      */
     getVolume: function() {
-      return this._audio.volume;
+      return Math.round(this._audio.volume * 100);
     },
 
     /**
