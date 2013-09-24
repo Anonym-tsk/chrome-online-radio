@@ -229,6 +229,20 @@
           e.stopPropagation();
           $popup._setVolume($popup.Storage.getVolumeLast(), true);
         })
+        .on('mousewheel', function(e) {
+          e.preventDefault();
+          var volume = $popup.Storage.getVolume(),
+              step = 5,
+              delta = e.originalEvent.wheelDelta;
+          if (delta > 0 && volume < 100) {
+            var newVolume = volume + step;
+            $popup._setVolume(newVolume > 100 ? 100 : newVolume, true);
+          }
+          else if (delta < 0 && volume >= 0) {
+            var newVolume = volume - step;
+            $popup._setVolume(newVolume < 0 ? 0 : newVolume, true);
+          }
+        })
         .on('click', '.icon-play-big, .icon-stop-big', function(e) {
           e.preventDefault();
           e.stopPropagation();
