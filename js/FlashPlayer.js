@@ -5,6 +5,7 @@
    */
   var FlashPlayer = function() {
     this._url = null;
+    this._volume = 1;
     this._bindings = {};
     this._isPlaying = false;
     this._frameSrc = 'http://anonym-tsk.github.io/chrome-online-radio/';
@@ -25,6 +26,7 @@
             case 'play':
             case 'abort':
             case 'error':
+            case 'volumechange':
               this._isPlaying = (message.action == 'playing');
               if (this._bindings.hasOwnProperty(message.action)) {
                 this._bindings[message.action]();
@@ -53,6 +55,7 @@
         case 'playing':
         case 'abort':
         case 'error':
+        case 'volumechange':
           this._bindings[name] = callback.bind(scope);
           break;
         default:
@@ -67,9 +70,8 @@
      * @returns {FlashPlayer}
      */
     play: function(url) {
-      url = url || this._url;
-      this._url = url;
-      this.sendMessage('play', url);
+      this._url = url || this._url;
+      this.sendMessage('play', this._url);
       return this;
     },
 
@@ -88,8 +90,8 @@
      * @returns {*} AudioPlayer
      */
     setVolume: function(volume) {
-      // TODO
-//      this._audio.volume = volume / 100;
+      this._volume = (volume / 100).toFixed(2);
+      this.sendMessage('volume', this._volume);
       return this;
     },
 
@@ -98,9 +100,7 @@
      * @returns {number}
      */
     getVolume: function() {
-      // TODO
-//      return this._audio.volume * 100;
-      return 100;
+      return Math.round(this._volume * 100);
     },
 
     /**
