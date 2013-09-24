@@ -28,6 +28,7 @@
               }
               break;
             case 'volume':
+              this.Storage.setVolume(message.data);
               this.Player.setVolume(message.data);
               break;
             case 'like':
