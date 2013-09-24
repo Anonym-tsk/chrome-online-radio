@@ -32,6 +32,7 @@
   Popup.prototype = {
     start: function() {
       this.stop();
+      this._setVolume(this.Storage.getVolume(), true);
       var station = this.Storage.getLastStation();
       if (station) {
         var $station = $('.station[data-name="'+ station.name +'"]').addClass('active');
@@ -51,7 +52,6 @@
         linkText = linkText && linkText[1] ? linkText[1] : station.url;
         var $link = $('<span/>', {'class': 'link', 'text': linkText, 'title': chrome.i18n.getMessage('link')});
         $player.find('.description').html($link);
-        $player.find('.volume > input').val(this.Background.Radio.Player.getVolume());
         $player.addClass('ready');
       }
     },
@@ -158,6 +158,21 @@
       return $station;
     },
 
+    _setVolume: function(volume, setInputValue) {
+      var $player = $('#player');
+      var $mute = $player.find('.icon-mute').show();
+      var $unmute = $player.find('.icon-unmute').hide();
+
+      if (setInputValue) {
+        $player.find('.volume > input').val(volume);
+      }
+      if (volume <= 0) {
+        $mute.hide();
+        $unmute.show();
+      }
+      this.sendMessage('volume', volume);
+    },
+
     initEvents: function() {
       var $popup = this;
       $('.station')
@@ -202,13 +217,17 @@
         .on('change', '.volume > input', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          $popup.sendMessage('volume', e.target.value);
+          $popup._setVolume(e.target.value, false);
         })
-        .on('click', '.icon-mute, .icon-unmute', function(e) {
-          // TODO: Устанавливать нужную иконку при открытии и при перемещении ползунка
+        .on('click', '.icon-mute', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          $popup.sendMessage('volume', 0);
+          $popup._setVolume(0, true);
+        })
+        .on('click', '.icon-unmute', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $popup._setVolume($popup.Storage.getVolume(), true);
         })
         .on('click', '.icon-play-big, .icon-stop-big', function(e) {
           e.preventDefault();
