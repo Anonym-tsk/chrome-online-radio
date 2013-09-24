@@ -29,6 +29,7 @@
         case 'playing':
         case 'abort':
         case 'error':
+        case 'volumechange':
           this._audio.addEventListener(name, callback.bind(scope));
           break;
         default:
@@ -61,11 +62,11 @@
 
     /**
      * Set player volume.
-     * @param volume Volume value from 0 to 100.
+     * @param volume Volume value from 0 to 1.
      * @returns {*} AudioPlayer
      */
     setVolume: function(volume) {
-      this._audio.volume = volume / 100;
+      this._audio.volume = volume;
       return this;
     },
 
@@ -74,7 +75,7 @@
      * @returns {number}
      */
     getVolume: function() {
-      return this._audio.volume * 100;
+      return this._audio.volume;
     },
 
     /**
