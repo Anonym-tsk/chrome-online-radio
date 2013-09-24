@@ -74,5 +74,11 @@
   },
   "flash_install": {
     "message": "Install Adobe Flash Player"
+  },
+  "mute": {
+    "message": "Mute"
+  },
+  "unmute": {
+    "message": "Unmute"
   }
 }
