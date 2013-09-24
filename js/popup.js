@@ -227,7 +227,7 @@
         .on('click', '.icon-unmute', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          $popup._setVolume($popup.Storage.getVolume(), true);
+          $popup._setVolume($popup.Storage.getVolumeLast(), true);
         })
         .on('click', '.icon-play-big, .icon-stop-big', function(e) {
           e.preventDefault();
