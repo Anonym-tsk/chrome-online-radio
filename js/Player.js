@@ -26,13 +26,17 @@ var Player = (function(window) {
       return !status.ended && !status.paused;
     },
     play: function(url) {
-      console.warn('play', url);
+      console.log('play', url);
       element.jPlayer('setMedia', {mp3: url});
       element.jPlayer('play');
     },
     stop: function() {
-      console.warn('stop');
+      console.log('stop');
       element.jPlayer('stop');
+    },
+    setVolume: function(volume) {
+      console.log('setVolume', volume);
+      element.jPlayer('volume', volume);
     }
   };
 

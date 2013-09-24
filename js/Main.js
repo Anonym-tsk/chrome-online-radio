@@ -46,6 +46,9 @@
           case 'stop':
             Player.stop();
             break;
+          case 'volume':
+            Player.setVolume(event.data.data);
+            break;
         }
       }
     }, false);
