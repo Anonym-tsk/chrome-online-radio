@@ -86,14 +86,22 @@
       return !this._audio.paused && !this._audio.ended && (this._audio.readyState === 4 || this._audio.networkState === 2);
     },
 
+    /**
+     * Render equalizer in popup window.
+     * @param canvas
+     */
     equalizer: function(canvas) {
       const BAR_WIDTH = 3; // Ширина полоски
       const SPACER_WIDTH = 1; // Ширина отступа
       const FFT_SIZE = 128; // Степень двойки, не ниже 32
 
+      var canvasWidth = canvas.width,
+          canvasHeight = canvas.height;
+      var numBars = Math.round(canvasWidth / (SPACER_WIDTH + BAR_WIDTH));
+
       // Canvas context
       var canvasContext = canvas.getContext('2d');
-      var gradient = canvasContext.createLinearGradient(0, 0, 0, canvas.height);
+      var gradient = canvasContext.createLinearGradient(0, 0, 0, canvasHeight);
       gradient.addColorStop(1,'#0088cc');
       gradient.addColorStop(0.5,'#00719f');
       gradient.addColorStop(0,'#005E84');
@@ -113,15 +121,10 @@
       var drawFrame = function(analyser) {
         this.requestAnimationFrame(drawFrame.bind(this, analyser), canvas);
 
-        var canvasWidth = canvas.width,
-            canvasHeight = canvas.height;
-
         var freqByteData = new Uint8Array(analyser.frequencyBinCount);
         analyser.getByteFrequencyData(freqByteData);
 
-        var numBars = Math.round(canvasWidth / (SPACER_WIDTH + BAR_WIDTH));
         canvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
-
         for (var i = 0; i < numBars; ++i) {
           var magnitude = Math.ceil(freqByteData[i] * canvasHeight / 255); // 255 is the maximum magnitude of a value in the frequency data
           if (magnitude < 1) {
