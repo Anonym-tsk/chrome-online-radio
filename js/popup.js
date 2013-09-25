@@ -32,7 +32,6 @@
   Popup.prototype = {
     start: function() {
       this.stop();
-      this._setVolume(this.Storage.getVolume(), true);
       var station = this.Storage.getLastStation();
       if (station) {
         var $station = $('.station[data-name="'+ station.name +'"]').addClass('active');
@@ -156,6 +155,18 @@
         .append($title);
 
       return $station;
+    },
+
+    _renderEqualizer: function() {
+      // Canvas
+      var $container = $('#player').find('.equalizer');
+      var canvas = document.createElement('canvas');
+      canvas.width = parseInt($container.css('width'));
+      canvas.height = parseInt($container.css('height'));
+      $container.append(canvas);
+
+      // Run equalizer
+      this.Background.Radio.Player.equalizer(canvas);
     },
 
     _setVolume: function(volume, setInputValue) {
@@ -307,6 +318,8 @@
           this.error();
           break;
       }
+      this._setVolume(this.Storage.getVolume(), true);
+      this._renderEqualizer();
     }
   };
 

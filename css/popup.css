@@ -151,13 +151,14 @@ h1, h2, h3 {
       cursor: pointer;
       display: none; }
   #player .title {
-    font-size: 19px;
+    font-size: 18px;
     font-weight: normal;
-    margin: 0 0 8px 0;
+    margin: 0 0 4px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
   #player .description {
+    font-size: 13px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
@@ -171,20 +172,16 @@ h1, h2, h3 {
         text-decoration: none;
         color: #0088cc; }
   #player .equalizer {
-    width: 77px;
-    height: 5px;
-    background-repeat: repeat-x;
-    background-position: bottom left;
-    background-image: url(data:image/gif;base64,R0lGODlhTgAVAIABAAAAAP///yH/C05FVFNDQVBFMi4wAwEAAAAh+QQFCgABACwAAAAATgAVAAACTYyPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvHF0DXNiBn955j+90LNn42A7FmPOICymUzeYQSpT8qj6m0ArFR7tRbBV+f4i1Z+CkAACH5BAUKAAEALAEABQA/AAsAAAI0jI+pywcPI2i0Wirz3Rzn2IXiqHzgZkJG+lzshLKrbL2cHeDkzld6TXO9gsDUbWiMJYWpAgAh+QQJCgABACwBAAUAPwALAAACLISPEMvtCZ1ssFo15zVZ799JYEht5Imm6sqyYwujb0xnc43nzK3XfB/7AR0FACH5BAkKAAEALAAAAABOABUAAAJcjI+py+0PA5i0goizbrbvD0adFZbmiabOWGUs5b4XJs+iHL85u4+9pwoKHzVDUYJD6pQ8WvIIfSZvy2hVuhxqt0xfF2htHqlibPmahYS9a/CUC4/L5/S6/Y6fFwAAIfkECQoAAQAsAAAAAE4AFQAAAmuMj6nL7Q8DmLSCiLNutu8PRp0VluaJps5YGSylxtJ7za+s0rWO9/6/ormENlaGh0EqiSImZHkrjo5OoNUENUo9W1K39YWFJ8NodjreEc9cttcNvsoXcHGdnC5r72rz+u8XuAc4KIg2h2hQAAAh+QQJCgABACwAAAAATgAVAAACYIyPqcvtD6OctNqLs968+x8B4kgCRomCHlqe7Kh2LxzMYoznumKbtb1b9Fwz4ivIA/6KyyMSMXxKocpoNFTNMq1K7Fbr5DK94e5UKi5/1+o2y/huxtNzcJ19d6fk+/OzAAAh+QQJCgABACwAAAAATgAVAAACVYyPqcvtD6OctNqLs968+w+G4kiW5ommwMq2gOHGKRK7cM3e+DvruF8DynqB3YpINPKUSGbRKLQloc9dtNWkIlVUp7cLtlZ/42B5+BWnyWtzG63dmgoAIfkEBQoAAQAsAAAAAE4AFQAAAk+Mj6nL7Q+jnLTai7PevPsPhuJIluaJpurKtu4Ld8BM14Bh521u4zzt+91Ywlnwd+TtirFTcfhM6gJRKtMqlPawSK7SO62Kr+MseFvuNkcFADs=);
+    width: 147px;
+    height: 30px;
     position: absolute;
     bottom: 10px;
-    right: 10px;
-    opacity: 0.15; }
+    left: 110px; }
   #player .volume {
     overflow: hidden;
     position: absolute;
     bottom: 10px;
-    left: 110px; }
+    right: 10px; }
     #player .volume .icon {
       cursor: pointer;
       float: left; }
@@ -211,8 +208,6 @@ h1, h2, h3 {
       display: block; }
   #player.ready .icons .icon-like {
     display: inline-block; }
-  #player.playing .equalizer {
-    height: 21px; }
   #player.playing .image:hover .icon-play-big {
     display: none; }
   #player.playing .image:hover .icon-stop-big {
