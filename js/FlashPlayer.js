@@ -112,49 +112,37 @@
     },
 
     /**
-     * Render equalizer in popup window.
-     * @param canvas
+     * Get audio data for equalizer.
+     * @returns {Array}
      */
-    equalizer: function(canvas) {
-      const BAR_WIDTH = 3; // Ширина полоски
-      const SPACER_WIDTH = 1; // Ширина отступа
+    getAudioData: function() {
+      const NUM_BARS = 64;
+      const MIN = 30;
+      const MAX = 255;
+      const STEP = 5;
+      this._freqByteData = this._freqByteData || [];
+      this._audioDataCounter = ++this._audioDataCounter || 1;
 
-      var canvasWidth = canvas.width,
-          canvasHeight = canvas.height;
-      var numBars = Math.round(canvasWidth / (SPACER_WIDTH + BAR_WIDTH));
-
-      // Canvas context
-      var canvasContext = canvas.getContext('2d');
-      var gradient = canvasContext.createLinearGradient(0, 0, 0, canvasHeight);
-      gradient.addColorStop(1,'#0088cc');
-      gradient.addColorStop(0.5,'#00719f');
-      gradient.addColorStop(0,'#005E84');
-      canvasContext.fillStyle = gradient;
-
-      var freqByteData = [];
-      var drawFrame = function(win, time) {
-        win.requestAnimationFrame(drawFrame.bind(this, win), canvas);
-        canvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
-
-        var isKeyFrame = !(Math.round(time) % 10);
-        for (var i = 0; i < numBars; ++i) {
-          if (isKeyFrame && this._isPlaying) {
-            var magnitude = Math.floor(Math.random() * canvasHeight) + 1;
-            if (!freqByteData[i] || magnitude > freqByteData[i]) {
-              freqByteData[i] = magnitude;
-            }
+      var isKeyFrame = !(this._audioDataCounter % 28) && this._isPlaying;
+      if (isKeyFrame) {
+        this._audioDataCounter = 1;
+      }
+      for (var i = 0; i < NUM_BARS; ++i) {
+        if (isKeyFrame) {
+          var magnitude = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN;
+          if (!this._freqByteData[i] || magnitude > this._freqByteData[i]) {
+            this._freqByteData[i] = magnitude;
           }
-          else if (freqByteData[i] > 1) {
-            freqByteData[i] -= 1;
-          }
-          else {
-            freqByteData[i] = 1;
-          }
-          canvasContext.fillRect(i * (SPACER_WIDTH + BAR_WIDTH), canvasHeight, BAR_WIDTH, -freqByteData[i]);
         }
-      };
+        else if (this._freqByteData[i] > 0) {
+          this._freqByteData[i] -= STEP;
+        }
+        else {
+          this._freqByteData[i] = 0;
+        }
+      }
 
-      drawFrame.call(this, canvas.ownerDocument.defaultView, 0);
+      return this._freqByteData;
     },
 
     /**
