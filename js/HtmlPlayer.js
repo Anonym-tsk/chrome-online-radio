@@ -20,13 +20,6 @@
     bind: function(name, callback, scope) {
       switch (name) {
         case 'play':
-          this._audio.addEventListener('play', callback.bind(scope));
-          this._audio.addEventListener('loadstart', function() {
-            if (this.status !== 'buffering' && this.status !== 'stopped') {
-              callback.call(this);
-            }
-          }.bind(scope));
-          break;
         case 'playing':
         case 'abort':
         case 'error':
