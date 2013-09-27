@@ -4,7 +4,7 @@
    * @constructor
    */
   var HtmlPlayer = function(volume) {
-    this._audio = new Audio();
+    this._audio = document.createElement('audio');
     this._audio.preload = 'auto';
     document.body.appendChild(this._audio);
     this.setVolume(volume);
