@@ -237,19 +237,21 @@
       }
     },
 
-    _setVolume: function(volume, setInputValue) {
+    _setVolume: function(volume, setInputValue, renderOnly) {
       var $player = $('#player');
       var $mute = $player.find('.icon-mute').show();
       var $unmute = $player.find('.icon-unmute').hide();
 
-      if (setInputValue) {
-        $player.find('.volume > input').val(volume);
-      }
       if (volume <= 0) {
         $mute.hide();
         $unmute.show();
       }
-      this.sendMessage('volume', volume);
+      if (setInputValue) {
+        $player.find('.volume > input').val(volume);
+      }
+      if (!renderOnly) {
+        this.sendMessage('volume', volume);
+      }
     },
 
     initEvents: function() {
@@ -296,7 +298,7 @@
         .on('change', '.volume > input', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          $popup._setVolume(e.target.value, false);
+          $popup._setVolume(e.target.value);
         })
         .on('click', '.icon-mute', function(e) {
           e.preventDefault();
@@ -369,7 +371,7 @@
     },
 
     init: function() {
-      this._setVolume(this.Storage.getVolume(), true);
+      this._setVolume(this.Storage.getVolume(), true, true);
       this.equalizerInit();
       switch (this.Background.Radio.status) {
         case 'buffering':
