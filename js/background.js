@@ -1,13 +1,13 @@
 ﻿(function(window) {
   var Radio = function() {
-    var _port = {postMessage: function(data) {}};
+    const EMPTY_PORT = {postMessage: function(data) {}};
 
     this.Storage = new DataStorage();
     this.Player = new AudioPlayer(this.Storage.getVolume());
 
     this.status = 'stopped';
     this._attempts = 0;
-    this._port = _port;
+    this._port = EMPTY_PORT;
 
     // Connection with popup opened (when opened popup)
     chrome.extension.onConnect.addListener(function(port) {
@@ -50,7 +50,7 @@
         }.bind(this));
 
         port.onDisconnect.addListener(function() {
-          this._port = _port;
+          this._port = EMPTY_PORT;
         }.bind(this));
       }
     }.bind(this));
