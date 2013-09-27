@@ -55,37 +55,39 @@
       }
     }.bind(this));
 
-    // Player events
-    this.Player.bind('play', function() {
-      this.setStatus('buffering');
-      this.sendMessage(this.status);
-    }, this);
-    this.Player.bind('playing', function() {
-      this._attempts = 0;
-      this.setStatus('playing');
-      this.sendMessage(this.status);
-    }, this);
-    this.Player.bind('abort', function() {
-      this.setStatus('stopped');
-      this.sendMessage(this.status);
-    }, this);
-    this.Player.bind('error', function() {
-      if (this.status !== 'stopped') {
-        if (this._attempts++ < 4) {
-          this.Player.play();
-        }
-        else {
-          this._attempts = 0;
-          this.setStatus('error');
-          this.sendMessage(this.status);
-        }
-      }
-    }, this);
-
+    this.initEvents();
     this.setStatus();
   };
 
   Radio.prototype = {
+    initEvents: function() {
+      this.Player.bind('play', function() {
+        this.setStatus('buffering');
+        this.sendMessage(this.status);
+      }, this);
+      this.Player.bind('playing', function() {
+        this._attempts = 0;
+        this.setStatus('playing');
+        this.sendMessage(this.status);
+      }, this);
+      this.Player.bind('abort', function() {
+        this.setStatus('stopped');
+        this.sendMessage(this.status);
+      }, this);
+      this.Player.bind('error', function() {
+        if (this.status !== 'stopped') {
+          if (this._attempts++ < 4) {
+            this.Player.play();
+          }
+          else {
+            this._attempts = 0;
+            this.setStatus('error');
+            this.sendMessage(this.status);
+          }
+        }
+      }, this);
+    },
+
     openOptions: function(page) {
       var optionsUrl = chrome.extension.getURL('options.html');
       var fullUrl = (typeof page == 'string') ? optionsUrl + '#' + page : optionsUrl;
