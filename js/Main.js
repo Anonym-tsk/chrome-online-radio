@@ -21,6 +21,7 @@
         Player.bind($.jPlayer.event.pause, function(event) {
           sendMessage('abort');
         });
+        sendMessage('ready');
       },
       function(event) {
         switch (event.jPlayer.error.type) {
