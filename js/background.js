@@ -2,8 +2,8 @@
   var Radio = function() {
     var _port = {postMessage: function(data) {}};
 
-    this.Player = new AudioPlayer();
     this.Storage = new DataStorage();
+    this.Player = new AudioPlayer(this.Storage.getVolume());
 
     this.status = 'stopped';
     this._attempts = 0;

@@ -3,7 +3,7 @@
    * Flash audio player.
    * @constructor
    */
-  var FlashPlayer = function() {
+  var FlashPlayer = function(volume) {
     this._url = null;
     this._volume = 1;
     this._bindings = {};
@@ -22,6 +22,8 @@
 
         port.onMessage.addListener(function(message) {
           switch (message.action) {
+            case 'ready':
+              this.setVolume(volume);
             case 'playing':
             case 'play':
             case 'abort':

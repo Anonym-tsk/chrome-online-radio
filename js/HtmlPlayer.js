@@ -3,10 +3,11 @@
    * HTML5 audio player.
    * @constructor
    */
-  var HtmlPlayer = function() {
+  var HtmlPlayer = function(volume) {
     this._audio = new Audio();
     this._audio.preload = 'auto';
     document.body.appendChild(this._audio);
+    this.setVolume(volume);
   };
 
   HtmlPlayer.prototype = {
