@@ -60,7 +60,6 @@
         .removeClass('buffering')
         .removeClass('error')
         .addClass('playing');
-      this.equalizerStart();
     },
 
     stop: function() {
@@ -69,7 +68,6 @@
         .removeClass('buffering')
         .removeClass('playing')
         .removeClass('error');
-      this.equalizerStop();
     },
 
     error: function() {
@@ -159,82 +157,59 @@
       return $station;
     },
 
-    equalizerInit: function() {
+    equalizer: function() {
       var $container = $('#player').find('.equalizer');
+      var Player = this.Background.Radio.Player;
 
-      this._eq = {
-        animationFrame: null,
-        animationFrameTimeout: null,
-        Player: this.Background.Radio.Player,
-        barWidth: 3, // Ширина полоски
-        spacerWidth: 1, // Ширина отступа
-        emptyHeight: 1, // Высота "пустого" бара,
-        canvasWidth: parseInt($container.css('width')),
-        canvasHeight: parseInt($container.css('height'))
-      };
-      this._eq.numBars = Math.round(this._eq.canvasWidth / (this._eq.spacerWidth + this._eq.barWidth));
+      const BAR_WIDTH = 3; // Ширина полоски
+      const SPACER_WIDTH = 1; // Ширина отступа
+      const EMPTY_HEIGHT = 1; // Высота "пустого" бара
+      const CANVAS_WIDTH = parseInt($container.css('width'));
+      const CANVAS_HEIGHT = parseInt($container.css('height'));
+      const NUM_BARS = Math.round(CANVAS_WIDTH / (SPACER_WIDTH + BAR_WIDTH));
 
       // Canvas
       var canvas = document.createElement('canvas');
-      canvas.width = this._eq.canvasWidth;
-      canvas.height = this._eq.canvasHeight;
+      canvas.width = CANVAS_WIDTH;
+      canvas.height = CANVAS_HEIGHT;
       $container.append(canvas);
 
       // Canvas context
       var canvasContext = canvas.getContext('2d');
-      var gradient = canvasContext.createLinearGradient(0, 0, 0, this._eq.canvasHeight);
+      var gradient = canvasContext.createLinearGradient(0, 0, 0, CANVAS_HEIGHT);
       gradient.addColorStop(1,'#0088cc');
       gradient.addColorStop(0.5,'#00719f');
       gradient.addColorStop(0,'#005E84');
       canvasContext.fillStyle = gradient;
 
       // First render
-      for (var i = 0; i < this._eq.numBars; ++i) {
+      for (var i = 0; i < NUM_BARS; ++i) {
         canvasContext.fillRect(
-          i * (this._eq.spacerWidth + this._eq.barWidth),
-          this._eq.canvasHeight,
-          this._eq.barWidth,
-          -this._eq.emptyHeight
+          i * (SPACER_WIDTH + BAR_WIDTH),
+          CANVAS_HEIGHT,
+          BAR_WIDTH,
+          -EMPTY_HEIGHT
         );
       }
 
-      this._eq.canvas = canvas;
-      this._eq.canvasContext = canvasContext;
-    },
-
-    equalizerStart: function() {
       var drawFrame = function() {
-        var freqByteData = this._eq.Player.getAudioData();
-        this._eq.canvasContext.clearRect(0, 0, this._eq.canvasWidth, this._eq.canvasHeight - this._eq.emptyHeight);
+        var freqByteData = Player.getAudioData();
+        canvasContext.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT - EMPTY_HEIGHT);
 
-        for (var i = 0; i < this._eq.numBars; ++i) {
-          var magnitude = Math.ceil(freqByteData[i] * this._eq.canvasHeight / 255); // 255 is the maximum magnitude of a value in the frequency data
-          this._eq.canvasContext.fillRect(
-            i * (this._eq.spacerWidth + this._eq.barWidth),
-            this._eq.canvasHeight,
-            this._eq.barWidth,
+        for (var i = 0; i < NUM_BARS; ++i) {
+          var magnitude = Math.ceil(freqByteData[i] * CANVAS_HEIGHT / 255); // 255 is the maximum magnitude of a value in the frequency data
+          canvasContext.fillRect(
+            i * (SPACER_WIDTH + BAR_WIDTH),
+            CANVAS_HEIGHT,
+            BAR_WIDTH,
             -magnitude
           );
         }
 
-        this._eq.animationFrame = requestAnimationFrame(drawFrame, this._eq.canvas);
+        requestAnimationFrame(drawFrame, canvas);
       }.bind(this);
 
-      clearTimeout(this._eq.animationFrameTimeout);
-      this._eq.animationFrameTimeout = null;
-      if (!this._eq.animationFrame) {
-        drawFrame();
-      }
-    },
-
-    equalizerStop: function() {
-      if (this._eq.animationFrame && !this._eq.animationFrameTimeout) {
-        this._eq.animationFrameTimeout = setTimeout(function() {
-          cancelAnimationFrame(this._eq.animationFrame);
-          this._eq.animationFrame = null;
-          this._eq.animationFrameTimeout = null;
-        }.bind(this), 1000);
-      }
+      drawFrame();
     },
 
     _setVolume: function(volume, setInputValue, renderOnly) {
@@ -372,7 +347,7 @@
 
     init: function() {
       this._setVolume(this.Storage.getVolume(), true, true);
-      this.equalizerInit();
+      this.equalizer();
       switch (this.Background.Radio.status) {
         case 'buffering':
           this.start();
