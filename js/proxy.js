@@ -10,7 +10,7 @@
   /**
    * Extension background port.
    */
-  var port = chrome.runtime.connect({name: 'content'});
+  var port = chrome.runtime.connect({name: 'proxy'});
 
   /**
    * Send message to background extension.
