@@ -46,5 +46,59 @@
     "url": "http://montecarlo.ru/",
     "image": "http://station.ru/upload/images/st_mc_140.png",
     "stream": "http://mc.fmtuner.ru/"
+  },
+  "echo": {
+    "title": "Эхо Москвы",
+    "url": "http://www.echo.msk.ru/",
+    "image": "http://www.echo.msk.ru/i/logo.png",
+    "stream": "http://81.19.85.197/echo.mp3"
+  },
+  "europa": {
+    "title": "Европа Плюс",
+    "url": "http://www.europaplus.ru/",
+    "image": "http://www.europaplus.ru/template/2012/img/new_player/logo-europa.png",
+    "stream": "http://ep2562.streamr.ru:8052/europaplus256.mp3"
+  },
+  "relax": {
+    "title": "Relax FM",
+    "url": "http://www.relax-fm.ru/",
+    "image": "http://www.relax-fm.ru/_pic/logo.jpg",
+    "stream": "http://217.29.51.162:8000/relaxfm-studio-128k.mp3"
+  },
+  "retro": {
+    "title": "Ретро FM",
+    "url": "http://retrofm.ru/",
+    "image": "http://retrofm.ru/template/Retro-2012/img/siteimage/logo_top.png",
+    "stream": "http://retroserver.streamr.ru:8043/retro128"
+  },
+  "dorognoe": {
+    "title": "Дорожное радио",
+    "url": "http://www.dorognoe.ru/",
+    "image": "http://www.dorognoe.ru/templates/road_explo/images/logo_new.png",
+    "stream": "http://dorognoe.hostingradio.ru:8000/dor_64_no"
+  },
+  "humour": {
+    "title": "Юмор FM",
+    "url": "http://www.veseloeradio.ru/",
+    "image": "http://www.veseloeradio.ru/design/images/logo.png",
+    "stream": "http://eu4.101.ru:8000/v5_1?setst=082535900138555562720131127"
+  },
+  "avtoradio": {
+    "title": "Авторадио",
+    "url": "http://www.avtoradio.ru/",
+    "image": "http://www.avtoradio.ru/design/images/logo_avtoradio_chalet_2.gif",
+    "stream": "http://eu4.101.ru:8000/v3_1?setst=-1"
+  },
+  "radiorecord": {
+    "title": "Радио Рекорд",
+    "url": "http://www.radiorecord.ru/",
+    "image": "http://www.radiorecord.ru/bitrix/templates/flat/img/logo.png",
+    "stream": "http://air.radiorecord.ru:8101/rr_128"
+  },
+  "radioromantika": {
+    "title": "Радио Romantika",
+    "url": "http://www.radioromantika.ru/",
+    "image": "http://www.radioromantika.ru/design/images/2012-logo.png",
+    "stream": "http://eu4.101.ru:8000/v4_1?setst=082535900138555562720131127"
   }
 }
