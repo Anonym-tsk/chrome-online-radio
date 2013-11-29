@@ -10,6 +10,13 @@
     this.status = 'stopped';
     this._attempts = 0;
     this._port = EMPTY_PORT;
+    this._notification = {
+      timeout: null,
+      close: function() {
+        clearTimeout(this._notification.timeout);
+        this._notification.notify.close();
+      }.bind(this)
+    };
 
     // Connection with popup opened (when opened popup)
     chrome.extension.onConnect.addListener(function(port) {
@@ -33,11 +40,14 @@
             break;
 
           case 'playpause':
+            var station = this.Storage.getLastStation();
             if (this.Player.isPlaying()) {
               this.Player.stop();
+              this.showNotification(station.title, '×', station.image);
             }
             else {
-              this.Player.play(this.Storage.getLastStation().stream);
+              this.Player.play(station.stream);
+              this.showNotification(station.title, '►', station.image);
             }
             break;
 
@@ -53,6 +63,7 @@
                 console.warn(name);
                 this.Storage.setLast(name);
                 this.Player.play(stations[name].stream);
+                this.showNotification(stations[name].title, (message.action == 'next') ? '→' : '←', stations[name].image);
                 break;
               }
             }
@@ -197,8 +208,22 @@
     sendMessage: function(action, data) {
       data = data || {};
       this._port.postMessage({action: action, data: data});
+    },
+
+    showNotification: function(title, body, icon, timeout) {
+      timeout = timeout || 5000;
+      if (this._notification.timeout) {
+        this._notification.close();
+      }
+      this._notification.notify = new Notification(title, {
+        body: body,
+        icon: icon
+      });
+      this._notification.notify.onclick = this._notification.close;
+      this._notification.notify.onshow = function() {
+        this._notification.timeout = setTimeout(this._notification.close, timeout);
+      }.bind(this);
     }
   };
-
   window.Radio = new Radio();
 })(window);
