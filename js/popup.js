@@ -217,7 +217,9 @@
       var $mute = $player.find('.icon-mute').show();
       var $unmute = $player.find('.icon-unmute').hide();
 
-      if (volume <= 0) {
+      volume = volume < 0 ? 0 : Math.min(volume, 100);
+
+      if (!volume) {
         $mute.hide();
         $unmute.show();
       }
@@ -291,12 +293,10 @@
               step = 5,
               delta = e.originalEvent.wheelDelta;
           if (delta > 0 && volume < 100) {
-            var newVolume = volume + step;
-            $popup._setVolume(newVolume > 100 ? 100 : newVolume, true);
+            $popup._setVolume(volume + step, true);
           }
-          else if (delta < 0 && volume >= 0) {
-            var newVolume = volume - step;
-            $popup._setVolume(newVolume < 0 ? 0 : newVolume, true);
+          else if (delta < 0 && volume > 0) {
+            $popup._setVolume(volume - step, true);
           }
         })
         .on('click', '.icon-play-big, .icon-stop-big', function(e) {
