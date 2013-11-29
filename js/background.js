@@ -1,6 +1,8 @@
 ﻿(function(window) {
+  'use strict';
+
   var Radio = function() {
-    const EMPTY_PORT = {postMessage: function(data) {}};
+    var EMPTY_PORT = {postMessage: function(data) {}};
 
     this.Storage = new DataStorage();
     this.Player = new AudioPlayer(this.Storage.getVolume());
@@ -11,44 +13,96 @@
 
     // Connection with popup opened (when opened popup)
     chrome.extension.onConnect.addListener(function(port) {
-      if (port.hasOwnProperty('name') && port.name == 'popup') {
+      if (!port.hasOwnProperty('name')) {
+        return;
+      }
+
+      var portListener = function(message) {
+        console.log('Message to bg port', message);
+        var volume, volStep = 5;
+
+        switch (message.action) {
+          case 'play':
+            if (message.data == this.Storage.getLastName() && this.Player.isPlaying()) {
+              this.Player.stop();
+            }
+            else {
+              this.Storage.setLast(message.data);
+              this.Player.play(this.Storage.getStationByName(message.data).stream);
+            }
+            break;
+
+          case 'playpause':
+            if (this.Player.isPlaying()) {
+              this.Player.stop();
+            }
+            else {
+              this.Player.play(this.Storage.getLastStation().stream);
+            }
+            break;
+
+          case 'prev':
+          case 'next':
+            var stations = this.Storage.getStations();
+            var current = this.Storage.getLastName();
+            var keys = Object.keys(stations);
+            for (var i = 0, l = keys.length; i < l; i++) {
+              if (keys[i] == current) {
+                var length = keys.length;
+                var name = (message.action == 'next') ? keys[(i + 1) % length] : keys[(length + i - 1) % length];
+                console.warn(name);
+                this.Storage.setLast(name);
+                this.Player.play(stations[name].stream);
+                break;
+              }
+            }
+            break;
+
+          case 'volume':
+            this.Storage.setVolume(message.data);
+            this.Player.setVolume(message.data);
+            break;
+
+          case 'volumeup':
+            volume = this.Player.getVolume();
+            if (volume < 100) {
+              this.Player.setVolume(Math.min(volume + volStep, 100));
+            }
+            break;
+
+          case 'volumedown':
+            volume = this.Player.getVolume();
+            if (volume > 0) {
+              this.Player.setVolume(Math.max(volume - volStep, 0));
+            }
+            break;
+
+          case 'like':
+            if (this.Storage.isFavorite(message.data)) {
+              this.Storage.dislike(message.data);
+            }
+            else {
+              this.Storage.like(message.data);
+            }
+            break;
+
+          case 'link':
+            chrome.tabs.create({url: this.Storage.getStationByName(message.data).url});
+            break;
+
+          case 'options':
+            this.openOptions(message.data);
+            break;
+        }
+      }.bind(this);
+
+      if (port.name == 'hotkey') {
+        port.postMessage(this.Storage.getHotkeys());
+        port.onMessage.addListener(portListener);
+      }
+      else if (port.name == 'popup') {
         this._port = port;
-
-        // Listen messages from background
-        port.onMessage.addListener(function(message) {
-          switch (message.action) {
-            case 'play':
-              if (message.data == this.Storage.getLastName() && this.Player.isPlaying()) {
-                this.Player.stop();
-              }
-              else {
-                var station = this.Storage.getStationByName(message.data);
-                this.Storage.setLast(message.data);
-                this.Player.play(station.stream);
-              }
-              break;
-            case 'volume':
-              this.Storage.setVolume(message.data);
-              this.Player.setVolume(message.data);
-              break;
-            case 'like':
-              if (this.Storage.isFavorite(message.data)) {
-                this.Storage.dislike(message.data);
-              }
-              else {
-                this.Storage.like(message.data);
-              }
-              break;
-            case 'link':
-              var station = this.Storage.getStationByName(message.data);
-              chrome.tabs.create({url: station.url});
-              break;
-            case 'options':
-              this.openOptions(message.data);
-              break;
-          }
-        }.bind(this));
-
+        port.onMessage.addListener(portListener);
         port.onDisconnect.addListener(function() {
           this._port = EMPTY_PORT;
         }.bind(this));

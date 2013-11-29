@@ -80,5 +80,23 @@
   },
   "unmute": {
     "message": "Включить звук"
+  },
+  "hotkeys": {
+    "message": "Горячие клавиши"
+  },
+  "playpause": {
+    "message": "Воспроизвести/Пауза"
+  },
+  "next": {
+    "message": "Следующая радиостанция"
+  },
+  "prev": {
+    "message": "Предыдущая радиостанция"
+  },
+  "volumeup": {
+    "message": "Громкость +"
+  },
+  "volumedown": {
+    "message": "Громкость -"
   }
 }

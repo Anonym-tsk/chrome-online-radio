@@ -11,6 +11,11 @@
       "js": ["js/proxy.js"],
       "all_frames": true,
       "run_at": "document_end"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/hotkey.js"],
+      "run_at": "document_end"
     }
   ],
   "background": {

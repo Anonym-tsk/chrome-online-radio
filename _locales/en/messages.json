@@ -80,5 +80,23 @@
   },
   "unmute": {
     "message": "Unmute"
+  },
+  "hotkeys": {
+    "message": "Hotkeys"
+  },
+  "playpause": {
+    "message": "Play/Pause"
+  },
+  "next": {
+    "message": "Next station"
+  },
+  "prev": {
+    "message": "Previous station"
+  },
+  "volumeup": {
+    "message": "Volume +"
+  },
+  "volumedown": {
+    "message": "Volume -"
   }
 }
