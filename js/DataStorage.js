@@ -1,4 +1,6 @@
 ﻿(function(window) {
+  'use strict';
+
   /**
    * Base storage class.
    * @constructor
@@ -12,6 +14,13 @@
     this._stations = {};
     this._hidden = JSON.parse(localStorage.getItem('_hidden')) || {};
     this._volume = JSON.parse(localStorage.getItem('_volume')) || {current: 80, last: 80};
+    this._hotkeys = JSON.parse(localStorage.getItem('_hotkeys')) || {
+      playpause: {keyCode: 80, altKey: 1, ctrlKey: 0, shiftKey: 0},
+      next: {keyCode: 221, altKey: 1, ctrlKey: 0, shiftKey: 0},
+      prev: {keyCode: 219, altKey: 1, ctrlKey: 0, shiftKey: 0},
+      volumeup: {keyCode: 222, altKey: 1, ctrlKey: 0, shiftKey: 0},
+      volumedown: {keyCode: 186, altKey: 1, ctrlKey: 0, shiftKey: 0}
+    };
 
     // Load stations list
     var xhr = new XMLHttpRequest();
@@ -28,8 +37,8 @@
   DataStorage.prototype = {
     /**
      * Save value to localStorage.
-     * @param name
-     * @param value
+     * @param {string} name
+     * @param {*} value
      * @private
      */
     _save: function(name, value) {
@@ -41,13 +50,13 @@
      * @private
      */
     _updateStationsList: function() {
-      var stations = {};
-      for (var i in this._coreStations) if (this._coreStations.hasOwnProperty(i)) {
+      var stations = {}, i;
+      for (i in this._coreStations) if (this._coreStations.hasOwnProperty(i)) {
         stations[i] = this._coreStations[i];
         stations[i]['type'] = 'core';
         stations[i]['hidden'] = this._hidden.hasOwnProperty(i);
       }
-      for (var i in this._userStations) if (this._userStations.hasOwnProperty(i)) {
+      for (i in this._userStations) if (this._userStations.hasOwnProperty(i)) {
         stations[i] = this._userStations[i];
         stations[i]['type'] = 'user';
         stations[i]['hidden'] = false;
@@ -57,7 +66,7 @@
 
     /**
      * Add a station to favorites.
-     * @param name Station name.
+     * @param {string} name Station name.
      */
     like: function(name) {
       var keys = Object.keys(this._favorites);
@@ -67,7 +76,7 @@
 
     /**
      * Remove a station from favorites.
-     * @param name Station name.
+     * @param {string} name Station name.
      */
     dislike: function(name) {
       if (this.isFavorite(name)) {
@@ -78,8 +87,8 @@
 
     /**
      * Check station in favorites.
-     * @param name Station name.
-     * @returns {*}|false
+     * @param {string} name Station name.
+     * @returns {Object}|false
      */
     isFavorite: function(name) {
       return this._favorites.hasOwnProperty(name) ? this._favorites[name] : false;
@@ -87,7 +96,7 @@
 
     /**
      * Get names of favorites.
-     * @returns {*}
+     * @returns {Object}
      */
     getFavorites: function() {
       return this._favorites;
@@ -95,7 +104,7 @@
 
     /**
      * Get all stations.
-     * @returns {*}
+     * @returns {Object}
      */
     getStations: function() {
       return this._stations;
@@ -103,8 +112,8 @@
 
     /**
      * Get station by name.
-     * @param name Station name.
-     * @returns {*}|null
+     * @param {string} name Station name.
+     * @returns {Object}|null
      */
     getStationByName: function(name) {
       if (this._stations.hasOwnProperty(name)) {
@@ -117,7 +126,7 @@
 
     /**
      * Set the last played station.
-     * @param name Station name.
+     * @param {string} name Station name.
      */
     setLast: function(name) {
       this._last = name;
@@ -126,7 +135,7 @@
 
     /**
      * Get the last played station name.
-     * @returns string
+     * @returns {string}
      */
     getLastName: function() {
       return this._last;
@@ -134,7 +143,7 @@
 
     /**
      * Get the last played station.
-     * @returns {*}
+     * @returns {Object}
      */
     getLastStation: function() {
       return this.getStationByName(this._last);
@@ -142,7 +151,7 @@
 
     /**
      * Save volume value.
-     * @param volume Volume.
+     * @param {number} volume Volume.
      */
     setVolume: function(volume) {
       var last = this._volume.current;
@@ -152,7 +161,7 @@
 
     /**
      * Get volume.
-     * @returns {Number}
+     * @returns {number}
      */
     getVolume: function() {
       return this._volume.current;
@@ -160,7 +169,7 @@
 
     /**
      * Get last before current volume value.
-     * @returns {Number}
+     * @returns {number}
      */
     getVolumeLast: function() {
       return this._volume.last;
@@ -168,7 +177,7 @@
 
     /**
      * Save users station.
-     * @param station Station object.
+     * @param {Object} station Station object.
      */
     addStation: function(station) {
       var keys = Object.keys(this._userStations);
@@ -180,7 +189,7 @@
 
     /**
      * Delete users station.
-     * @param name Station name.
+     * @param {string} name Station name.
      */
     deleteStation: function(name) {
       if (this._userStations.hasOwnProperty(name)) {
@@ -197,13 +206,36 @@
 
     /**
      * Restore deleted core station.
-     * @param name Station name.
+     * @param {string} name Station name.
      */
     restoreStation: function(name) {
       if (this._hidden.hasOwnProperty(name)) {
         delete this._hidden[name];
         this._save('_hidden', JSON.stringify(this._hidden));
         this._updateStationsList();
+      }
+    },
+
+    /**
+     * Get hotkeys.
+     * @returns {Object}
+     */
+    getHotkeys: function() {
+      return this._hotkeys;
+    },
+
+    /**
+     * Save hotkey.
+     * @param {string} name
+     * @param {number} altKey
+     * @param {number} ctrlKey
+     * @param {number} shiftKey
+     * @param {number} keyCode
+     */
+    setHotkey: function(name, altKey, ctrlKey, shiftKey, keyCode) {
+      if (this._hotkeys.hasOwnProperty(name)) {
+        this._hotkeys[name] = {keyCode: keyCode, altKey: altKey, ctrlKey: ctrlKey, shiftKey: shiftKey};
+        this._save('_hotkeys', JSON.stringify(this._hotkeys));
       }
     }
   };
