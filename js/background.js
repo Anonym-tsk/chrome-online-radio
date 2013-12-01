@@ -211,6 +211,9 @@
     },
 
     showNotification: function(title, body, icon, timeout) {
+      if (!window.webkitNotifications) {
+        return; // Opera, you will die!
+      }
       timeout = timeout || 5000;
       if (this._notification.timeout) {
         this._notification.close();
