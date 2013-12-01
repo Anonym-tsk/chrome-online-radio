@@ -43,11 +43,10 @@
             var station = this.Storage.getLastStation();
             if (this.Player.isPlaying()) {
               this.Player.stop();
-              this.showNotification(station.title, '×', station.image);
             }
             else {
               this.Player.play(station.stream);
-              this.showNotification(station.title, '►', station.image);
+              this.showNotification(station.title, station.image);
             }
             break;
 
@@ -63,7 +62,7 @@
                 console.warn(name);
                 this.Storage.setLast(name);
                 this.Player.play(stations[name].stream);
-                this.showNotification(stations[name].title, (message.action == 'next') ? '→' : '←', stations[name].image);
+                this.showNotification(stations[name].title, stations[name].image);
                 break;
               }
             }
@@ -210,7 +209,7 @@
       this._port.postMessage({action: action, data: data});
     },
 
-    showNotification: function(title, body, icon, timeout) {
+    showNotification: function(title, icon, timeout) {
       if (!window.webkitNotifications) {
         return; // Opera, you will die!
       }
@@ -218,10 +217,7 @@
       if (this._notification.timeout) {
         this._notification.close();
       }
-      this._notification.notify = new Notification(title, {
-        body: body,
-        icon: icon
-      });
+      this._notification.notify = new Notification(title, {icon: icon});
       this._notification.notify.onclick = this._notification.close;
       this._notification.notify.onshow = function() {
         this._notification.timeout = setTimeout(this._notification.close, timeout);
