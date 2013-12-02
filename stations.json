@@ -100,5 +100,17 @@
     "url": "http://www.radioromantika.ru/",
     "image": "http://www.radioromantika.ru/design/images/2012-logo.png",
     "stream": "http://eu4.101.ru:8000/v4_1?setst=082535900138555562720131127"
+  },
+  "comedy": {
+    "title": "Comedy Radio",
+    "url": "http://comedy-radio.ru/",
+    "image": "http://comedy-radio.ru/bin/skin/img/logo.png",
+    "stream": "http://comedy.hostingradio.ru:8012/comedy"
+  },
+  "megapolis": {
+    "title": "Мегаполис FM",
+    "url": "http://www.megapolis895.fm/",
+    "image": "http://www.megapolis895.fm/i/logo.png",
+    "stream": "http://stream04.media.rambler.ru/megapolis128.mp3"
   }
 }
