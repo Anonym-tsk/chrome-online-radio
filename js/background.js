@@ -26,7 +26,7 @@
 
       var portListener = function(message) {
         console.log('Message to bg port', message);
-        var volume, volStep = 5;
+        var volume, volStep = 5, stations, name;
 
         switch (message.action) {
           case 'play':
@@ -40,11 +40,19 @@
             break;
 
           case 'playpause':
-            var station = this.Storage.getLastStation();
             if (this.Player.isPlaying()) {
               this.Player.stop();
             }
             else {
+              var station = this.Storage.getLastStation();
+              if (!station) {
+                stations = this.Storage.getStations();
+                for (name in stations) if (stations.hasOwnProperty(name)) {
+                  this.Storage.setLast(name);
+                  station = stations[name];
+                  break;
+                }
+              }
               this.Player.play(station.stream);
               this.showNotification(station.title, station.image);
             }
@@ -52,20 +60,19 @@
 
           case 'prev':
           case 'next':
-            var stations = this.Storage.getStations();
-            var current = this.Storage.getLastName();
+            stations = this.Storage.getStations();
             var keys = Object.keys(stations);
-            for (var i = 0, l = keys.length; i < l; i++) {
-              if (keys[i] == current) {
-                var length = keys.length;
-                var name = (message.action == 'next') ? keys[(i + 1) % length] : keys[(length + i - 1) % length];
-                console.warn(name);
-                this.Storage.setLast(name);
-                this.Player.play(stations[name].stream);
-                this.showNotification(stations[name].title, stations[name].image);
+            var length = keys.length;
+            name = this.Storage.getLastName() || (message.action == 'next' ? keys[length - 1] : keys[0]);
+            for (var i = 0; i < length; i++) {
+              if (keys[i] == name) {
+                name = (message.action == 'next') ? keys[(i + 1) % length] : keys[(length + i - 1) % length];
                 break;
               }
             }
+            this.Storage.setLast(name);
+            this.Player.play(stations[name].stream);
+            this.showNotification(stations[name].title, stations[name].image);
             break;
 
           case 'volume':
