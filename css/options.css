@@ -304,14 +304,21 @@ body[data-page="flash"] ul.menu li[data-page="flash"] {
       margin: 20px 0 0 198px;
       width: 485px; }
 
-.error {
-  background: #ffecec;
-  border: 1px solid #ca0000;
-  color: #ca0000;
+.message {
+  background: #ebf8ff;
+  border: 1px solid #0088cc;
+  color: #0088cc;
   border-radius: 5px;
   padding: 10px 20px;
-  text-shadow: 0px 1px #ffe5e5;
-  margin: 0 0 25px 0; }
+  text-shadow: 0px 1px #ebf8ff;
+  margin: 0 0 25px 0;
+  width: 640px; }
+
+.error {
+  background: #ffecec;
+  border-color: #ca0000;
+  color: #ca0000;
+  text-shadow: 0px 1px #ffe5e5; }
 
 .hotkey {
   border-bottom: 1px solid #d9d9d9;
