@@ -18,8 +18,8 @@
       playpause: {keyCode: 80, altKey: 1, ctrlKey: 0, shiftKey: 0},
       next: {keyCode: 221, altKey: 1, ctrlKey: 0, shiftKey: 0},
       prev: {keyCode: 219, altKey: 1, ctrlKey: 0, shiftKey: 0},
-      volumeup: {keyCode: 222, altKey: 1, ctrlKey: 0, shiftKey: 0},
-      volumedown: {keyCode: 186, altKey: 1, ctrlKey: 0, shiftKey: 0}
+      volumeup: {keyCode: 187, altKey: 1, ctrlKey: 0, shiftKey: 0},
+      volumedown: {keyCode: 189, altKey: 1, ctrlKey: 0, shiftKey: 0}
     };
 
     // Load stations list
