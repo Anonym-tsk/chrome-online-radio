@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "default_locale": "en",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "name": "__MSG_name__",
   "description": "__MSG_description__",
   "permissions": [
@@ -16,7 +16,7 @@
       "run_at": "document_end"
     },
     {
-      "matches": ["<all_urls>"],
+      "matches": ["http://*/*", "https://*/*"],
       "js": ["js/hotkey.js"],
       "run_at": "document_end"
     }
