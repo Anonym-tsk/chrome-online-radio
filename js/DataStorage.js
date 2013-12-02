@@ -15,11 +15,11 @@
     this._hidden = JSON.parse(localStorage.getItem('_hidden')) || {};
     this._volume = JSON.parse(localStorage.getItem('_volume')) || {current: 80, last: 80};
     this._hotkeys = JSON.parse(localStorage.getItem('_hotkeys')) || {
-      playpause: {keyCode: 80, altKey: 1, ctrlKey: 0, shiftKey: 0},
-      next: {keyCode: 221, altKey: 1, ctrlKey: 0, shiftKey: 0},
-      prev: {keyCode: 219, altKey: 1, ctrlKey: 0, shiftKey: 0},
-      volumeup: {keyCode: 187, altKey: 1, ctrlKey: 0, shiftKey: 0},
-      volumedown: {keyCode: 189, altKey: 1, ctrlKey: 0, shiftKey: 0}
+      playpause: {keyCode: 80, altKey: 1, ctrlKey: 1, shiftKey: 0},
+      next: {keyCode: 221, altKey: 1, ctrlKey: 1, shiftKey: 0},
+      prev: {keyCode: 219, altKey: 1, ctrlKey: 1, shiftKey: 0},
+      volumeup: {keyCode: 187, altKey: 1, ctrlKey: 1, shiftKey: 0},
+      volumedown: {keyCode: 189, altKey: 1, ctrlKey: 1, shiftKey: 0}
     };
 
     // Load stations list
