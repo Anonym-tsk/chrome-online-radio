@@ -47,10 +47,15 @@
           this.element.css('backgroundImage', this.image ? 'url('+ this.image +')' : '');
         }.bind({element: $player.find('.image'), image: station.image}), 50);
         $player.find('.title').text(station.title);
-        var linkText = station.url.match(/^[a-z]+:\/\/([^/^?^&^#]+)/);
-        linkText = linkText && linkText[1] ? linkText[1] : station.url;
-        var $link = $('<span/>', {'class': 'link', 'text': linkText, 'title': chrome.i18n.getMessage('link')});
-        $player.find('.description').html($link);
+        if (station.url) {
+          var linkText = station.url.match(/^[a-z]+:\/\/([^/^?^&^#]+)/);
+          linkText = linkText && linkText[1] ? linkText[1] : station.url;
+          var $link = $('<span/>', {'class': 'link', 'text': linkText, 'title': chrome.i18n.getMessage('link')});
+          $player.find('.description').html($link);
+        }
+        else {
+          $player.find('.description').empty();
+        }
         $player.addClass('ready');
       }
     },
