@@ -224,7 +224,7 @@
       if (this._notification.timeout) {
         this._notification.close();
       }
-      this._notification.notify = new Notification(title, {icon: icon});
+      this._notification.notify = new Notification(title, {icon: icon ? icon : 'icons/38.png'});
       this._notification.notify.onclick = this._notification.close;
       this._notification.notify.onshow = function() {
         this._notification.timeout = setTimeout(this._notification.close, timeout);
