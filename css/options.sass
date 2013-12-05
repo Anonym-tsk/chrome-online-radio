@@ -247,6 +247,11 @@ body[data-page="flash"]
   height: 20px
   background-repeat: no-repeat
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAUCAYAAAB4d5a9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MzA1Rjg3RUYwQjE2MTFFMzkzNjdEMUJDRjEzN0VGMUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MzA1Rjg3RjAwQjE2MTFFMzkzNjdEMUJDRjEzN0VGMUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozMDVGODdFRDBCMTYxMUUzOTM2N0QxQkNGMTM3RUYxQyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozMDVGODdFRTBCMTYxMUUzOTM2N0QxQkNGMTM3RUYxQyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpKWQ2gAAADgSURBVHjatNTPDYIwFAbwtvHIwREcQBOcxBEsB+fQETzrwTKIJxdgFBMHwK8JzzQvLaV/fMkXaAP5BXg8KW6iqMbT+DuXd2lwOCId9g3tK1GpHMDWA2tdFWGA4JAsfV0oH+DWXv0ZKH5dS4AeDTBwZI1ckLYSoPmTWOCFnKdjWwNwEQK207oJQMkAIRwQASgLsLVCdh6AQ0/kkAPQk3wiNzclACGDnTUFrTwLuB/eZEJRgLdwKtQjesmFytOiXU0gNFZiUBIwN7tCUDIQG5AcygLoZ4wNwjeyQa65Pf4VYABMlU5PkNLtbgAAAABJRU5ErkJggg==)
+.icon-edit
+  width: 24px
+  height: 21px
+  background-repeat: no-repeat
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAVCAYAAABc6S4mAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAATNJREFUeNq0VMENwjAMDBV/ugGwQTegA/AoExAmoD8YgWc3oJ2ASjBA2YARYAOYAM7IkdIqpLgFS6fISXtnO7EHanNUfey5m9f8wfaUYYmAFGeXofqhMfma3Qp+HPyQXGPJgQdvjYDMCCTAlTIW4A5MmJyI91QWILZE3iUi8oMw4AcTXZl8yftmpTONO0gpg4w3CwrmS4QUHZdk2RAnPyJyckhgzAdamIWL/B0oyHPjdL1kH3kt0OCf5F0ERORSATG5RCDzkeOpRn0EkkaHKutZG/Kqj0Du6NDCetYVjwWntQ07zT/XOpQFlTVzVNcMdKNUYYO81XwCNMhmwBlYMXklbRpfiWi6TnntbJTBzbpMl0jbA1AWh1MgtabgUwhz+alPoAQWvig8Rv8s0Gzlpw9eAgwA4WVxKRZJs7IAAAAASUVORK5CYII=)
 
 #stations
   position: relative
@@ -288,10 +293,13 @@ body[data-page="flash"]
       height: 32px
       background-position: center
       display: none
+      margin: 0 0 0 7px
     &:hover
       background: #EAF5FB
-      .icon-delete
+      .icon
         display: block
+      .icon-restore
+        display: none
     &:last-child
       border-bottom: none
     &.hidden
@@ -303,8 +311,31 @@ body[data-page="flash"]
           display: none
         .icon-restore
           display: block
+    &.edit
+      height: auto
+  [data-type="core"]
+    background-color: #F5F5F5
 
-#addStation
+  .addStation
+    .field
+      padding: 1px 3px 1px 0
+      label
+        width: 180px
+        line-height: 18px
+        font-size: 13px
+      input
+        width: 455px
+        height: 14px
+        line-height: 14px
+        font-size: 13px
+        &[type="submit"]
+          margin: 5px 0 0 179px
+          width: 469px
+          height: 34px
+          line-height: 32px
+          font-size: 13px
+
+.addStation
   .field
     overflow: hidden
     margin: 0 0 2px 0

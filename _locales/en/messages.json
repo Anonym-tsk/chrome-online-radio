@@ -36,6 +36,12 @@
   "add": {
     "message": "Add station"
   },
+  "edit": {
+    "message": "Edit station"
+  },
+  "save": {
+    "message": "Save"
+  },
   "feedback": {
     "message": "Feedback"
   },

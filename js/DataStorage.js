@@ -178,11 +178,14 @@
     /**
      * Save users station.
      * @param {Object} station Station object.
+     * @param {string|number=} name Station name for update station.
      */
-    addStation: function(station) {
-      var keys = Object.keys(this._userStations);
-      var newKey = keys.length > 0 ? parseInt(keys[keys.length - 1]) + 1 : 1;
-      this._userStations[newKey] = station;
+    addStation: function(station, name) {
+      if (!name) {
+        var keys = Object.keys(this._userStations);
+        name = keys.length > 0 ? parseInt(keys[keys.length - 1]) + 1 : 1;
+      }
+      this._userStations[name] = station;
       this._save('_stations', JSON.stringify(this._userStations));
       this._updateStationsList();
     },

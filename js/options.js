@@ -15,12 +15,15 @@
     188: ',', 189: '-', 190: '.', 191: '/', 192: '`', 219: '[', 220: '\\', 221: ']', 222: '\''
   };
 
-  var _renderStation = function(name, title, image, hidden) {
-    var $station = $('<div/>', {'class': 'station' + (hidden ? ' hidden' : ''), 'data-name': name});
-    $('<div/>', {'class': 'image'}).css('backgroundImage', image ? 'url('+ image +')' : '').appendTo($station);
+  var _renderStation = function(name, station) {
+    var $station = $('<div/>', {'class': 'station' + (station.hidden ? ' hidden' : ''), 'data-name': name, 'data-type': station.type});
+    $('<div/>', {'class': 'image'}).css('backgroundImage', station.image ? 'url('+ station.image +')' : '').appendTo($station);
     $('<i/>', {'class': 'icon icon-delete', 'title': chrome.i18n.getMessage('delete')}).appendTo($station);
     $('<i/>', {'class': 'icon icon-restore', 'title': chrome.i18n.getMessage('restore')}).appendTo($station);
-    $('<h3/>', {'class': 'title', 'text': title}).appendTo($station);
+    if (station.type !== 'core') {
+      $('<i/>', {'class': 'icon icon-edit', 'title': chrome.i18n.getMessage('edit')}).appendTo($station);
+    }
+    $('<h3/>', {'class': 'title', 'text': station.title}).appendTo($station);
 
     return $station;
   };
@@ -69,7 +72,7 @@
       var stations = this.Storage.getStations();
 
       $.each(stations, function(name, station) {
-        var rendered = _renderStation(name, station.title, station.image, station.hidden);
+        var rendered = _renderStation(name, station);
         $container.append(rendered);
       }.bind(this));
     },
@@ -90,6 +93,26 @@
       });
 
       $('#stations')
+        .on('click', '.station > .icon-edit', function(e) {
+          e.preventDefault();
+          var $station = $(this).parent('.station');
+          if ($station.hasClass('edit')) {
+            $station.find('.addStation').remove();
+            $station.removeClass('edit');
+            return;
+          }
+
+          var name = $station.data('name'),
+              station = $page.Storage.getStationByName(name);
+
+          var $form = $('#addStation').clone().removeAttr('id').data('name', name);
+          $form.find('[name="title"]').val(station.title);
+          $form.find('[name="url"]').val(station.url || '');
+          $form.find('[name="image"]').val(station.image || '');
+          $form.find('[name="stream"]').val(station.stream);
+          $form.find('[type="submit"]').val(chrome.i18n.getMessage('save'));
+          $station.addClass('edit').append($form);
+        })
         .on('click', '.station > .icon-delete', function(e) {
           e.preventDefault();
           var $station = $(this).parent('.station'),
@@ -107,7 +130,7 @@
           $page.renderStations();
         });
 
-      $('#addStation').on('submit', function(e) {
+      $(document).on('submit', '.addStation', function(e) {
         e.preventDefault();
         var $this = $(this);
         $page.Storage.addStation({
@@ -115,10 +138,10 @@
           url: $this.find('[name="url"]').val(),
           image: $this.find('[name="image"]').val(),
           stream: $this.find('[name="stream"]').val()
-        });
+        }, $this.data('name'));
         $page.renderStations();
         $('body').attr('data-page', 'stations');
-        $('#addStation').get(0).reset();
+        $this.get(0).reset();
       });
 
       $('.hotkey-change')
