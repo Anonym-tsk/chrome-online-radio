@@ -85,14 +85,15 @@
           $station = $('.station[data-name="'+ name +'"]').addClass('favorite'),
           $prev = $station.prev(),
           $player = $('#player'),
-          $stations = $('#stations');
+          $stations = $('#stations'),
+          height = parseInt($station.outerHeight());
 
       var top = (parseInt($station.position().top) + parseInt($stations.scrollTop())) + 'px';
       $station.addClass('move').css({top: top});
-      $prev.css({marginBottom: '49px'});
+      $prev.css({marginBottom: height + 'px'});
       $.when(
         $stations.animate({scrollTop: 0}, {duration: 500, queue: false}),
-        $fContainer.animate({paddingTop: '49px'}, {duration: 500, queue: false}),
+        $fContainer.animate({paddingTop: height + 'px'}, {duration: 500, queue: false}),
         $prev.animate({marginBottom: 0}, {duration: 500, queue: false}),
         $station.animate({top: 0}, {duration: 500, queue: false})
       ).then(function() {
@@ -111,14 +112,15 @@
           $station = $('.station[data-name="'+ name +'"]').removeClass('favorite'),
           $next = $station.is(':last-child') ? $fContainer.next('.station') : $station.next('.station'),
           $player = $('#player'),
-          $stations = $('#stations');
+          $stations = $('#stations'),
+          height = parseInt($station.outerHeight());
 
       var top = (parseInt($station.position().top) + parseInt($stations.scrollTop())) + 'px';
-      var newTop = (parseInt($fContainer.height()) - 49) + 'px';
+      var newTop = (parseInt($fContainer.height()) - height) + 'px';
       $station.addClass('move').css({top: top});
-      $next.css({marginTop: '49px'});
+      $next.css({marginTop: height + 'px'});
       $.when(
-          $fContainer.animate({paddingBottom: '49px'}, {duration: 500, queue: false}),
+          $fContainer.animate({paddingBottom: height + 'px'}, {duration: 500, queue: false}),
           $next.animate({marginTop: 0}, {duration: 500, queue: false}),
           $station.animate({top: newTop}, {duration: 500, queue: false})
         ).then(function() {
