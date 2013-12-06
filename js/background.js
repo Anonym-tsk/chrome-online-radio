@@ -17,6 +17,7 @@
         this._notification.notify.close();
       }.bind(this)
     };
+    this._foundStreams = [];
 
     // Connection with popup opened (when opened popup)
     chrome.extension.onConnect.addListener(function(port) {
@@ -126,6 +127,20 @@
       }
     }.bind(this));
 
+    // Context menus
+    chrome.webRequest.onHeadersReceived.addListener(function(details) {
+      var i = details.responseHeaders.length;
+      while (i--) {
+        if (details.responseHeaders[i].name == 'Content-Type') {
+          if (details.responseHeaders[i].value == 'audio/mpeg') {
+            this.addContextMenu(details.url);
+          }
+          break;
+        }
+      }
+    }.bind(this), {urls: ['http://*/*', 'https://*/*'], types: ['other', 'object']}, ['responseHeaders']);
+
+    this.updateContextMenu();
     this.initEvents();
     this.setStatus();
   };
@@ -229,6 +244,51 @@
       this._notification.notify.onshow = function() {
         this._notification.timeout = setTimeout(this._notification.close, timeout);
       }.bind(this);
+    },
+
+    addContextMenu: function(link) {
+      this._foundStreams.push(link);
+      this._foundStreams = this._foundStreams.slice(-15, this._foundStreams.length);
+      this.updateContextMenu();
+    },
+
+    updateContextMenu: function() {
+      chrome.contextMenus.removeAll(function() {
+        var contexts = ['page', 'frame', 'selection'];
+        // TODO: Перевести
+        // TODO: Показывать title страницы, обрабатывать URL
+        // TODO: При добавлении подставлять title как название, а URL как stream
+        chrome.contextMenus.create({
+          title: 'Добавить радиостанцию',
+          contexts: contexts,
+          enabled: false
+        });
+        chrome.contextMenus.create({
+          type: 'separator',
+          contexts: contexts
+        });
+
+        var i = this._foundStreams.length;
+        if (!i) {
+          chrome.contextMenus.create({
+            title: 'Включите радио для добавления',
+            contexts: contexts,
+            enabled: false,
+            id: 'online_radio'
+          });
+        }
+        else while (i--) {
+          chrome.contextMenus.create({
+            title: this._foundStreams[i],
+            contexts: contexts,
+            onclick: function(url) {
+              return function(info, tab) {
+                this.openOptions('add|' + url);
+              }.bind(this);
+            }.call(this, this._foundStreams[i])
+          });
+        }
+      }.bind(this));
     }
   };
   window.Radio = new Radio();

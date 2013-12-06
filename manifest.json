@@ -2,11 +2,15 @@
   "manifest_version": 2,
 
   "default_locale": "en",
-  "version": "1.4.12",
+  "version": "1.4.14",
   "name": "__MSG_name__",
   "description": "__MSG_description__",
   "permissions": [
-    "notifications"
+    "notifications",
+    "webRequest",
+    "contextMenus",
+    "http://*/*",
+    "https://*/*"
   ],
   "web_accessible_resources": [
     "icons/38.png"

@@ -60,8 +60,12 @@
     // Open tab
     if (window.location.hash) {
       var hash = window.location.hash.substring(1);
-      if (hash) {
-        $('body').attr('data-page', hash);
+      hash = hash.split('|');
+      if (hash[0]) {
+        $('body').attr('data-page', hash[0]);
+      }
+      if (hash[1]) {
+        $('#addStation').find('[name="stream"]').val(hash[1]);
       }
     }
   };
