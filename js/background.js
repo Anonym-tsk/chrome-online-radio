@@ -1,6 +1,10 @@
 ﻿(function(window) {
   'use strict';
 
+  /**
+   * Main application class.
+   * @constructor
+   */
   var Radio = function() {
     var EMPTY_PORT = {postMessage: function(data) {}};
 
@@ -127,13 +131,13 @@
       }
     }.bind(this));
 
-    // Context menus
+    // Detect audio
     chrome.webRequest.onHeadersReceived.addListener(function(details) {
       var i = details.responseHeaders.length;
       while (i--) {
         if (details.responseHeaders[i].name == 'Content-Type') {
-          if (details.responseHeaders[i].value == 'audio/mpeg') {
-            this.addContextMenu(details.url);
+          if (details.responseHeaders[i].value == 'audio/mpeg' && details.tabId > 0) {
+            this.addAudioHistory(details);
           }
           break;
         }
@@ -146,6 +150,9 @@
   };
 
   Radio.prototype = {
+    /**
+     * Init player events.
+     */
     initEvents: function() {
       this.Player.bind('play', function() {
         this.setStatus('buffering');
@@ -174,6 +181,10 @@
       }, this);
     },
 
+    /**
+     * Open options page.
+     * @param {string} page
+     */
     openOptions: function(page) {
       var optionsUrl = chrome.extension.getURL('options.html');
       var fullUrl = (typeof page == 'string') ? optionsUrl + '#' + page : optionsUrl;
@@ -188,6 +199,11 @@
       });
     },
 
+    /**
+     * Set browser icon text and color.
+     * @param {string=} text
+     * @param {string|Array=} color
+     */
     setIconText: function(text, color) {
       text = text || '';
       color = color || [255, 79, 87, 255];
@@ -226,11 +242,22 @@
       }
     },
 
+    /**
+     * Send message to opened port (popup by default).
+     * @param {string} action
+     * @param {string} data
+     */
     sendMessage: function(action, data) {
       data = data || {};
       this._port.postMessage({action: action, data: data});
     },
 
+    /**
+     * Show desktop notification.
+     * @param {string} title
+     * @param {string} icon
+     * @param {number} timeout
+     */
     showNotification: function(title, icon, timeout) {
       if (!window.webkitNotifications) {
         return; // Opera, you will die!
@@ -246,20 +273,26 @@
       }.bind(this);
     },
 
-    addContextMenu: function(link) {
-      this._foundStreams.push(link);
-      this._foundStreams = this._foundStreams.slice(-15, this._foundStreams.length);
-      this.updateContextMenu();
+    /**
+     * Save found audio stream to history.
+     * @param {Object} response
+     */
+    addAudioHistory: function(response) {
+      chrome.tabs.get(response.tabId, function(tab) {
+        this._foundStreams.push({title: tab.title, stream: response.url});
+        this._foundStreams = this._foundStreams.slice(-15, this._foundStreams.length);
+        this.updateContextMenu();
+      }.bind(this));
     },
 
+    /**
+     * Update context menu by audio history.
+     */
     updateContextMenu: function() {
       chrome.contextMenus.removeAll(function() {
         var contexts = ['page', 'frame', 'selection'];
-        // TODO: Перевести
-        // TODO: Показывать title страницы, обрабатывать URL
-        // TODO: При добавлении подставлять title как название, а URL как stream
         chrome.contextMenus.create({
-          title: 'Добавить радиостанцию',
+          title: chrome.i18n.getMessage('add'),
           contexts: contexts,
           enabled: false
         });
@@ -271,7 +304,7 @@
         var i = this._foundStreams.length;
         if (!i) {
           chrome.contextMenus.create({
-            title: 'Включите радио для добавления',
+            title: chrome.i18n.getMessage('please_enable_radio'),
             contexts: contexts,
             enabled: false,
             id: 'online_radio'
@@ -279,11 +312,11 @@
         }
         else while (i--) {
           chrome.contextMenus.create({
-            title: this._foundStreams[i],
+            title: this._foundStreams[i].title,
             contexts: contexts,
-            onclick: function(url) {
+            onclick: function(data) {
               return function(info, tab) {
-                this.openOptions('add|' + url);
+                this.openOptions('add#' + data.title + '#' + data.stream);
               }.bind(this);
             }.call(this, this._foundStreams[i])
           });
