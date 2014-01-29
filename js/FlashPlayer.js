@@ -8,7 +8,7 @@
     this._volume = 1;
     this._bindings = {};
     this._isPlaying = false;
-    this._frameSrc = 'http://anonym-tsk.github.io/chrome-online-radio/';
+    this._frameSrc = 'http://radio.css3.su/';
 
     var iFrameObj = document.createElement('iframe');
     iFrameObj.id = 'playerFallback';
