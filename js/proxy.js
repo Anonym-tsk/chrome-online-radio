@@ -32,7 +32,7 @@
       type: 'fallback_to',
       action: action,
       data: data || {}
-    }
+    };
     window.postMessage(message, '*');
   };
 
