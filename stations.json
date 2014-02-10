@@ -63,7 +63,8 @@
     "title": "Europa Plus Ukraine",
     "url": "http://europaplus.ua/",
     "image": "http://europaplus.ua/media/default/images/logo.png",
-    "stream": "http://cast.europaplus.ua/europaplus"
+    "stream": "http://cast.radiogroup.com.ua:8000/europaplus",
+    "stream2": "http://cast.europaplus.ua/europaplus"
   },
   "relax": {
     "title": "Relax FM",
