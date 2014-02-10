@@ -22,9 +22,12 @@
         case 'play':
         case 'playing':
         case 'abort':
-        case 'error':
         case 'volumechange':
           this._audio.addEventListener(name, callback.bind(scope));
+          break;
+        case 'error':
+          this._audio.addEventListener('error', callback.bind(scope));
+          this._audio.addEventListener('stalled', callback.bind(scope));
           break;
         default:
           console.warn('Unsupported event type', name);

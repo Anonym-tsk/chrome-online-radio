@@ -59,6 +59,12 @@
     "image": "http://www.europaplus.ru/template/2012/img/new_player/logo-europa.png",
     "stream": "http://ep2561.streamr.ru:8052/europaplus256.mp3"
   },
+  "europa_ua": {
+    "title": "Europa Plus Ukraine",
+    "url": "http://europaplus.ua/",
+    "image": "http://europaplus.ua/media/default/images/logo.png",
+    "stream": "http://cast.europaplus.ua/europaplus"
+  },
   "relax": {
     "title": "Relax FM",
     "url": "http://www.relax-fm.ru/",
@@ -112,5 +118,11 @@
     "url": "http://www.megapolis895.fm/",
     "image": "http://www.megapolis895.fm/i/logo.png",
     "stream": "http://stream04.media.rambler.ru/megapolis128.mp3"
+  },
+  "medlyakfm": {
+    "title": "Медляк FM",
+    "url": "http://www.radiorecord.ru/medlyakfm/",
+    "image": "http://radiomaniya.ru/online_radio/images/medlyakfm.png",
+    "stream": "http://air.radiorecord.ru:8102/mdl_128"
   }
 }
