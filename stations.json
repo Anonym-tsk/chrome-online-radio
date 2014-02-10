@@ -124,5 +124,12 @@
     "url": "http://www.radiorecord.ru/medlyakfm/",
     "image": "http://radiomaniya.ru/online_radio/images/medlyakfm.png",
     "stream": "http://air.radiorecord.ru:8102/mdl_128"
+  },
+  "loveradio": {
+    "title": "Love Radio",
+    "url": "http://www.loveradio.ru/",
+    "image": "http://download.loveradio.ru/pub/685040.jpg",
+    "stream": "http://87.76.13.136:8000/;stream/1",
+    "stream2": "http://77.73.90.46:9150/loveradio"
   }
 }
