@@ -5,7 +5,7 @@
         type: 'fallback_from',
         action: action,
         data: data || {}
-      }
+      };
       window.postMessage(message, '*');
     };
 
