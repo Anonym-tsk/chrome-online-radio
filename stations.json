@@ -63,7 +63,7 @@
     "title": "Relax FM",
     "url": "http://www.relax-fm.ru/",
     "image": "http://www.relax-fm.ru/_pic/logo.jpg",
-    "stream": "http://217.29.51.162:8000/relaxfm-studio-128k.mp3"
+    "stream": "http://217.29.51.162:8000/relaxfm-128k.mp3"
   },
   "retro": {
     "title": "Ретро FM",
@@ -92,7 +92,7 @@
   "radiorecord": {
     "title": "Радио Рекорд",
     "url": "http://www.radiorecord.ru/",
-    "image": "http://www.radiorecord.ru/bitrix/templates/flat/img/logo.png",
+    "image": "http://www.radiorecord.ru/upload/iblock/4a0/4a0276d033142aaa48fb9e2920f89763.jpg",
     "stream": "http://air.radiorecord.ru:8101/rr_128"
   },
   "radioromantika": {
