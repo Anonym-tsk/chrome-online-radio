@@ -139,5 +139,11 @@
     "image": "http://download.loveradio.ru/pub/685040.jpg",
     "stream": "http://87.76.13.136:8000/;stream/1",
     "stream2": "http://77.73.90.46:9150/loveradio"
+  },
+  "radiosibir": {
+    "title": "Радио Сибирь",
+    "url": "http://radiosibir.ru/",
+    "image": "http://radiosibir.ru/img/radio_sibir_logo.png",
+    "stream": "http://radiosibir.ru:8090/HQ"
   }
 }
