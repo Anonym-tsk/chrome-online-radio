@@ -72,6 +72,13 @@
     "image": "http://www.relax-fm.ru/_pic/logo.jpg",
     "stream": "http://217.29.51.162:8000/relaxfm-128k.mp3"
   },
+  "rostova": {
+    "title": "Радио Ростова",
+    "url": "http://www.radiorostov.ru/",
+    "image": "http://www.radiorostov.ru/images/logo-scull.jpg",
+    "stream": "http://81.19.85.200/rostov.mp3",
+    "stream2": "http://live.radiorostov.ru:8000/rostovradio"
+  },
   "retro": {
     "title": "Ретро FM",
     "url": "http://retrofm.ru/",
