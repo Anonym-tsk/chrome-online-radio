@@ -243,7 +243,6 @@ body[data-page="flash"] ul.menu li[data-page="flash"] {
 #stations {
   position: relative;
   width: 670px;
-  height: 400px;
   outline: none; }
   #stations .station {
     height: 32px;
@@ -299,8 +298,6 @@ body[data-page="flash"] ul.menu li[data-page="flash"] {
         display: block; }
     #stations .station.edit {
       height: auto; }
-  #stations [data-type="core"] {
-    background-color: #f5f5f5; }
   #stations .addStation .field {
     padding: 1px 3px 1px 0; }
     #stations .addStation .field label {
