@@ -1,120 +1,121 @@
 (function(window) {
+  'use strict';
+
   /**
    * HTML5 audio player.
+   * @param {number} volume
    * @constructor
    */
-  var HtmlPlayer = function(volume) {
+  function HtmlPlayer(volume) {
     this._audio = document.createElement('audio');
     this._audio.preload = 'auto';
     document.body.appendChild(this._audio);
     this.setVolume(volume);
+  }
+
+  /**
+   * @param {string} name
+   * @param {function} callback
+   * @param {*} scope
+   * @return {HtmlPlayer}
+   */
+  HtmlPlayer.prototype.bind = function(name, callback, scope) {
+    switch (name) {
+      case 'play':
+      case 'playing':
+      case 'abort':
+      case 'volumechange':
+        this._audio.addEventListener(name, callback.bind(scope));
+        break;
+      case 'error':
+        this._audio.addEventListener('error', callback.bind(scope));
+        this._audio.addEventListener('stalled', callback.bind(scope));
+        break;
+      default:
+        console.warn('Unsupported event type', name);
+    }
+    return this;
   };
 
-  HtmlPlayer.prototype = {
-    /**
-     * @param {String} name
-     * @param {Function} callback
-     * @param {*} scope
-     * @returns {HtmlPlayer}
-     */
-    bind: function(name, callback, scope) {
-      switch (name) {
-        case 'play':
-        case 'playing':
-        case 'abort':
-        case 'volumechange':
-          this._audio.addEventListener(name, callback.bind(scope));
-          break;
-        case 'error':
-          this._audio.addEventListener('error', callback.bind(scope));
-          this._audio.addEventListener('stalled', callback.bind(scope));
-          break;
-        default:
-          console.warn('Unsupported event type', name);
-      }
-      return this;
-    },
+  /**
+   * Start playing.
+   * @param {string=} url Stream (or file) url.
+   * @return {HtmlPlayer}
+   */
+  HtmlPlayer.prototype.play = function(url) {
+    url = url || this._audio.src;
+    this._audio.src = url;
+    this._audio.play();
+    return this;
+  };
 
-    /**
-     * Start playing.
-     * @param {String} url Stream (or file) url.
-     * @returns {HtmlPlayer}
-     */
-    play: function(url) {
-      url = url || this._audio.src;
-      this._audio.src = url;
-      this._audio.play();
-      return this;
-    },
+  /**
+   * Stop playing.
+   * @return {HtmlPlayer}
+   */
+  HtmlPlayer.prototype.stop = function() {
+    this._audio.pause();
+    this._audio.src = '';
+    return this;
+  };
 
-    /**
-     * Stop playing.
-     * @returns {HtmlPlayer}
-     */
-    stop: function() {
-      this._audio.pause();
-      this._audio.src = '';
-      return this;
-    },
+  /**
+   * Set player volume.
+   * @param {number} volume Volume value from 0 to 100.
+   * @return {HtmlPlayer}
+   */
+  HtmlPlayer.prototype.setVolume = function(volume) {
+    this._audio.volume = (volume / 100).toFixed(2);
+    return this;
+  };
 
-    /**
-     * Set player volume.
-     * @param volume Volume value from 0 to 100.
-     * @returns {*} AudioPlayer
-     */
-    setVolume: function(volume) {
-      this._audio.volume = (volume / 100).toFixed(2);
-      return this;
-    },
+  /**
+   * Get player volume.
+   * @return {number}
+   */
+  HtmlPlayer.prototype.getVolume = function() {
+    return Math.round(this._audio.volume * 100);
+  };
 
-    /**
-     * Get player volume.
-     * @returns {number}
-     */
-    getVolume: function() {
-      return Math.round(this._audio.volume * 100);
-    },
+  /**
+   * Is playing now?
+   * @return {boolean}
+   */
+  HtmlPlayer.prototype.isPlaying = function() {
+    return !this._audio.paused && !this._audio.ended && (this._audio.readyState === 4 || this._audio.networkState === 2);
+  };
 
-    /**
-     * Is playing now?
-     * @returns {boolean}
-     */
-    isPlaying: function() {
-      return !this._audio.paused && !this._audio.ended && (this._audio.readyState === 4 || this._audio.networkState === 2);
-    },
+  /**
+   * Get audio data for equalizer.
+   * @return {Uint8Array}
+   */
+  HtmlPlayer.prototype.getAudioData = function() {
+    var getAudioAnalyser = (function() {
+      var context = new webkitAudioContext();
+      var analyser = context.createAnalyser();
+      analyser.smoothingTimeConstant = 0.8;
+      analyser.fftSize = 128;
+      var source = context.createMediaElementSource(this._audio);
+      source.connect(analyser);
+      analyser.connect(context.destination);
+      return analyser;
+    }).bind(this);
 
-    /**
-     * Get audio data for equalizer.
-     * @returns {Uint8Array}
-     */
-    getAudioData: function() {
-      var getAudioAnalyser = function() {
-        var context = new webkitAudioContext();
-        var analyser = context.createAnalyser();
-        analyser.smoothingTimeConstant = 0.8;
-        analyser.fftSize = 128;
-        var source = context.createMediaElementSource(this._audio);
-        source.connect(analyser);
-        analyser.connect(context.destination);
-        return analyser;
-      }.bind(this);
+    this._audioAnalyser = this._audioAnalyser || getAudioAnalyser();
+    var freqByteData = new Uint8Array(this._audioAnalyser.frequencyBinCount);
+    this._audioAnalyser.getByteFrequencyData(freqByteData);
 
-      this._audioAnalyser = this._audioAnalyser || getAudioAnalyser();
-      var freqByteData = new Uint8Array(this._audioAnalyser.frequencyBinCount);
-      this._audioAnalyser.getByteFrequencyData(freqByteData);
+    return freqByteData;
+  };
 
-      return freqByteData;
-    },
-
-    /**
-     * Check browser can play media.
-     * @param {String} [type]
-     * @returns {boolean}
-     */
-    canPlayType: function(type) {
-      type = type || 'audio/mpeg; codecs="mp3"';
-      return !!this._audio.canPlayType(type);
-    }
+  /**
+   * Check browser can play media.
+   * @param {string=} type
+   * @return {boolean}
+   */
+  HtmlPlayer.prototype.canPlayType = function(type) {
+    type = type || 'audio/mpeg; codecs="mp3"';
+    return !!this._audio.canPlayType(type);
   };
 
   window.HtmlPlayer = HtmlPlayer;
