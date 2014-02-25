@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "default_locale": "en",
-  "version": "1.4.24",
+  "version": "1.4.25",
   "name": "__MSG_name__",
   "description": "__MSG_description__",
   "permissions": [
@@ -19,22 +19,22 @@
   "content_scripts": [
     {
       "matches": ["http://radio.css3.su/*"],
-      "js": ["js/proxy.js"],
+      "js": ["js/ext/proxy.js"],
       "all_frames": true,
       "run_at": "document_end"
     },
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["js/hotkey.js"],
+      "js": ["js/ext/hotkey.js"],
       "run_at": "document_end"
     }
   ],
   "background": {
     "scripts": [
-      "js/HtmlPlayer.js",
-      "js/FlashPlayer.js",
-      "js/AudioPlayer.js",
-      "js/DataStorage.js",
+      "js/models/HtmlPlayer.js",
+      "js/models/FlashPlayer.js",
+      "js/models/AudioPlayer.js",
+      "js/models/DataStorage.js",
       "js/background.js"
     ]
   },
