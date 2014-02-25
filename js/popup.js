@@ -168,12 +168,12 @@
       var $container = $('#player').find('.equalizer');
       var Player = this.Background.Radio.Player;
 
-      const BAR_WIDTH = 3; // Ширина полоски
-      const SPACER_WIDTH = 1; // Ширина отступа
-      const EMPTY_HEIGHT = 1; // Высота "пустого" бара
-      const CANVAS_WIDTH = parseInt($container.css('width'));
-      const CANVAS_HEIGHT = parseInt($container.css('height'));
-      const NUM_BARS = Math.round(CANVAS_WIDTH / (SPACER_WIDTH + BAR_WIDTH));
+      var BAR_WIDTH = 3, // Ширина полоски
+          SPACER_WIDTH = 1, // Ширина отступа
+          EMPTY_HEIGHT = 1, // Высота "пустого" бара
+          CANVAS_WIDTH = parseInt($container.css('width')),
+          CANVAS_HEIGHT = parseInt($container.css('height')),
+          NUM_BARS = Math.round(CANVAS_WIDTH / (SPACER_WIDTH + BAR_WIDTH));
 
       // Canvas
       var canvas = document.createElement('canvas');
