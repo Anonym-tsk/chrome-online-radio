@@ -68,6 +68,9 @@
         var $station = $('#addStation');
         $station.find('[name="title"]').val(hash[1]);
         $station.find('[name="stream"]').val(hash[2]);
+        if (hash[3]) {
+          $station.find('[name="url"]').val(hash[3]);
+        }
       }
     }
   };

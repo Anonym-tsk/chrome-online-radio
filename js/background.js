@@ -279,7 +279,13 @@
      */
     addAudioHistory: function(response) {
       chrome.tabs.get(response.tabId, function(tab) {
-        this._foundStreams.push({title: tab.title, stream: response.url});
+        this._foundStreams.push({
+          title: tab.title,
+          stream: response.url,
+          favicon: tab.favIconUrl,
+          tabId: tab.id,
+          url: tab.url
+        });
         this._foundStreams = this._foundStreams.slice(-15, this._foundStreams.length);
         this.updateContextMenu();
       }.bind(this));
@@ -316,7 +322,7 @@
             contexts: contexts,
             onclick: function(data) {
               return function(info, tab) {
-                this.openOptions('add#' + data.title + '#' + data.stream);
+                this.openOptions('add#' + data.title + '#' + data.stream + '#' + data.url);
               }.bind(this);
             }.call(this, this._foundStreams[i])
           });
