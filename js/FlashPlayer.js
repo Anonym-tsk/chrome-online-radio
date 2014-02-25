@@ -120,10 +120,10 @@
    * @return {Array}
    */
   FlashPlayer.prototype.getAudioData = function() {
-    const NUM_BARS = 64;
-    const MIN = 30;
-    const MAX = 255;
-    const STEP = 5;
+    var NUM_BARS = 64,
+        MIN = 30,
+        MAX = 255,
+        STEP = 5;
     this._freqByteData = this._freqByteData || [];
     this._audioDataCounter = ++this._audioDataCounter || 1;
 
