@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "default_locale": "en",
-  "version": "1.4.25",
+  "version": "1.5.1",
   "name": "__MSG_name__",
   "description": "__MSG_description__",
   "permissions": [
@@ -10,6 +10,7 @@
     "webRequest",
     "contextMenus",
     "tabs",
+    "offroad",
     "http://*/*",
     "https://*/*"
   ],

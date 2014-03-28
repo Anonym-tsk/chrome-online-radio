@@ -333,5 +333,14 @@
     }.bind(this));
   };
 
+  // Disable Opera offroad mode
+  window.opr && opr.offroad.enabled.get({}, function(details) {
+    if (details.levelOfControl === 'controllable_by_this_extension' || details.levelOfControl === 'controlled_by_this_extension') {
+      if (details.value == true) {
+        opr.offroad.enabled.set({'value': false}, function() {});
+      }
+    }
+  });
+
   window.Radio = new Radio();
 })(window);
