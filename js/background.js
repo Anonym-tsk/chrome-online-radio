@@ -25,7 +25,7 @@
 
     // Connection with popup opened (when opened popup)
     chrome.extension.onConnect.addListener(function(port) {
-      if (!port.hasOwnProperty('name')) {
+      if (!port.name) {
         return;
       }
 
