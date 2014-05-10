@@ -119,7 +119,7 @@
     "title": "Comedy Radio",
     "url": "http://comedy-radio.ru/",
     "image": "http://comedy-radio.ru/bin/skin/img/logo.png",
-    "stream": "http://comedy.hostingradio.ru:8012/comedy"
+    "stream": "http://nbn.101.ru:8000/v11_1"
   },
   "megapolis": {
     "title": "Мегаполис FM",
