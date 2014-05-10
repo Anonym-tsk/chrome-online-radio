@@ -20,7 +20,7 @@
     document.body.appendChild(iFrameObj);
 
     chrome.runtime.onConnect.addListener(function(port) {
-      if (port.hasOwnProperty('name') && port.name == 'proxy') {
+      if (port.name == 'proxy') {
         this._port = port;
 
         port.onMessage.addListener(function(message) {
