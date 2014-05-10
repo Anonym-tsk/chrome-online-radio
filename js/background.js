@@ -3,13 +3,15 @@
 
   /**
    * Main application class.
+   * @param {DataStorage} storage
+   * @param {HtmlPlayer|FlashPlayer} player
    * @constructor
    */
-  function Radio() {
+  function Radio(storage, player) {
     var EMPTY_PORT = {postMessage: function(data) {}};
 
-    this.Storage = new DataStorage();
-    this.Player = new AudioPlayer(this.Storage.getVolume());
+    this.Storage = storage;
+    this.Player = player;
 
     this.status = 'stopped';
     this._attempts = 0;
@@ -342,5 +344,15 @@
     }
   });
 
-  window.Radio = new Radio();
+  var storage = new DataStorage(),
+      volume = storage.getVolume(),
+      player = new HtmlPlayer(volume);
+
+  player.canPlayMP3(function(status) {
+    if (!status) {
+      console.info('Flash fallback');
+      player = new FlashPlayer(volume);
+    }
+    window.Radio = new Radio(storage, player);
+  });
 })(window);

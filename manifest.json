@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "default_locale": "en",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "name": "__MSG_name__",
   "description": "__MSG_description__",
   "permissions": [
@@ -34,7 +34,6 @@
     "scripts": [
       "js/models/HtmlPlayer.js",
       "js/models/FlashPlayer.js",
-      "js/models/AudioPlayer.js",
       "js/models/DataStorage.js",
       "js/background.js"
     ]

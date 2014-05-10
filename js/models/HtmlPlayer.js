@@ -109,13 +109,29 @@
   };
 
   /**
-   * Check browser can play media.
-   * @param {string=} type
-   * @return {boolean}
+   * Check browser can play mp3.
+   * @param {function} callback
    */
-  HtmlPlayer.prototype.canPlayType = function(type) {
-    type = type || 'audio/mpeg; codecs="mp3"';
-    return !!this._audio.canPlayType(type);
+  HtmlPlayer.prototype.canPlayMP3 = function(callback) {
+    try {
+      var audio = new Audio();
+      if (audio.canPlayType('audio/mpeg; codecs="mp3"') == 'probably') {
+        callback(true);
+      }
+      else {
+        audio.addEventListener('canplaythrough', function (e) {
+          callback(true);
+        }, false);
+        audio.addEventListener('error', function (e) {
+          callback(false, this.error);
+        }, false);
+      }
+      audio.src = "data:audio/mpeg;base64,/+MYxAAAAANIAAAAAExBTUUzLjk4LjIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+      audio.load();
+    }
+    catch(e){
+      callback(false, e);
+    }
   };
 
   window.HtmlPlayer = HtmlPlayer;
