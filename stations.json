@@ -151,5 +151,29 @@
     "url": "http://tengrifm.kz/",
     "image": "http://tengrifm.kz/images/player/logo.png",
     "stream": "http://195.210.47.197:8000/live"
+  },
+  "energy": {
+    "title": "Радио ENERGY",
+    "url": "http://www.energyfm.ru/",
+    "image": "http://www.energyfm.ru/design/images/14_logo_w.gif",
+    "stream": "http://ru1.101.ru:8000/v1_1"
+  },
+  "hermitage": {
+    "title": "Радио Эрмитаж",
+    "url": "http://www.radiohermitage.ru/news/",
+    "image": "http://www.radiohermitage.ru/img/img05.gif",
+    "stream": "http://91.190.117.131:8000/live"
+  },
+  "keks": {
+    "title": "Кекс FM",
+    "url": "http://keks.fm/",
+    "image": "http://keks.fm/media/default/images/logo.png",
+    "stream": "http://keksserver.streamr.ru:8037/keks128"
+  },
+  "unost": {
+    "title": "Радио Юность",
+    "url": "http://www.radiounost.ru/",
+    "image": "http://www.dv-reclama.ru/upload/main/ba8/radiounost_200.gif",
+    "stream": "http://icecast.vgtrk.cdnvideo.ru/ufm_mp3_192kbps"
   }
 }
