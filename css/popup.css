@@ -297,7 +297,8 @@ h1, h2, h3 {
       #stations .station:hover .icon, #stations .station.move .icon {
         display: block; }
       #stations .station:hover .icon-stop,
-      #stations .station:hover .icon-dislike, #stations .station.move .icon-stop, #stations .station.move .icon-dislike {
+      #stations .station:hover .icon-dislike, #stations .station.move .icon-stop,
+      #stations .station.move .icon-dislike {
         display: none; }
     #stations .station:last-child {
       border-bottom: none; }
@@ -341,3 +342,8 @@ h1, h2, h3 {
     #footer .icon:hover {
       text-decoration: underline;
       color: black; }
+
+/* Retina styles */
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  #stations .station .image {
+    background-image: url("../icons/96.png"); } }

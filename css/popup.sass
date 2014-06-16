@@ -365,3 +365,10 @@ h1, h2, h3
     &:hover
       text-decoration: underline
       color: #000
+
+/* Retina styles */
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and ( -o-min-device-pixel-ratio: 2/1), only screen and ( min-device-pixel-ratio: 2), only screen and ( min-resolution: 192dpi), only screen and ( min-resolution: 2dppx)
+  #stations
+    .station
+      .image
+        background-image: url('../icons/96.png')
