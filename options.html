@@ -6,9 +6,6 @@
   <title>Online Radio</title>
   <link href="css/fonts.css" rel="stylesheet">
   <link href="css/options.css" rel="stylesheet">
-  <script src="js/lib/jquery.min.js"></script>
-  <script src="js/translate.js"></script>
-  <script src="js/options.js"></script>
 </head>
 
 <body data-page="stations">
@@ -18,7 +15,7 @@
     <ul class="menu">
       <li data-page="stations" data-i18n="stations"></li>
       <li data-page="add" data-i18n="add"></li>
-      <li data-page="hotkeys" data-i18n="hotkeys"></li>
+      <li data-extpage="chrome://extensions/configureCommands" data-i18n="hotkeys"></li>
       <li data-page="flash" data-i18n="error"></li>
     </ul>
   </div>
@@ -51,35 +48,6 @@
         </div>
       </form>
     </section>
-    <section data-page="hotkeys">
-      <h1 data-i18n="hotkeys"></h1>
-      <div class="message info" data-i18n="hotkeys_info"></div>
-      <div class="hotkey" data-hotkey="playpause">
-        <div class="hotkey-name" data-i18n="playpause"></div>
-        <div class="hotkey-value"></div>
-        <input type="text" class="hotkey-change">
-      </div>
-      <div class="hotkey" data-hotkey="next">
-        <div class="hotkey-name" data-i18n="next"></div>
-        <div class="hotkey-value"></div>
-        <input type="text" class="hotkey-change">
-      </div>
-      <div class="hotkey" data-hotkey="prev">
-        <div class="hotkey-name" data-i18n="prev"></div>
-        <div class="hotkey-value"></div>
-        <input type="text" class="hotkey-change">
-      </div>
-      <div class="hotkey" data-hotkey="volumeup">
-        <div class="hotkey-name" data-i18n="volumeup"></div>
-        <div class="hotkey-value"></div>
-        <input type="text" class="hotkey-change">
-      </div>
-      <div class="hotkey" data-hotkey="volumedown">
-        <div class="hotkey-name" data-i18n="volumedown"></div>
-        <div class="hotkey-value"></div>
-        <input type="text" class="hotkey-change">
-      </div>
-    </section>
     <section data-page="flash">
       <h1 data-i18n="error"></h1>
       <div class="message error" data-i18n="flash_error"></div>
@@ -88,5 +56,6 @@
     </section>
   </div>
 </div>
+<script data-main="js/options" src="js/lib/require.js"></script>
 </body>
 </html>

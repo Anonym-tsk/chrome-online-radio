@@ -1,38 +1,53 @@
-﻿(function(window) {
+﻿define(function() {
   'use strict';
 
   /**
-   * Base storage class.
-   * @constructor
+   * Favorites.
+   * @type {{}}
    */
-  function DataStorage() {
-    this._favorites = JSON.parse(localStorage.getItem('_favorites')) || {};
-    // TODO: При инициализации нужно переписывать веса, чтобы небыло бесконечного роста веса
-    this._last = localStorage.getItem('_last') || '';
-    this._coreStations = {};
-    this._userStations = JSON.parse(localStorage.getItem('_stations')) || {};
-    this._stations = {};
-    this._hidden = JSON.parse(localStorage.getItem('_hidden')) || {};
-    this._volume = JSON.parse(localStorage.getItem('_volume')) || {current: 80, last: 80};
-    this._hotkeys = JSON.parse(localStorage.getItem('_hotkeys')) || {
-      playpause: {keyCode: 80, altKey: 1, ctrlKey: 1, shiftKey: 0},
-      next: {keyCode: 221, altKey: 1, ctrlKey: 1, shiftKey: 0},
-      prev: {keyCode: 219, altKey: 1, ctrlKey: 1, shiftKey: 0},
-      volumeup: {keyCode: 187, altKey: 1, ctrlKey: 1, shiftKey: 0},
-      volumedown: {keyCode: 189, altKey: 1, ctrlKey: 1, shiftKey: 0}
-    };
+  var _favorites = JSON.parse(localStorage.getItem('_favorites')) || {};
 
-    // Load stations list
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = (function() {
-      if (xhr.readyState == 4) {
-        this._coreStations = JSON.parse(xhr.responseText);
-        this._updateStationsList();
-      }
-    }).bind(this);
-    xhr.open('GET', chrome.extension.getURL('stations.json'), true);
-    xhr.send();
-  }
+  /**
+   * Last station name.
+   * @type {string}
+   */
+  var _last = localStorage.getItem('_last') || '';
+
+  /**
+   * Core stations.
+   * @type {{}}
+   */
+  var _coreStations = {};
+
+  /**
+   * User stations.
+   * @type {{}}
+   */
+  var _userStations = JSON.parse(localStorage.getItem('_stations')) || {};
+
+  /**
+   * All stations list.
+   * @type {{}}
+   */
+  var _stations = {};
+
+  /**
+   * Hidden stations list.
+   * @type {{}}
+   */
+  var _hidden = JSON.parse(localStorage.getItem('_hidden')) || {};
+
+  /**
+   * Volume.
+   * @type {{current: number, last: number}}
+   */
+  var _volume = JSON.parse(localStorage.getItem('_volume')) || {current: 80, last: 80};
+
+  /**
+   * Extension version.
+   * @type {string}
+   */
+  var _version = localStorage.getItem('_version') || '0.0.0';
 
   /**
    * Save value to localStorage.
@@ -40,206 +55,249 @@
    * @param {*} value
    * @private
    */
-  DataStorage.prototype._save = function(name, value) {
+  function _save(name, value) {
     localStorage.setItem(name, value);
-  };
+  }
 
   /**
    * Update stations list with core and users stations.
    * @private
    */
-  DataStorage.prototype._updateStationsList = function() {
+  function _updateStationsList() {
     var stations = {}, i;
-    for (i in this._coreStations) if (this._coreStations.hasOwnProperty(i)) {
-      stations[i] = this._coreStations[i];
+    for (i in _coreStations) if (_coreStations.hasOwnProperty(i)) {
+      stations[i] = _coreStations[i];
       stations[i]['type'] = 'core';
-      stations[i]['hidden'] = this._hidden.hasOwnProperty(i);
+      stations[i]['hidden'] = _hidden.hasOwnProperty(i);
     }
-    for (i in this._userStations) if (this._userStations.hasOwnProperty(i)) {
-      stations[i] = this._userStations[i];
+    for (i in _userStations) if (_userStations.hasOwnProperty(i)) {
+      stations[i] = _userStations[i];
       stations[i]['type'] = 'user';
       stations[i]['hidden'] = false;
     }
-    this._stations = stations;
-  };
+    _stations = stations;
+  }
 
   /**
    * Add a station to favorites.
    * @param {string} name Station name.
+   * @public
    */
-  DataStorage.prototype.like = function(name) {
-    var keys = Object.keys(this._favorites);
-    this._favorites[name] = keys.length > 0 ? this._favorites[keys[keys.length - 1]] + 1 : 1;
-    this._save('_favorites', JSON.stringify(this._favorites));
-  };
+  function like(name) {
+    var keys = Object.keys(_favorites);
+    _favorites[name] = keys.length > 0 ? _favorites[keys[keys.length - 1]] + 1 : 1;
+    _save('_favorites', JSON.stringify(_favorites));
+  }
 
   /**
    * Remove a station from favorites.
    * @param {string} name Station name.
+   * @public
    */
-  DataStorage.prototype.dislike = function(name) {
-    if (this.isFavorite(name)) {
-      delete this._favorites[name];
+  function dislike(name) {
+    if (isFavorite(name)) {
+      delete _favorites[name];
     }
-    this._save('_favorites', JSON.stringify(this._favorites));
-  };
+    _save('_favorites', JSON.stringify(_favorites));
+  }
 
   /**
    * Check station in favorites.
    * @param {string} name Station name.
    * @return {?Object}
+   * @public
    */
-  DataStorage.prototype.isFavorite = function(name) {
-    return this._favorites.hasOwnProperty(name) ? this._favorites[name] : false;
-  };
+  function isFavorite(name) {
+    return _favorites.hasOwnProperty(name) ? _favorites[name] : false;
+  }
 
   /**
    * Get names of favorites.
    * @return {Object}
+   * @public
    */
-  DataStorage.prototype.getFavorites = function() {
-    return this._favorites;
-  };
+  function getFavorites() {
+    return _favorites;
+  }
+
+  /**
+   * Get saved extension version.
+   * @return {string}
+   * @public
+   */
+  function getVersion() {
+    return _version;
+  }
+
+  /**
+   * Save extension version.
+   * @param {string} version
+   * @public
+   */
+  function setVersion(version) {
+    _version = version;
+    _save('_version', _version);
+  }
 
   /**
    * Get all stations.
    * @return {Object}
+   * @public
    */
-  DataStorage.prototype.getStations = function() {
-    return this._stations;
-  };
+  function getStations() {
+    return _stations;
+  }
 
   /**
    * Get station by name.
    * @param {string} name Station name.
    * @return {?Object}
+   * @public
    */
-  DataStorage.prototype.getStationByName = function(name) {
-    if (this._stations.hasOwnProperty(name)) {
-      var station = this._stations[name];
+  function getStationByName(name) {
+    if (_stations.hasOwnProperty(name)) {
+      var station = _stations[name];
       station.name = name;
       return station;
     }
     return null;
-  };
+  }
 
   /**
    * Set the last played station.
    * @param {string} name Station name.
+   * @public
    */
-  DataStorage.prototype.setLast = function(name) {
-    this._last = name;
-    this._save('_last', this._last);
-  };
+  function setLast(name) {
+    _last = name;
+    _save('_last', _last);
+  }
 
   /**
    * Get the last played station name.
    * @return {string}
+   * @public
    */
-  DataStorage.prototype.getLastName = function() {
-    return this._last;
-  };
+  function getLastName() {
+    return _last;
+  }
 
   /**
    * Get the last played station.
    * @return {Object}
+   * @public
    */
-  DataStorage.prototype.getLastStation = function() {
-    return this.getStationByName(this._last);
-  };
-
-  /**
-   * Save volume value.
-   * @param {number} volume Volume.
-   */
-  DataStorage.prototype.setVolume = function(volume) {
-    var last = this._volume.current;
-    this._volume = {current: volume, last: last};
-    this._save('_volume', JSON.stringify(this._volume));
-  };
+  function getLastStation() {
+    return getStationByName(_last);
+  }
 
   /**
    * Get volume.
    * @return {number}
+   * @public
    */
-  DataStorage.prototype.getVolume = function() {
-    return this._volume.current;
-  };
+  function getVolume() {
+    return typeof _volume.current == 'number' ? _volume.current : 0;
+  }
 
   /**
    * Get last before current volume value.
    * @return {number}
+   * @public
    */
-  DataStorage.prototype.getVolumeLast = function() {
-    return this._volume.last;
-  };
+  function getVolumeLast() {
+    return typeof _volume.last == 'number' ? _volume.last : 0;
+  }
+
+  /**
+   * Save volume value.
+   * @param {number} volume Volume.
+   * @public
+   */
+  function setVolume(volume) {
+    var last = _volume.current;
+    _volume = {current: volume, last: last};
+    _save('_volume', JSON.stringify(_volume));
+  }
 
   /**
    * Save users station.
    * @param {Object} station Station object.
    * @param {string|number=} name Station name for update station.
+   * @public
    */
-  DataStorage.prototype.addStation = function(station, name) {
+  function addStation(station, name) {
     if (!name) {
-      var keys = Object.keys(this._userStations);
+      var keys = Object.keys(_userStations);
       name = keys.length > 0 ? parseInt(keys[keys.length - 1]) + 1 : 1;
     }
-    this._userStations[name] = station;
-    this._save('_stations', JSON.stringify(this._userStations));
-    this._updateStationsList();
-  };
+    _userStations[name] = station;
+    _save('_stations', JSON.stringify(_userStations));
+    _updateStationsList();
+  }
 
   /**
    * Delete users station.
    * @param {string} name Station name.
+   * @public
    */
-  DataStorage.prototype.deleteStation = function(name) {
-    if (this._userStations.hasOwnProperty(name)) {
-      delete this._userStations[name];
-      this._save('_stations', JSON.stringify(this._userStations));
-      this._updateStationsList();
+  function deleteStation(name) {
+    if (_userStations.hasOwnProperty(name)) {
+      delete _userStations[name];
+      _save('_stations', JSON.stringify(_userStations));
+      _updateStationsList();
     }
-    else if (this._coreStations.hasOwnProperty(name)) {
-      this._hidden[name] = 1;
-      this._save('_hidden', JSON.stringify(this._hidden));
-      this._updateStationsList();
+    else if (_coreStations.hasOwnProperty(name)) {
+      _hidden[name] = 1;
+      _save('_hidden', JSON.stringify(_hidden));
+      _updateStationsList();
     }
-  };
+  }
 
   /**
    * Restore deleted core station.
    * @param {string} name Station name.
+   * @public
    */
-  DataStorage.prototype.restoreStation = function(name) {
-    if (this._hidden.hasOwnProperty(name)) {
-      delete this._hidden[name];
-      this._save('_hidden', JSON.stringify(this._hidden));
-      this._updateStationsList();
+  function restoreStation(name) {
+    if (_hidden.hasOwnProperty(name)) {
+      delete _hidden[name];
+      _save('_hidden', JSON.stringify(_hidden));
+      _updateStationsList();
     }
-  };
+  }
+
+  // Load stations list
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = (function() {
+    if (xhr.readyState == 4) {
+      _coreStations = JSON.parse(xhr.responseText);
+      _updateStationsList();
+    }
+  });
+  xhr.open('GET', chrome.extension.getURL('stations.json'), true);
+  xhr.send();
 
   /**
-   * Get hotkeys.
-   * @return {Object}
+   * @typedef {{}} DataStorage
    */
-  DataStorage.prototype.getHotkeys = function() {
-    return this._hotkeys;
+  return {
+    like: like,
+    dislike: dislike,
+    isFavorite: isFavorite,
+    getFavorites: getFavorites,
+    getVersion: getVersion,
+    setVersion: setVersion,
+    getStations: getStations,
+    getStationByName: getStationByName,
+    setLast: setLast,
+    getLastName: getLastName,
+    getLastStation: getLastStation,
+    getVolume: getVolume,
+    getVolumeLast: getVolumeLast,
+    setVolume: setVolume,
+    addStation: addStation,
+    deleteStation: deleteStation,
+    restoreStation: restoreStation
   };
-
-  /**
-   * Save hotkey.
-   * @param {string} name
-   * @param {number} altKey
-   * @param {number} ctrlKey
-   * @param {number} shiftKey
-   * @param {number} keyCode
-   */
-  DataStorage.prototype.setHotkey = function(name, altKey, ctrlKey, shiftKey, keyCode) {
-    if (this._hotkeys.hasOwnProperty(name)) {
-      this._hotkeys[name] = {keyCode: keyCode, altKey: altKey, ctrlKey: ctrlKey, shiftKey: shiftKey};
-      this._save('_hotkeys', JSON.stringify(this._hotkeys));
-    }
-  };
-
-  window.DataStorage = DataStorage;
-})(window);
+});

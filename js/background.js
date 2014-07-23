@@ -1,193 +1,267 @@
-﻿(function(window) {
+﻿require.config({
+  baseUrl: 'js'
+});
+
+require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/HtmlPlayer', 'utils/Translator'],
+  function(Updater, DataStorage, FlashPlayer, HtmlPlayer, Translator) {
   'use strict';
 
-  /**
-   * Main application class.
-   * @param {DataStorage} storage
-   * @param {HtmlPlayer|FlashPlayer} player
-   * @constructor
-   */
-  function Radio(storage, player) {
-    var EMPTY_PORT = {postMessage: function(data) {}};
+  var STATUS = {
+    BUFFERING: 'buffering',
+    PLAYING: 'playing',
+    STOPPED: 'stopped',
+    ERROR: 'error'
+  };
 
-    this.Storage = storage;
-    this.Player = player;
+  var _status = STATUS.STOPPED;
 
-    this.status = 'stopped';
-    this._attempts = 0;
-    this._port = EMPTY_PORT;
-    this._notification = {
-      timeout: null,
-      close: function() {
-        clearTimeout(this._notification.timeout);
-        this._notification.notify.close();
-      }.bind(this)
-    };
-    this._foundStreams = [];
+  var _attempts = 0;
 
-    // Connection with popup opened (when opened popup)
-    chrome.extension.onConnect.addListener(function(port) {
-      if (!port.name) {
-        return;
-      }
+  var _foundStreams = [];
 
-      var portListener = (function(message) {
-        console.log('Message to bg port', message);
-        var volume, volStep = 5, stations, name;
-
-        switch (message.action) {
-          case 'play':
-            if (message.data == this.Storage.getLastName() && this.Player.isPlaying()) {
-              this.Player.stop();
-            }
-            else {
-              this.Storage.setLast(message.data);
-              this.Player.play(this.Storage.getStationByName(message.data).stream);
-            }
-            break;
-
-          case 'playpause':
-            if (this.Player.isPlaying()) {
-              this.Player.stop();
-            }
-            else {
-              var station = this.Storage.getLastStation();
-              if (!station) {
-                stations = this.Storage.getStations();
-                for (name in stations) if (stations.hasOwnProperty(name)) {
-                  this.Storage.setLast(name);
-                  station = stations[name];
-                  break;
-                }
-              }
-              this.Player.play(station.stream);
-              this.showNotification(station.title, station.image);
-            }
-            break;
-
-          case 'prev':
-          case 'next':
-            stations = this.Storage.getStations();
-            var keys = Object.keys(stations);
-            var length = keys.length;
-            name = this.Storage.getLastName() || (message.action == 'next' ? keys[length - 1] : keys[0]);
-            for (var i = 0; i < length; i++) {
-              if (keys[i] == name) {
-                name = (message.action == 'next') ? keys[(i + 1) % length] : keys[(length + i - 1) % length];
-                break;
-              }
-            }
-            this.Storage.setLast(name);
-            this.Player.play(stations[name].stream);
-            this.showNotification(stations[name].title, stations[name].image);
-            break;
-
-          case 'volume':
-            this.Storage.setVolume(message.data);
-            this.Player.setVolume(message.data);
-            break;
-
-          case 'volumeup':
-            volume = this.Player.getVolume();
-            if (volume < 100) {
-              this.Player.setVolume(Math.min(volume + volStep, 100));
-            }
-            break;
-
-          case 'volumedown':
-            volume = this.Player.getVolume();
-            if (volume > 0) {
-              this.Player.setVolume(Math.max(volume - volStep, 0));
-            }
-            break;
-
-          case 'like':
-            if (this.Storage.isFavorite(message.data)) {
-              this.Storage.dislike(message.data);
-            }
-            else {
-              this.Storage.like(message.data);
-            }
-            break;
-
-          case 'link':
-            chrome.tabs.create({url: this.Storage.getStationByName(message.data).url});
-            break;
-
-          case 'options':
-            this.openOptions(message.data);
-            break;
-        }
-      }).bind(this);
-
-      if (port.name == 'hotkey') {
-        port.postMessage(this.Storage.getHotkeys());
-        port.onMessage.addListener(portListener);
-      }
-      else if (port.name == 'popup') {
-        this._port = port;
-        port.onMessage.addListener(portListener);
-        port.onDisconnect.addListener(function() {
-          this._port = EMPTY_PORT;
-        }.bind(this));
-      }
-    }.bind(this));
-
-    // Detect audio
-    chrome.webRequest.onHeadersReceived.addListener(function(details) {
-      var i = details.responseHeaders.length;
-      while (i--) {
-        if (details.responseHeaders[i].name == 'Content-Type') {
-          if (details.responseHeaders[i].value == 'audio/mpeg' && details.tabId > 0) {
-            this.addAudioHistory(details);
-          }
-          break;
-        }
-      }
-    }.bind(this), {urls: ['http://*/*', 'https://*/*'], types: ['other', 'object']}, ['responseHeaders']);
-
-    this.updateContextMenu();
-    this.initEvents();
-    this.setStatus();
-  }
+  var _player = HtmlPlayer;
 
   /**
    * Init player events.
    */
-  Radio.prototype.initEvents = function() {
-    this.Player.bind('play', function() {
-      this.setStatus('buffering');
-      this.sendMessage(this.status);
-    }, this);
-    this.Player.bind('playing', function() {
-      this._attempts = 0;
-      this.setStatus('playing');
-      this.sendMessage(this.status);
-    }, this);
-    this.Player.bind('abort', function() {
-      this.setStatus('stopped');
-      this.sendMessage(this.status);
-    }, this);
-    this.Player.bind('error', function() {
-      if (this.status !== 'stopped') {
-        if (this._attempts++ < 4) {
-          this.Player.play();
+  function initEvents() {
+    _player.attachEvent('play', function() {
+      setStatus(STATUS.BUFFERING);
+      sendMessage(_status);
+    });
+    _player.attachEvent('playing', function() {
+      _attempts = 0;
+      setStatus(STATUS.PLAYING);
+      sendMessage(_status);
+    });
+    _player.attachEvent('abort', function() {
+      setStatus(STATUS.STOPPED);
+      sendMessage(_status);
+    });
+    _player.attachEvent('error', function() {
+      if (_status !== STATUS.STOPPED) {
+        if (_attempts++ < 4) {
+          _player.play();
         }
         else {
-          this._attempts = 0;
-          this.setStatus('error');
-          this.sendMessage(this.status);
+          _attempts = 0;
+          setStatus(STATUS.ERROR);
+          sendMessage(_status);
         }
       }
-    }, this);
-  };
+    });
+  }
+
+  function messageDispatcher(message) {
+    var action, data = null, volume, volStep = 5, stations, name;
+    if (typeof message == 'string') {
+      action = message;
+    }
+    else if (!message.name || message.name != 'background') {
+      return;
+    }
+    else {
+      action = message.action;
+      data = message.data;
+    }
+
+    switch (action) {
+      case 'play':
+        if (data == DataStorage.getLastName() && _player.isPlaying()) {
+          _player.stop();
+        }
+        else {
+          DataStorage.setLast(data);
+          _player.play(DataStorage.getStationByName(data).stream);
+        }
+        break;
+
+      case 'playpause':
+        if (_player.isPlaying()) {
+          _player.stop();
+        }
+        else {
+          var station = DataStorage.getLastStation();
+          if (!station) {
+            stations = DataStorage.getStations();
+            for (name in stations) if (stations.hasOwnProperty(name)) {
+              DataStorage.setLast(name);
+              station = stations[name];
+              break;
+            }
+          }
+          _player.play(station.stream);
+        }
+        break;
+
+      case 'prev':
+      case 'next':
+        stations = DataStorage.getStations();
+        var keys = Object.keys(stations);
+        var length = keys.length;
+        name = DataStorage.getLastName() || (action == 'next' ? keys[length - 1] : keys[0]);
+        for (var i = 0; i < length; i++) {
+          if (keys[i] == name) {
+            name = (action == 'next') ? keys[(i + 1) % length] : keys[(length + i - 1) % length];
+            break;
+          }
+        }
+        DataStorage.setLast(name);
+        _player.play(stations[name].stream);
+        break;
+
+      case 'volume':
+        DataStorage.setVolume(data);
+        _player.setVolume(data);
+        break;
+
+      case 'volumeup':
+        volume = _player.getVolume();
+        if (volume < 100) {
+          _player.setVolume(Math.min(volume + volStep, 100));
+        }
+        break;
+
+      case 'volumedown':
+        volume = _player.getVolume();
+        if (volume > 0) {
+          _player.setVolume(Math.max(volume - volStep, 0));
+        }
+        break;
+
+      case 'like':
+        DataStorage.like(data);
+        break;
+
+      case 'dislike':
+        DataStorage.dislike(data);
+        break;
+
+      case 'link':
+        chrome.tabs.create({url: DataStorage.getStationByName(data).url});
+        break;
+
+      case 'options':
+        openOptions(data);
+        break;
+    }
+  }
+
+  /**
+   * Send message to popup.
+   * @param {string} action
+   * @param {string=} data
+   */
+  function sendMessage(action, data) {
+    chrome.runtime.sendMessage({name: 'popup', action: action, data: typeof data != 'undefined' ? data : null});
+  }
+
+  /**
+   * Save found audio stream to history.
+   * @param {Object} response
+   */
+  function addAudioHistory(response) {
+    chrome.tabs.get(response.tabId, function(tab) {
+      _foundStreams.push({
+        title: tab.title,
+        stream: response.url,
+        favicon: tab.favIconUrl,
+        tabId: tab.id,
+        url: tab.url
+      });
+      _foundStreams = _foundStreams.slice(-15, _foundStreams.length);
+      updateContextMenu();
+    });
+  }
+
+  /**
+   * Set radio playing status.
+   * @param {string=} st
+   */
+  function setStatus(st) {
+    _status = st || STATUS.STOPPED;
+
+    switch (st) {
+      case 'buffering':
+        setIconText('…', [255, 144, 0, 255]);
+        chrome.browserAction.setIcon({path: {'19': 'icons/19o.png', '38': 'icons/38o.png'}});
+        chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('loading')});
+        break;
+      case 'playing':
+        setIconText('►', [0, 180, 0, 255]);
+        chrome.browserAction.setIcon({path: {'19': 'icons/19g.png', '38': 'icons/38g.png'}});
+        chrome.browserAction.setTitle({title: DataStorage.getLastStation().title});
+        break;
+      case 'stopped':
+        setIconText();
+        chrome.browserAction.setIcon({path: {'19': 'icons/19.png', '38': 'icons/38.png'}});
+        chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('stopped')});
+        break;
+      case 'error':
+        setIconText();
+        chrome.browserAction.setIcon({path: {'19': 'icons/19r.png', '38': 'icons/38r.png'}});
+        chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('error')});
+        break;
+      default:
+        setIconText();
+        chrome.browserAction.setIcon({path: {'19': 'icons/19.png', '38': 'icons/38.png'}});
+        chrome.browserAction.setTitle({title: Translator.translate('name')});
+    }
+  }
+
+  /**
+   * Set browser icon text and color.
+   * @param {string=} text
+   * @param {string|Array=} color
+   */
+  function setIconText(text, color) {
+    text = text || '';
+    color = color || [255, 79, 87, 255];
+    chrome.browserAction.setBadgeBackgroundColor({color: color});
+    chrome.browserAction.setBadgeText({text: text});
+  }
+
+  /**
+   * Update context menu by audio history.
+   */
+  function updateContextMenu() {
+    chrome.contextMenus.removeAll(function() {
+      var contexts = ['page', 'frame', 'selection'];
+      chrome.contextMenus.create({
+        title: Translator.translate('add'),
+        contexts: contexts,
+        enabled: false
+      });
+      chrome.contextMenus.create({
+        type: 'separator',
+        contexts: contexts
+      });
+
+      var i = _foundStreams.length;
+      if (!i) {
+        chrome.contextMenus.create({
+          title: Translator.translate('please_enable_radio'),
+          contexts: contexts,
+          enabled: false,
+          id: 'online_radio'
+        });
+      }
+      else while (i--) {
+        chrome.contextMenus.create({
+          title: _foundStreams[i].title,
+          contexts: contexts,
+          onclick: openOptions.bind(null, 'add#' + _foundStreams[i].title + '#' + _foundStreams[i].stream + '#' + _foundStreams[i].url)
+        });
+      }
+    });
+  }
 
   /**
    * Open options page.
    * @param {string} page
    */
-  Radio.prototype.openOptions = function(page) {
-    var optionsUrl = chrome.extension.getURL('options.html');
+  function openOptions(page) {
+    var optionsUrl = chrome.runtime.getURL('options.html');
     var fullUrl = (typeof page == 'string') ? optionsUrl + '#' + page : optionsUrl;
     chrome.tabs.query({url: optionsUrl}, function(tabs) {
       if (tabs.length) {
@@ -198,142 +272,7 @@
         chrome.tabs.create({url: fullUrl});
       }
     });
-  };
-
-  /**
-   * Set browser icon text and color.
-   * @param {string=} text
-   * @param {string|Array=} color
-   */
-  Radio.prototype.setIconText = function(text, color) {
-    text = text || '';
-    color = color || [255, 79, 87, 255];
-    chrome.browserAction.setBadgeBackgroundColor({color: color});
-    chrome.browserAction.setBadgeText({text: text});
-  };
-
-  /**
-   * Set radio playing status.
-   * @param {string=} status
-   */
-  Radio.prototype.setStatus = function(status) {
-    this.status = status || 'stopped';
-
-    switch (status) {
-      case 'buffering':
-        this.setIconText('…', [255, 144, 0, 255]);
-        chrome.browserAction.setIcon({path: {'19': 'icons/19o.png', '38': 'icons/38o.png'}});
-        chrome.browserAction.setTitle({title: this.Storage.getLastStation().title + ' - ' + chrome.i18n.getMessage('loading')});
-        break;
-      case 'playing':
-        this.setIconText('►', [0, 180, 0, 255]);
-        chrome.browserAction.setIcon({path: {'19': 'icons/19g.png', '38': 'icons/38g.png'}});
-        chrome.browserAction.setTitle({title: this.Storage.getLastStation().title});
-        break;
-      case 'stopped':
-        this.setIconText();
-        chrome.browserAction.setIcon({path: {'19': 'icons/19.png', '38': 'icons/38.png'}});
-        chrome.browserAction.setTitle({title: this.Storage.getLastStation().title + ' - ' + chrome.i18n.getMessage('stopped')});
-        break;
-      case 'error':
-        this.setIconText();
-        chrome.browserAction.setIcon({path: {'19': 'icons/19r.png', '38': 'icons/38r.png'}});
-        chrome.browserAction.setTitle({title: this.Storage.getLastStation().title + ' - ' + chrome.i18n.getMessage('error')});
-        break;
-      default:
-        this.setIconText();
-        chrome.browserAction.setIcon({path: {'19': 'icons/19.png', '38': 'icons/38.png'}});
-        chrome.browserAction.setTitle({title: chrome.i18n.getMessage('name')});
-    }
-  };
-
-  /**
-   * Send message to opened port (popup by default).
-   * @param {string} action
-   * @param {string=} data
-   */
-  Radio.prototype.sendMessage = function(action, data) {
-    data = data || {};
-    this._port.postMessage({action: action, data: data});
-  };
-
-  /**
-   * Show desktop notification.
-   * @param {string} title
-   * @param {string} icon
-   * @param {number=} timeout
-   */
-  Radio.prototype.showNotification = function(title, icon, timeout) {
-    if (!window.webkitNotifications) {
-      return; // Opera, you will die!
-    }
-    timeout = timeout || 5000;
-    if (this._notification.timeout) {
-      this._notification.close();
-    }
-    this._notification.notify = new Notification(title, {icon: icon ? icon : 'icons/38.png'});
-    this._notification.notify.onclick = this._notification.close;
-    this._notification.notify.onshow = (function() {
-      this._notification.timeout = setTimeout(this._notification.close, timeout);
-    }).bind(this);
-  };
-
-  /**
-   * Save found audio stream to history.
-   * @param {Object} response
-   */
-  Radio.prototype.addAudioHistory = function(response) {
-    chrome.tabs.get(response.tabId, function(tab) {
-      this._foundStreams.push({
-        title: tab.title,
-        stream: response.url,
-        favicon: tab.favIconUrl,
-        tabId: tab.id,
-        url: tab.url
-      });
-      this._foundStreams = this._foundStreams.slice(-15, this._foundStreams.length);
-      this.updateContextMenu();
-    }.bind(this));
-  };
-
-  /**
-   * Update context menu by audio history.
-   */
-  Radio.prototype.updateContextMenu = function() {
-    chrome.contextMenus.removeAll(function() {
-      var contexts = ['page', 'frame', 'selection'];
-      chrome.contextMenus.create({
-        title: chrome.i18n.getMessage('add'),
-        contexts: contexts,
-        enabled: false
-      });
-      chrome.contextMenus.create({
-        type: 'separator',
-        contexts: contexts
-      });
-
-      var i = this._foundStreams.length;
-      if (!i) {
-        chrome.contextMenus.create({
-          title: chrome.i18n.getMessage('please_enable_radio'),
-          contexts: contexts,
-          enabled: false,
-          id: 'online_radio'
-        });
-      }
-      else while (i--) {
-        chrome.contextMenus.create({
-          title: this._foundStreams[i].title,
-          contexts: contexts,
-          onclick: function(data) {
-            return function() {
-              this.openOptions('add#' + data.title + '#' + data.stream + '#' + data.url);
-            }.bind(this);
-          }.call(this, this._foundStreams[i])
-        });
-      }
-    }.bind(this));
-  };
+  }
 
   // Disable Opera offroad mode
   window.opr && opr.offroad.enabled.get({}, function(details) {
@@ -344,15 +283,50 @@
     }
   });
 
-  var storage = new DataStorage(),
-      volume = storage.getVolume(),
-      player = new HtmlPlayer(volume);
+  // Check updates
+  Updater.checkUpdates();
 
-  player.canPlayMP3(function(status) {
+  // Run!
+  HtmlPlayer.canPlayMP3(function(status) {
     if (!status) {
-      console.info('Flash fallback');
-      player = new FlashPlayer(volume);
+      _player = new FlashPlayer();
     }
-    window.Radio = new Radio(storage, player);
+    _player.init();
+
+    // Listen messages from popup and options
+    chrome.runtime.onMessage.addListener(messageDispatcher);
+
+    // Hotkeys
+    chrome.commands.onCommand.addListener(messageDispatcher);
+
+    // Detect audio
+    chrome.webRequest.onHeadersReceived.addListener(function(details) {
+      var i = details.responseHeaders.length;
+      while (i--) {
+        if (details.responseHeaders[i].name == 'Content-Type') {
+          if (details.responseHeaders[i].value == 'audio/mpeg' && details.tabId > 0) {
+            addAudioHistory(details);
+          }
+          break;
+        }
+      }
+    }, {urls: ['http://*/*', 'https://*/*'], types: ['other', 'object']}, ['responseHeaders']);
+
+    updateContextMenu();
+    initEvents();
+    setStatus();
+
+    window.Radio = {
+      getStatus: function() {
+        return _status;
+      },
+      getStorage: function() {
+        return DataStorage;
+      },
+      getAudioData: function() {
+        return _player.getAudioData();
+      },
+      openOptions: openOptions
+    };
   });
-})(window);
+});

@@ -105,9 +105,6 @@
   "volumedown": {
     "message": "Volume -"
   },
-  "hotkeys_info": {
-    "message": "Hotkeys will work after pages update or browser restart"
-  },
   "please_enable_radio": {
     "message": "Turn on the radio to add a station"
   }

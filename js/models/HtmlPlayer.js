@@ -1,101 +1,86 @@
-(function(window) {
+define(['models/DataStorage'], function(DataStorage) {
   'use strict';
 
   /**
-   * HTML5 audio player.
-   * @param {number} volume
-   * @constructor
+   * HTML5 Audio player.
+   * @type {HTMLAudioElement}
    */
-  function HtmlPlayer(volume) {
-    this._audio = document.createElement('audio');
-    this._audio.preload = 'auto';
-    document.body.appendChild(this._audio);
-    this.setVolume(volume);
-  }
+  var _audio;
 
   /**
    * @param {string} name
    * @param {function} callback
-   * @param {*} scope
-   * @return {HtmlPlayer}
    */
-  HtmlPlayer.prototype.bind = function(name, callback, scope) {
+  function attachEvent(name, callback) {
     switch (name) {
       case 'play':
       case 'playing':
       case 'abort':
       case 'volumechange':
-        this._audio.addEventListener(name, callback.bind(scope));
+        _audio.addEventListener(name, callback);
         break;
       case 'error':
-        this._audio.addEventListener('error', callback.bind(scope));
-        this._audio.addEventListener('stalled', callback.bind(scope));
+        _audio.addEventListener('error', callback);
+        _audio.addEventListener('stalled', callback);
         break;
       default:
         console.warn('Unsupported event type', name);
     }
-    return this;
-  };
+  }
 
   /**
    * Start playing.
    * @param {string=} url Stream (or file) url.
-   * @return {HtmlPlayer}
    */
-  HtmlPlayer.prototype.play = function(url) {
-    url = url || this._audio.src;
-    this._audio.src = url;
-    this._audio.play();
-    return this;
-  };
+  function play(url) {
+    url = url || _audio.src;
+    _audio.src = url;
+    _audio.play();
+  }
 
   /**
    * Stop playing.
-   * @return {HtmlPlayer}
    */
-  HtmlPlayer.prototype.stop = function() {
-    this._audio.pause();
-    this._audio.src = '';
-    return this;
-  };
+  function stop() {
+    _audio.pause();
+    _audio.src = '';
+  }
 
   /**
    * Set player volume.
    * @param {number} volume Volume value from 0 to 100.
-   * @return {HtmlPlayer}
    */
-  HtmlPlayer.prototype.setVolume = function(volume) {
-    this._audio.volume = (volume / 100).toFixed(2);
-    return this;
-  };
+  function setVolume(volume) {
+    _audio.volume = (volume / 100).toFixed(2);
+  }
 
   /**
    * Get player volume.
    * @return {number}
    */
-  HtmlPlayer.prototype.getVolume = function() {
-    return Math.round(this._audio.volume * 100);
-  };
+  function getVolume() {
+    return Math.round(_audio.volume * 100);
+  }
 
   /**
    * Is playing now?
    * @return {boolean}
    */
-  HtmlPlayer.prototype.isPlaying = function() {
-    return !this._audio.paused && !this._audio.ended && (this._audio.readyState === 4 || this._audio.networkState === 2);
-  };
+  function isPlaying() {
+    return !_audio.paused && !_audio.ended && (_audio.readyState === 4 || _audio.networkState === 2);
+  }
 
   /**
    * Get audio data for equalizer.
    * @return {Uint8Array}
    */
-  HtmlPlayer.prototype.getAudioData = function() {
+  function getAudioData() {
     var getAudioAnalyser = (function() {
       var context = new webkitAudioContext();
       var analyser = context.createAnalyser();
       analyser.smoothingTimeConstant = 0.8;
       analyser.fftSize = 128;
-      var source = context.createMediaElementSource(this._audio);
+      var source = context.createMediaElementSource(_audio);
       source.connect(analyser);
       analyser.connect(context.destination);
       return analyser;
@@ -106,33 +91,52 @@
     this._audioAnalyser.getByteFrequencyData(freqByteData);
 
     return freqByteData;
-  };
+  }
 
   /**
    * Check browser can play mp3.
    * @param {function} callback
    */
-  HtmlPlayer.prototype.canPlayMP3 = function(callback) {
+  function canPlayMP3(callback) {
     try {
       var audio = new Audio();
       if (audio.canPlayType('audio/mpeg; codecs="mp3"') == 'probably') {
         callback(true);
       }
       else {
-        audio.addEventListener('canplaythrough', function (e) {
+        audio.addEventListener('canplaythrough', function() {
           callback(true);
         }, false);
-        audio.addEventListener('error', function (e) {
+        audio.addEventListener('error', function() {
           callback(false, this.error);
         }, false);
       }
-      audio.src = "data:audio/mpeg;base64,/+MYxAAAAANIAAAAAExBTUUzLjk4LjIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+      audio.src = 'data:audio/mpeg;base64,/+MYxAAAAANIAAAAAExBTUUzLjk4LjIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
       audio.load();
     }
-    catch(e){
+    catch (e) {
       callback(false, e);
     }
-  };
+  }
 
-  window.HtmlPlayer = HtmlPlayer;
-})(window);
+  /**
+   * Init player.
+   */
+  function init() {
+    _audio = new Audio();
+    _audio.preload = 'auto';
+    setVolume(DataStorage.getVolume());
+  }
+
+  return {
+    init: init,
+    attachEvent: attachEvent,
+    play: play,
+    stop: stop,
+    setVolume: setVolume,
+    getVolume: getVolume,
+    isPlaying: isPlaying,
+    getAudioData: getAudioData,
+    canPlayMP3: canPlayMP3
+  };
+});

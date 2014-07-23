@@ -1,12 +1,11 @@
-(function(window) {
+define(['models/DataStorage'], function(DataStorage) {
   'use strict';
 
   /**
    * Flash audio player.
-   * @param {number} volume
    * @constructor
    */
-  function FlashPlayer(volume) {
+  function FlashPlayer() {
     this._url = null;
     this._volume = 1;
     this._bindings = {};
@@ -26,7 +25,7 @@
         port.onMessage.addListener(function(message) {
           switch (message.action) {
             case 'ready':
-              this.setVolume(volume);
+              this.setVolume(DataStorage.getVolume());
             case 'playing':
             case 'play':
             case 'abort':
@@ -50,17 +49,16 @@
   /**
    * @param {string} name
    * @param {function} callback
-   * @param {*} scope
    * @return {FlashPlayer}
    */
-  FlashPlayer.prototype.bind = function(name, callback, scope) {
+  FlashPlayer.prototype.attachEvent = function(name, callback) {
     switch (name) {
       case 'play':
       case 'playing':
       case 'abort':
       case 'error':
       case 'volumechange':
-        this._bindings[name] = callback.bind(scope);
+        this._bindings[name] = callback;
         break;
       default:
         console.warn('Unsupported event type', name);
@@ -70,7 +68,7 @@
 
   /**
    * Start playing.
-   * @param {string} url Stream (or file) url.
+   * @param {string=} url Stream (or file) url.
    * @return {FlashPlayer}
    */
   FlashPlayer.prototype.play = function(url) {
@@ -159,5 +157,9 @@
     this._port.postMessage({action: action, data: data});
   };
 
-  window.FlashPlayer = FlashPlayer;
-})(window);
+  FlashPlayer.prototype.init = function() {
+    console.info('Flash fallback');
+  };
+
+  return FlashPlayer;
+});
