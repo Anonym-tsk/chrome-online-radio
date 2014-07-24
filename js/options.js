@@ -13,7 +13,7 @@ require(['utils/Translator', 'lib/jquery.min'], function(Translator) {
    * @type {DataStorage}
    * @private
    */
-  var _storage = _background.Radio.getStorage();
+  var _storage = _background.getStorage();
 
   /**
    * Renders one station for stations list.

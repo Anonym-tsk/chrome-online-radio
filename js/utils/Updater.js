@@ -26,6 +26,9 @@ define(['models/DataStorage'], function(DataStorage) {
     }
   }
 
+  /**
+   * @typedef {{}} Updater
+   */
   return {
     checkUpdates: checkUpdates
   };

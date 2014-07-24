@@ -28,6 +28,9 @@ define(['lib/jquery.min'], function() {
     });
   }
 
+  /**
+   * @typedef {{}} Translator
+   */
   return {
     translate: translateMessage,
     translateAll: translateAll

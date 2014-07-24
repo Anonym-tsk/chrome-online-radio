@@ -13,7 +13,7 @@
    * @type {DataStorage}
    * @private
    */
-  var _storage = _background.Radio.getStorage();
+  var _storage = _background.getStorage();
 
   /**
    * Stations container.
@@ -165,7 +165,7 @@
     }
 
     (function drawFrame() {
-      var freqByteData = _background.Radio.getAudioData();
+      var freqByteData = _background.getAudioData();
       canvasContext.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT - EMPTY_HEIGHT);
 
       for (var i = 0; i < NUM_BARS; ++i) {
@@ -325,7 +325,7 @@
    * @param {string=} state
    */
   function setPlayerState(state) {
-    state = state || _background.Radio.getStatus();
+    state = state || _background.getStatus();
     var start = function() {
       stop();
       var station = _storage.getLastStation();

@@ -2,130 +2,128 @@ define(['models/DataStorage'], function(DataStorage) {
   'use strict';
 
   /**
-   * Flash audio player.
-   * @constructor
+   * Stream url.
+   * @type {string}
+   * @private
    */
-  function FlashPlayer() {
-    this._url = null;
-    this._volume = 1;
-    this._bindings = {};
-    this._isPlaying = false;
-    this._frameSrc = 'http://radio.css3.su/';
-
-    var iFrameObj = document.createElement('iframe');
-    iFrameObj.id = 'playerFallback';
-    iFrameObj.src = this._frameSrc;
-    iFrameObj.scrolling = 'no';
-    document.body.appendChild(iFrameObj);
-
-    chrome.runtime.onConnect.addListener(function(port) {
-      if (port.name == 'proxy') {
-        this._port = port;
-
-        port.onMessage.addListener(function(message) {
-          switch (message.action) {
-            case 'ready':
-              this.setVolume(DataStorage.getVolume());
-            case 'playing':
-            case 'play':
-            case 'abort':
-            case 'error':
-            case 'volumechange':
-              this._isPlaying = (message.action == 'playing');
-              if (this._bindings.hasOwnProperty(message.action)) {
-                this._bindings[message.action]();
-              }
-              break;
-            case 'flash':
-              var bg = chrome.extension.getBackgroundPage();
-              bg.Radio.openOptions('flash');
-              break;
-          }
-        }.bind(this));
-      }
-    }.bind(this));
-  }
+  var _url = null;
 
   /**
+   * Current volume.
+   * @type {number}
+   * @private
+   */
+  var _volume = 1;
+
+  /**
+   * Event handlers.
+   * @type {{}}
+   * @private
+   */
+  var _bindings = {};
+
+  /**
+   * Is playing now.
+   * @type {boolean}
+   * @private
+   */
+  var _isPlaying = false;
+
+  /**
+   * Port with proxy.
+   * @type {Port}
+   */
+  var _port;
+
+  /**
+   * Flash player iframe url.
+   * @const
+   * @type {string}
+   */
+  var FRAME_SRC = 'http://radio.css3.su/';
+
+  /**
+   * Attach event handler to player.
    * @param {string} name
    * @param {function} callback
-   * @return {FlashPlayer}
    */
-  FlashPlayer.prototype.attachEvent = function(name, callback) {
+  function attachEvent(name, callback) {
     switch (name) {
       case 'play':
       case 'playing':
       case 'abort':
       case 'error':
       case 'volumechange':
-        this._bindings[name] = callback;
+        _bindings[name] = callback;
         break;
       default:
         console.warn('Unsupported event type', name);
     }
-    return this;
-  };
+  }
+
+  /**
+   * Send message to fallback page.
+   * @param {string} action
+   * @param {number|string=} data
+   */
+  function sendMessage(action, data) {
+    _port.postMessage({action: action, data: typeof data != 'undefined' ? data : null});
+  }
 
   /**
    * Start playing.
    * @param {string=} url Stream (or file) url.
-   * @return {FlashPlayer}
    */
-  FlashPlayer.prototype.play = function(url) {
-    this._url = url || this._url;
-    this.sendMessage('play', this._url);
-    return this;
-  };
+  function play(url) {
+    _url = url || _url;
+    sendMessage('play', _url);
+  }
 
   /**
    * Stop playing.
-   * @return {FlashPlayer}
    */
-  FlashPlayer.prototype.stop = function() {
-    this.sendMessage('stop');
-    return this;
-  };
-
-  /**
-   * Set player volume.
-   * @param {number} volume Volume value from 0 to 100.
-   * @return {FlashPlayer}
-   */
-  FlashPlayer.prototype.setVolume = function(volume) {
-    this._volume = (volume / 100).toFixed(2);
-    this.sendMessage('volume', this._volume);
-    return this;
-  };
+  function stop() {
+    sendMessage('stop');
+  }
 
   /**
    * Get player volume.
    * @return {number}
    */
-  FlashPlayer.prototype.getVolume = function() {
-    return Math.round(this._volume * 100);
-  };
+  function getVolume() {
+    return Math.round(_volume * 100);
+  }
+
+  /**
+   * Set player volume.
+   * @param {number} volume Volume value from 0 to 100.
+   */
+  function setVolume(volume) {
+    _volume = (volume / 100).toFixed(2);
+    sendMessage('volume', _volume);
+  }
 
   /**
    * Is playing now?
    * @return {boolean}
    */
-  FlashPlayer.prototype.isPlaying = function() {
-    return this._isPlaying;
-  };
+  function isPlaying() {
+    return _isPlaying;
+  }
 
   /**
    * Get audio data for equalizer.
    * @return {Array}
    */
-  FlashPlayer.prototype.getAudioData = function() {
+  function getAudioData() {
     var NUM_BARS = 64,
-        MIN = 30,
-        MAX = 255,
-        STEP = 5;
+      MIN = 30,
+      MAX = 255,
+      STEP = 5;
     this._freqByteData = this._freqByteData || [];
     this._audioDataCounter = ++this._audioDataCounter || 1;
 
-    var isKeyFrame = !(this._audioDataCounter % 28) && this._isPlaying;
+    var isKeyFrame = !(this._audioDataCounter % 28) && _isPlaying;
     if (isKeyFrame) {
       this._audioDataCounter = 1;
     }
@@ -145,21 +143,61 @@ define(['models/DataStorage'], function(DataStorage) {
     }
 
     return this._freqByteData;
-  };
+  }
 
   /**
-   * Send message to fallback page.
-   * @param {string} action
-   * @param {*=} data
+   * Init player.
    */
-  FlashPlayer.prototype.sendMessage = function(action, data) {
-    data = data || {};
-    this._port.postMessage({action: action, data: data});
-  };
-
-  FlashPlayer.prototype.init = function() {
+  function init() {
     console.info('Flash fallback');
-  };
 
-  return FlashPlayer;
+    // Init iframe
+    var iFrameObj = document.createElement('iframe');
+    iFrameObj.id = 'playerFallback';
+    iFrameObj.src = FRAME_SRC;
+    iFrameObj.scrolling = 'no';
+    document.body.appendChild(iFrameObj);
+
+    // Listen messages from proxy
+    chrome.runtime.onConnect.addListener(function(port) {
+      if (port.name == 'proxy') {
+        _port = port;
+
+        port.onMessage.addListener(function(message) {
+          switch (message.action) {
+            case 'ready':
+              setVolume(DataStorage.getVolume());
+            case 'playing':
+            case 'play':
+            case 'abort':
+            case 'error':
+            case 'volumechange':
+              _isPlaying = (message.action == 'playing');
+              if (_bindings.hasOwnProperty(message.action)) {
+                _bindings[message.action]();
+              }
+              break;
+            case 'flash':
+              var bg = chrome.extension.getBackgroundPage();
+              bg.openOptions('flash');
+              break;
+          }
+        });
+      }
+    });
+  }
+
+  /**
+   * @typedef {{}} FlashPlayer
+   */
+  return {
+    init: init,
+    attachEvent: attachEvent,
+    play: play,
+    stop: stop,
+    setVolume: setVolume,
+    getVolume: getVolume,
+    isPlaying: isPlaying,
+    getAudioData: getAudioData
+  };
 });

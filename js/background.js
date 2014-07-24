@@ -19,6 +19,10 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
 
   var _foundStreams = [];
 
+  /**
+   * @type {HtmlPlayer|FlashPlayer}
+   * @private
+   */
   var _player = HtmlPlayer;
 
   /**
@@ -288,15 +292,15 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
 
   // Run!
   HtmlPlayer.canPlayMP3(function(status) {
-    if (!status) {
-      _player = new FlashPlayer();
-    }
+//    if (!status) {
+      _player = FlashPlayer;
+//    }
     _player.init();
 
     // Listen messages from popup and options
     chrome.runtime.onMessage.addListener(messageDispatcher);
 
-    // Hotkeys
+    // Hotkeys listener
     chrome.commands.onCommand.addListener(messageDispatcher);
 
     // Detect audio
@@ -312,21 +316,38 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
       }
     }, {urls: ['http://*/*', 'https://*/*'], types: ['other', 'object']}, ['responseHeaders']);
 
+    // Init background page
     updateContextMenu();
     initEvents();
     setStatus();
-
-    window.Radio = {
-      getStatus: function() {
-        return _status;
-      },
-      getStorage: function() {
-        return DataStorage;
-      },
-      getAudioData: function() {
-        return _player.getAudioData();
-      },
-      openOptions: openOptions
-    };
   });
+
+  /**
+   * @public
+   * @return {string}
+   */
+  window.getStatus = function() {
+    return _status;
+  };
+
+  /**
+   * @public
+   * @return {DataStorage}
+   */
+  window.getStorage = function() {
+    return DataStorage;
+  };
+
+  /**
+   * @public
+   * @return {Uint8Array}
+   */
+  window.getAudioData = function() {
+    return _player.getAudioData();
+  };
+
+  /**
+   * @public
+   */
+  window.openOptions = openOptions;
 });

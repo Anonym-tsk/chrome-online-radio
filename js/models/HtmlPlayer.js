@@ -8,6 +8,7 @@ define(['models/DataStorage'], function(DataStorage) {
   var _audio;
 
   /**
+   * Attach event handler to player.
    * @param {string} name
    * @param {function} callback
    */
@@ -128,6 +129,9 @@ define(['models/DataStorage'], function(DataStorage) {
     setVolume(DataStorage.getVolume());
   }
 
+  /**
+   * @typedef {{}} HtmlPlayer
+   */
   return {
     init: init,
     attachEvent: attachEvent,
