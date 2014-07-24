@@ -312,9 +312,9 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
 
   // Run!
   HtmlPlayer.canPlayMP3(function(status) {
-//    if (!status) {
+    if (!status) {
       _player = FlashPlayer;
-//    }
+    }
     _player.init();
 
     // Listen messages from popup and options
