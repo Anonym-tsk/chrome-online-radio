@@ -1,4 +1,4 @@
-define(['models/DataStorage'], function(DataStorage) {
+define(['models/DataStorage', 'utils/Utils'], function(DataStorage, Utils) {
   'use strict';
 
   /**
@@ -178,8 +178,7 @@ define(['models/DataStorage'], function(DataStorage) {
               }
               break;
             case 'flash':
-              var bg = chrome.extension.getBackgroundPage();
-              bg.openOptions('flash');
+              Utils.openOptions('flash');
               break;
           }
         });

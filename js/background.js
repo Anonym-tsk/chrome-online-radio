@@ -2,8 +2,8 @@
   baseUrl: 'js'
 });
 
-require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/HtmlPlayer', 'utils/Translator'],
-  function(Updater, DataStorage, FlashPlayer, HtmlPlayer, Translator) {
+require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
+  'models/HtmlPlayer', 'utils/Translator'], function(Utils, DataStorage, FlashPlayer, HtmlPlayer, Translator) {
   'use strict';
 
   /**
@@ -76,6 +76,10 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
     });
   }
 
+  /**
+   * Message dispatcher.
+   * @param {{}|string} message
+   */
   function messageDispatcher(message) {
     var action, data = null, volume, volStep = 5, stations, name;
     if (typeof message == 'string') {
@@ -166,7 +170,7 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
         break;
 
       case 'options':
-        openOptions(data);
+        Utils.openOptions(data);
         break;
     }
   }
@@ -274,26 +278,8 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
         chrome.contextMenus.create({
           title: _foundStreams[i].title,
           contexts: contexts,
-          onclick: openOptions.bind(null, 'add#' + _foundStreams[i].title + '#' + _foundStreams[i].stream + '#' + _foundStreams[i].url)
+          onclick: Utils.openOptions.bind(null, 'add#' + _foundStreams[i].title + '#' + _foundStreams[i].stream + '#' + _foundStreams[i].url)
         });
-      }
-    });
-  }
-
-  /**
-   * Open options page.
-   * @param {string} page
-   */
-  function openOptions(page) {
-    var optionsUrl = chrome.runtime.getURL('options.html');
-    var fullUrl = (typeof page == 'string') ? optionsUrl + '#' + page : optionsUrl;
-    chrome.tabs.query({url: optionsUrl}, function(tabs) {
-      if (tabs.length) {
-        chrome.tabs.update(tabs[0].id, {active: true, url: fullUrl});
-        chrome.tabs.reload(tabs[0].id);
-      }
-      else {
-        chrome.tabs.create({url: fullUrl});
       }
     });
   }
@@ -308,7 +294,7 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
   });
 
   // Check updates
-  Updater.checkUpdates();
+  Utils.checkUpdates();
 
   // Run!
   HtmlPlayer.canPlayMP3(function(status) {
@@ -368,10 +354,4 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
   window.getAudioData = function() {
     return _player.getAudioData();
   };
-
-  /**
-   * @public
-   * @export
-   */
-  window.openOptions = openOptions;
 });
