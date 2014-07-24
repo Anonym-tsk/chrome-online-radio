@@ -272,6 +272,10 @@
   xhr.onreadystatechange = (function() {
     if (xhr.readyState == 4) {
       _coreStations = JSON.parse(xhr.responseText);
+      // TODO: Этот цикл нужен для перехода на плейлисты. Его надо убрать после окончания работ.
+      for (var i in _coreStations) if (_coreStations.hasOwnProperty(i)) {
+        _coreStations[i]['stream'] = _coreStations[i]['streams'][0];
+      }
       _updateStationsList();
     }
   });

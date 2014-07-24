@@ -63,15 +63,17 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
       sendMessage(_status);
     });
     _player.attachEvent('error', function() {
-      if (_status !== STATUS.STOPPED) {
-        if (_attempts++ < 4) {
-          _player.play();
-        }
-        else {
-          _attempts = 0;
-          setStatus(STATUS.ERROR);
-          sendMessage(_status);
-        }
+      if (_status === STATUS.STOPPED) {
+        return;
+      }
+
+      if (_attempts++ < 4) {
+        _player.play();
+      }
+      else {
+        _attempts = 0;
+        setStatus(STATUS.ERROR);
+        sendMessage(_status);
       }
     });
   }
