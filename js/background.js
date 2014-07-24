@@ -6,6 +6,11 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
   function(Updater, DataStorage, FlashPlayer, HtmlPlayer, Translator) {
   'use strict';
 
+  /**
+   * Statuses.
+   * @const
+   * @type {{BUFFERING: string, PLAYING: string, STOPPED: string, ERROR: string}}
+   */
   var STATUS = {
     BUFFERING: 'buffering',
     PLAYING: 'playing',
@@ -13,10 +18,25 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
     ERROR: 'error'
   };
 
+  /**
+   * Current status.
+   * @type {string}
+   * @private
+   */
   var _status = STATUS.STOPPED;
 
+  /**
+   * Retry on error counter.
+   * @type {number}
+   * @private
+   */
   var _attempts = 0;
 
+  /**
+   * Found streams on page.
+   * @type {Array}
+   * @private
+   */
   var _foundStreams = [];
 
   /**
@@ -324,6 +344,7 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
 
   /**
    * @public
+   * @export
    * @return {string}
    */
   window.getStatus = function() {
@@ -332,6 +353,7 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
 
   /**
    * @public
+   * @export
    * @return {DataStorage}
    */
   window.getStorage = function() {
@@ -340,6 +362,7 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
 
   /**
    * @public
+   * @export
    * @return {Uint8Array}
    */
   window.getAudioData = function() {
@@ -348,6 +371,7 @@ require(['utils/Updater', 'models/DataStorage', 'models/FlashPlayer', 'models/Ht
 
   /**
    * @public
+   * @export
    */
   window.openOptions = openOptions;
 });
