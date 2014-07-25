@@ -216,14 +216,14 @@
         favorites = _storage.getFavorites();
 
     $.each(favorites, function(name) {
-      if (stations.hasOwnProperty(name) && !stations[name].hidden) {
+      if (stations.hasOwnProperty(name) && !stations[name].isHidden()) {
         var rendered = renderStation(name, stations[name].title, stations[name].image);
         $favorites.prepend(rendered);
       }
     });
 
     $.each(stations, function(name, station) {
-      if (!favorites.hasOwnProperty(name) && !station.hidden) {
+      if (!favorites.hasOwnProperty(name) && !station.isHidden()) {
         var rendered = renderStation(name, station.title, station.image);
         $stations.append(rendered);
       }

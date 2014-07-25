@@ -18,15 +18,15 @@ require(['utils/Translator', 'lib/jquery.min'], function(Translator) {
   /**
    * Renders one station for stations list.
    * @param {string} name
-   * @param {{}} station
+   * @param {Station} station
    * @return {jQuery}
    */
   function renderStation(name, station) {
-    var $station = $('<div/>', {'class': 'station' + (station.hidden ? ' hidden' : ''), 'data-name': name, 'data-type': station.type});
+    var $station = $('<div/>', {'class': 'station' + (station.isHidden() ? ' hidden' : ''), 'data-name': name, 'data-type': station.type});
     $('<div/>', {'class': 'image'}).css('backgroundImage', station.image ? 'url(' + station.image + ')' : '').appendTo($station);
     $('<i/>', {'class': 'icon icon-delete', 'title': Translator.translate('delete')}).appendTo($station);
     $('<i/>', {'class': 'icon icon-restore', 'title': Translator.translate('restore')}).appendTo($station);
-    if (station.type !== 'core') {
+    if (station.isCoreStation()) {
       $('<i/>', {'class': 'icon icon-edit', 'title': Translator.translate('edit')}).appendTo($station);
     }
     $('<h3/>', {'class': 'title', 'text': station.title}).appendTo($station);
@@ -102,8 +102,8 @@ require(['utils/Translator', 'lib/jquery.min'], function(Translator) {
         var $form = $('#addStation').clone().removeAttr('id').data('name', name);
         $form.find('[name="title"]').val(station.title);
         $form.find('[name="url"]').val(station.url || '');
-        $form.find('[name="image"]').val(station.image || '');
-        $form.find('[name="stream"]').val(station.stream);
+        $form.find('[name="image"]').val(station.image);
+        $form.find('[name="stream"]').val(station.getStream());
         $form.find('[type="submit"]').val(Translator.translate('save'));
         $station.addClass('edit').append($form);
       })

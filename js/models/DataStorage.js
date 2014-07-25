@@ -1,4 +1,4 @@
-﻿define(function() {
+﻿define(['models/Station'], function(Station) {
   'use strict';
 
   /**
@@ -23,13 +23,7 @@
    * User stations.
    * @type {{}}
    */
-  var _userStations = JSON.parse(localStorage.getItem('_stations')) || {};
-
-  /**
-   * All stations list.
-   * @type {{}}
-   */
-  var _stations = {};
+  var _userStations = {};
 
   /**
    * Hidden stations list.
@@ -60,25 +54,6 @@
   }
 
   /**
-   * Update stations list with core and users stations.
-   * @private
-   */
-  function _updateStationsList() {
-    var stations = {}, i;
-    for (i in _coreStations) if (_coreStations.hasOwnProperty(i)) {
-      stations[i] = _coreStations[i];
-      stations[i]['type'] = 'core';
-      stations[i]['hidden'] = _hidden.hasOwnProperty(i);
-    }
-    for (i in _userStations) if (_userStations.hasOwnProperty(i)) {
-      stations[i] = _userStations[i];
-      stations[i]['type'] = 'user';
-      stations[i]['hidden'] = false;
-    }
-    _stations = stations;
-  }
-
-  /**
    * Add a station to favorites.
    * @param {string} name Station name.
    * @public
@@ -104,7 +79,7 @@
   /**
    * Check station in favorites.
    * @param {string} name Station name.
-   * @return {?Object}
+   * @return {?number}
    * @public
    */
   function isFavorite(name) {
@@ -141,24 +116,32 @@
 
   /**
    * Get all stations.
-   * @return {Object}
+   * @return {{}}
    * @public
    */
   function getStations() {
-    return _stations;
+    var stations = {}, name;
+    for (name in _coreStations) if (_coreStations.hasOwnProperty(name)) {
+      stations[name] = _coreStations[name];
+    }
+    for (name in _userStations) if (_userStations.hasOwnProperty(name)) {
+      stations[name] = _userStations[name];
+    }
+    return stations;
   }
 
   /**
    * Get station by name.
    * @param {string} name Station name.
-   * @return {?Object}
+   * @return {?Station}
    * @public
    */
   function getStationByName(name) {
-    if (_stations.hasOwnProperty(name)) {
-      var station = _stations[name];
-      station.name = name;
-      return station;
+    if (_coreStations.hasOwnProperty(name)) {
+      return _coreStations[name];
+    }
+    if (_userStations.hasOwnProperty(name)) {
+      return _userStations[name];
     }
     return null;
   }
@@ -184,7 +167,7 @@
 
   /**
    * Get the last played station.
-   * @return {Object}
+   * @return {Station}
    * @public
    */
   function getLastStation() {
@@ -229,11 +212,10 @@
   function addStation(station, name) {
     if (!name) {
       var keys = Object.keys(_userStations);
-      name = keys.length > 0 ? parseInt(keys[keys.length - 1]) + 1 : 1;
+      name = keys.length > 0 ? parseInt(keys[keys.length - 1], 10) + 1 : 1;
     }
     _userStations[name] = station;
     _save('_stations', JSON.stringify(_userStations));
-    _updateStationsList();
   }
 
   /**
@@ -245,12 +227,10 @@
     if (_userStations.hasOwnProperty(name)) {
       delete _userStations[name];
       _save('_stations', JSON.stringify(_userStations));
-      _updateStationsList();
     }
     else if (_coreStations.hasOwnProperty(name)) {
       _hidden[name] = 1;
       _save('_hidden', JSON.stringify(_hidden));
-      _updateStationsList();
     }
   }
 
@@ -263,24 +243,27 @@
     if (_hidden.hasOwnProperty(name)) {
       delete _hidden[name];
       _save('_hidden', JSON.stringify(_hidden));
-      _updateStationsList();
     }
   }
 
-  // Load stations list
+  // Load core stations list
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = (function() {
     if (xhr.readyState == 4) {
-      _coreStations = JSON.parse(xhr.responseText);
-      // TODO: Этот цикл нужен для перехода на плейлисты. Его надо убрать после окончания работ.
-      for (var i in _coreStations) if (_coreStations.hasOwnProperty(i)) {
-        _coreStations[i]['stream'] = _coreStations[i]['streams'][0];
+      var json = JSON.parse(xhr.responseText);
+      for (var name in json) if (json.hasOwnProperty(name)) {
+        _coreStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image);
       }
-      _updateStationsList();
     }
   });
   xhr.open('GET', chrome.extension.getURL('stations.json'), true);
   xhr.send();
+
+  // Load users stations list
+  var json = JSON.parse(localStorage.getItem('_stations')) || {};
+  for (var name in json) if (json.hasOwnProperty(name)) {
+    _userStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, true, _hidden.hasOwnProperty(name));
+  }
 
   /**
    * @typedef {{}} DataStorage

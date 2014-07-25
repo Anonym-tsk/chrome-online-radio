@@ -102,7 +102,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
         }
         else {
           DataStorage.setLast(data);
-          _player.play(DataStorage.getStationByName(data).stream);
+          _player.play(DataStorage.getStationByName(data).getStream());
         }
         break;
 
@@ -120,7 +120,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
               break;
             }
           }
-          _player.play(station.stream);
+          _player.play(station.getStream());
         }
         break;
 
@@ -137,7 +137,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
           }
         }
         DataStorage.setLast(name);
-        _player.play(stations[name].stream);
+        _player.play(stations[name].getStream());
         break;
 
       case 'volume':

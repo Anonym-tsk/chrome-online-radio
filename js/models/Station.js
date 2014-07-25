@@ -1,6 +1,7 @@
 define(function() {
   /**
    * Station class.
+   * @param {string} name
    * @param {string} title
    * @param {string} url
    * @param {string[]} streams
@@ -9,7 +10,13 @@ define(function() {
    * @param {boolean=} isHidden
    * @constructor
    */
-  function Station(title, url, streams, image, isUserStation, isHidden) {
+  function Station(name, title, url, streams, image, isUserStation, isHidden) {
+    /**
+     * Name.
+     * @type {string}
+     */
+    this.name = name;
+
     /**
      * Title.
      * @type {string}
@@ -17,7 +24,7 @@ define(function() {
     this.title = title;
 
     /**
-     * Stream url.
+     * Stations site url.
      * @type {string}
      */
     this.url = url;
@@ -30,9 +37,9 @@ define(function() {
 
     /**
      * Image url.
-     * @type {?string}
+     * @type {string}
      */
-    this.image = image || null;
+    this.image = image || '';
 
     /**
      * Is users station.
