@@ -3,9 +3,9 @@
 
   /**
    * Favorites.
-   * @type {{}}
+   * @type {[]}
    */
-  var _favorites = JSON.parse(localStorage.getItem('_favorites')) || {};
+  var _favorites = JSON.parse(localStorage.getItem('_favorites')) || [];
 
   /**
    * Last station name.
@@ -59,8 +59,9 @@
    * @public
    */
   function like(name) {
-    var keys = Object.keys(_favorites);
-    _favorites[name] = keys.length > 0 ? _favorites[keys[keys.length - 1]] + 1 : 1;
+    if (!isFavorite(name)) {
+      _favorites.push(name);
+    }
     _save('_favorites', JSON.stringify(_favorites));
   }
 
@@ -70,8 +71,9 @@
    * @public
    */
   function dislike(name) {
-    if (isFavorite(name)) {
-      delete _favorites[name];
+    var index = _favorites.indexOf(name);
+    if (index >= 0) {
+      _favorites.splice(index, 1);
     }
     _save('_favorites', JSON.stringify(_favorites));
   }
@@ -79,11 +81,11 @@
   /**
    * Check station in favorites.
    * @param {string} name Station name.
-   * @return {?number}
+   * @return {boolean}
    * @public
    */
   function isFavorite(name) {
-    return _favorites.hasOwnProperty(name) ? _favorites[name] : false;
+    return _favorites.indexOf(name) >= 0;
   }
 
   /**
@@ -93,6 +95,15 @@
    */
   function getFavorites() {
     return _favorites;
+  }
+
+  /**
+   * Set all favorites.
+   * @param {[]} favorites
+   */
+  function setFavorites(favorites) {
+    _favorites = favorites;
+    _save('_favorites', JSON.stringify(_favorites));
   }
 
   /**
@@ -273,6 +284,7 @@
     dislike: dislike,
     isFavorite: isFavorite,
     getFavorites: getFavorites,
+    setFavorites: setFavorites,
     getVersion: getVersion,
     setVersion: setVersion,
     getStations: getStations,

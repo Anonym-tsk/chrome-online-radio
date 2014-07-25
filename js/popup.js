@@ -215,19 +215,18 @@
     var stations = _storage.getStations(),
         favorites = _storage.getFavorites();
 
-    $.each(favorites, function(name) {
+    for (var i = 0, l = favorites.length; i < l; i++) {
+      var name = favorites[i];
       if (stations.hasOwnProperty(name) && !stations[name].isHidden()) {
-        var rendered = renderStation(name, stations[name].title, stations[name].image);
-        $favorites.prepend(rendered);
+        $favorites.prepend(renderStation(name, stations[name].title, stations[name].image));
       }
-    });
+    }
 
-    $.each(stations, function(name, station) {
-      if (!favorites.hasOwnProperty(name) && !station.isHidden()) {
-        var rendered = renderStation(name, station.title, station.image);
-        $stations.append(rendered);
+    for (var n in stations) {
+      if (stations.hasOwnProperty(n) && !_storage.isFavorite(n) && !stations[n].isHidden()) {
+        $stations.append(renderStation(stations[n].name, stations[n].title, stations[n].image));
       }
-    });
+    }
   }
 
   /**

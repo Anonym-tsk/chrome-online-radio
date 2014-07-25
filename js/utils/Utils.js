@@ -7,7 +7,16 @@ define(['models/DataStorage', 'utils/Translator'], function(DataStorage, Transla
    */
   var updates = {
     '1.7.0': function() {
+      // Удаляем старые хоткеи, будем использовать системные
       localStorage.removeItem('_hotkeys');
+    },
+    '1.7.2': function() {
+      // Сделаем из объекта массив
+      var favorites = DataStorage.getFavorites(), newFavorites = [];
+      for (var name in favorites) if (favorites.hasOwnProperty(name)) {
+        newFavorites.push(name);
+      }
+      DataStorage.setFavorites(newFavorites);
     }
   };
 
