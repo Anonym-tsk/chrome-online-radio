@@ -216,7 +216,7 @@
 
   /**
    * Save users station.
-   * @param {Object} station Station object.
+   * @param {Station} station Station.
    * @param {string|number=} name Station name for update station.
    * @public
    */

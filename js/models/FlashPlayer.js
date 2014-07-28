@@ -117,9 +117,9 @@ define(['models/DataStorage', 'utils/Utils'], function(DataStorage, Utils) {
    */
   function getAudioData() {
     var NUM_BARS = 64,
-      MIN = 30,
-      MAX = 255,
-      STEP = 5;
+        MIN = 30,
+        MAX = 255,
+        STEP = 5;
     this._freqByteData = this._freqByteData || [];
     this._audioDataCounter = ++this._audioDataCounter || 1;
 

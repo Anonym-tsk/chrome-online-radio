@@ -68,7 +68,8 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
       }
 
       if (_attempts++ < 4) {
-        _player.play();
+        var station = DataStorage.getLastStation();
+        _player.play(station ? station.getNextStream() : null);
       }
       else {
         _attempts = 0;
