@@ -26,7 +26,7 @@ require(['utils/Translator', 'lib/jquery.min'], function(Translator) {
     $('<div/>', {'class': 'image'}).css('backgroundImage', station.image ? 'url(' + station.image + ')' : '').appendTo($station);
     $('<i/>', {'class': 'icon icon-delete', 'title': Translator.translate('delete')}).appendTo($station);
     $('<i/>', {'class': 'icon icon-restore', 'title': Translator.translate('restore')}).appendTo($station);
-    if (station.isCoreStation()) {
+    if (station.isUserStation()) {
       $('<i/>', {'class': 'icon icon-edit', 'title': Translator.translate('edit')}).appendTo($station);
     }
     $('<h3/>', {'class': 'title', 'text': station.title}).appendTo($station);
@@ -127,12 +127,13 @@ require(['utils/Translator', 'lib/jquery.min'], function(Translator) {
     $(document).on('submit', '.addStation', function(e) {
       e.preventDefault();
       var $this = $(this);
-      _storage.addStation({
-        title: $this.find('[name="title"]').val(),
-        url: $this.find('[name="url"]').val(),
-        image: $this.find('[name="image"]').val(),
-        stream: $this.find('[name="stream"]').val()
-      }, $this.data('name'));
+      _storage.addStation(
+        $this.find('[name="title"]').val(),
+        [$this.find('[name="stream"]').val()],
+        $this.find('[name="url"]').val(),
+        $this.find('[name="image"]').val(),
+        $this.data('name')
+      );
       renderStations();
       $('body').attr('data-page', 'stations');
       $this.get(0).reset();

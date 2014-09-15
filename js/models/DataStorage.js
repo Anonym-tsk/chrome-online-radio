@@ -216,16 +216,19 @@
 
   /**
    * Save users station.
-   * @param {Station} station Station.
+   * @param {string} title Station title.
+   * @param {string[]} streams Station streams.
+   * @param {string=} url Station site url.
+   * @param {string=} image Station image url.
    * @param {string|number=} name Station name for update station.
    * @public
    */
-  function addStation(station, name) {
+  function addStation(title, streams, url, image, name) {
     if (!name) {
       var keys = Object.keys(_userStations);
       name = keys.length > 0 ? parseInt(keys[keys.length - 1], 10) + 1 : 1;
     }
-    _userStations[name] = station;
+    _userStations[name] = new Station(name, title, url, streams, image, true);
     _save('_stations', JSON.stringify(_userStations));
   }
 
