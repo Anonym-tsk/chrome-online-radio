@@ -1,10 +1,19 @@
 {
   "nashe": {
     "title": "Наше Радио",
-    "url": "http://www.nashe.ru/online.php",
+    "url": "http://www.nashe.ru/",
     "image": "http://nasheradio.advera.ru/logo.jpg",
     "streams": [
       "http://mp3.nashe.ru/nashe-128.mp3"
+    ]
+  },
+  "nashe20": {
+    "title": "Наше 2.0",
+    "url": "http://www.nashe.ru/nashe20/",
+    "image": "http://www.nashe.ru/images/logo_20.png",
+    "streams": [
+      "http://mp3.nashe.ru/nashe20-128.mp3",
+      "http://mp3.nashe.ru/nashe20-64.mp3"
     ]
   },
   "maximum": {
@@ -232,6 +241,33 @@
     "image": "http://www.dv-reclama.ru/upload/main/ba8/radiounost_200.gif",
     "streams": [
       "http://icecast.vgtrk.cdnvideo.ru/ufm_mp3_192kbps"
+    ]
+  },
+  "sportfm": {
+    "title": "Спорт FM",
+    "url": "http://sportfm.ru/",
+    "image": "http://pofm.ru/images/radio/sport_fm.jpg",
+    "streams": [
+      "http://online.sportfm.ru:8000/sport128",
+      "http://online.sportfm.ru:8000/sport64",
+      "http://online.sportfm.ru:8000/sport32"
+    ]
+  },
+  "cityfm": {
+    "title": "Сити FM",
+    "url": "http://www.city-fm.ru/",
+    "image": "http://pofm.ru/images/radio/city_fm.jpg",
+    "streams": [
+      "http://79.143.70.114:8000/cityfm-128k.mp3",
+      "http://79.143.70.114:8000/cityfm-64k.mp3"
+    ]
+  },
+  "mfm": {
+    "title": "MFM Station",
+    "url": "http://mfm.ua/",
+    "image": "http://3.bp.blogspot.com/-2FD_h3kU6nU/TZ7sGS3JNTI/AAAAAAAABdU/auF-NMlXWyg/s1600/mfm.gif",
+    "streams": [
+      "http://radio.mfm.ua:80/online128"
     ]
   }
 }
