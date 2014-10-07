@@ -101,8 +101,8 @@ define(['models/DataStorage'], function(DataStorage) {
   function canPlayMP3(callback) {
     try {
       var audio = new Audio();
-      if (audio.canPlayType('audio/mpeg; codecs="mp3"') == 'probably') {
-        callback(true);
+      if (!audio.canPlayType('audio/mpeg; codecs="mp3"')) {
+        callback(false);
       }
       else {
         audio.addEventListener('canplaythrough', function() {
