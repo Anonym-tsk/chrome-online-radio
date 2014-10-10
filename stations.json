@@ -67,7 +67,7 @@
   "montecarlo": {
     "title": "Монте-Карло",
     "url": "http://montecarlo.ru/",
-    "image": "http://station.ru/upload/images/st_mc_140.png",
+    "image": "http://montecarlo.ru/upload/images/rmc300.jpg",
     "streams": [
       "http://mc.fmtuner.ru/"
     ]
@@ -100,8 +100,9 @@
   "relax": {
     "title": "Relax FM",
     "url": "http://www.relax-fm.ru/",
-    "image": "http://www.relax-fm.ru/_pic/logo.jpg",
+    "image": "http://www.relax-fm.ru/design/images/logo.png",
     "streams": [
+      "http://ru2.101.ru:8000/v13_1",
       "http://217.29.51.162:8000/relaxfm-128k.mp3"
     ]
   },
@@ -198,7 +199,7 @@
   "radiosibir": {
     "title": "Радио Сибирь",
     "url": "http://radiosibir.ru/",
-    "image": "http://radiosibir.ru/img/radio_sibir_logo.png",
+    "image": "http://radiosibir.ru/sites/default/files/l.png",
     "streams": [
       "http://radiosibir.ru:8090/HQ"
     ]
@@ -206,7 +207,7 @@
   "tengrifm": {
     "title": "Tengri FM",
     "url": "http://tengrifm.kz/",
-    "image": "http://tengrifm.kz/images/player/logo.png",
+    "image": "http://old.tengrifm.kz/images/logo-for-vk.png",
     "streams": [
       "http://195.210.47.197:8000/live"
     ]
