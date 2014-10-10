@@ -243,6 +243,7 @@
       _save('_stations', JSON.stringify(_userStations));
     }
     else if (_coreStations.hasOwnProperty(name)) {
+      _coreStations[name].setHidden(true);
       _hidden[name] = 1;
       _save('_hidden', JSON.stringify(_hidden));
     }
@@ -255,6 +256,7 @@
    */
   function restoreStation(name) {
     if (_hidden.hasOwnProperty(name)) {
+      _coreStations[name].setHidden(false);
       delete _hidden[name];
       _save('_hidden', JSON.stringify(_hidden));
     }
@@ -266,7 +268,7 @@
     if (xhr.readyState == 4) {
       var json = JSON.parse(xhr.responseText);
       for (var name in json) if (json.hasOwnProperty(name)) {
-        _coreStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image);
+        _coreStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, false, _hidden.hasOwnProperty(name));
       }
     }
   });
@@ -276,7 +278,7 @@
   // Load users stations list
   var json = JSON.parse(localStorage.getItem('_stations')) || {};
   for (var name in json) if (json.hasOwnProperty(name)) {
-    _userStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, true, _hidden.hasOwnProperty(name));
+    _userStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, true);
   }
 
   /**

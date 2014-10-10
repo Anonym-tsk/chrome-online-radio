@@ -1,4 +1,6 @@
 define(function() {
+  'use strict';
+
   /**
    * Station class.
    * @param {string} name
@@ -86,6 +88,14 @@ define(function() {
    */
   Station.prototype.isHidden = function() {
     return this._hidden;
+  };
+
+  /**
+   * Set hidden attribute.
+   * @param {boolean} isHidden
+   */
+  Station.prototype.setHidden = function(isHidden) {
+    this._hidden = !!isHidden;
   };
 
   /**
