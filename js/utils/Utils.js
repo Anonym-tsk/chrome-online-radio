@@ -33,7 +33,7 @@ define(['models/DataStorage', 'utils/Translator'], function(DataStorage, Transla
     var previousVersion = DataStorage.getVersion(),
         currentVersion = chrome.runtime.getManifest().version;
 
-    if (currentVersion > previousVersion) {
+    if (localStorage.length && currentVersion > previousVersion) {
       for (var version in updates) if (updates.hasOwnProperty(version)) {
         if (version > previousVersion && version <= currentVersion) {
           updates[version].call();
