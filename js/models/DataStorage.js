@@ -41,7 +41,7 @@
    * Extension version.
    * @type {string}
    */
-  var _version = localStorage.getItem('_version') || '0.0.0';
+  var _version = localStorage.getItem('_version') || null;
 
   /**
    * Save value to localStorage.
