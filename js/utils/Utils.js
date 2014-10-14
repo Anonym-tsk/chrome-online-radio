@@ -17,6 +17,12 @@ define(['models/DataStorage', 'utils/Translator'], function(DataStorage, Transla
         newFavorites.push(name);
       }
       DataStorage.setFavorites(newFavorites);
+    },
+    '1.7.7': function() {
+      var json = JSON.parse(localStorage.getItem('_stations')) || {};
+      for (var name in json) if (json.hasOwnProperty(name)) {
+        DataStorage.addStation(json[name].title, [json[name].stream], json[name].url || '', json[name].image || '', name);
+      }
     }
   };
 

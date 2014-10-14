@@ -224,9 +224,11 @@
    * @public
    */
   function addStation(title, streams, url, image, name) {
-    if (!name) {
+    if (!name) { // Создаем новую станцию
       var keys = Object.keys(_userStations);
       name = keys.length > 0 ? parseInt(keys[keys.length - 1], 10) + 1 : 1;
+    } else if (!_userStations[name]) { // Проверим, есть ли станция с таким именем
+      return;
     }
     _userStations[name] = new Station(name, title, url, streams, image, true);
     _save('_stations', JSON.stringify(_userStations));
