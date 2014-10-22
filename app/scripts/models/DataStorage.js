@@ -132,11 +132,15 @@
    */
   function getStations() {
     var stations = {}, name;
-    for (name in _coreStations) if (_coreStations.hasOwnProperty(name)) {
-      stations[name] = _coreStations[name];
+    for (name in _coreStations) {
+      if (_coreStations.hasOwnProperty(name)) {
+        stations[name] = _coreStations[name];
+      }
     }
-    for (name in _userStations) if (_userStations.hasOwnProperty(name)) {
-      stations[name] = _userStations[name];
+    for (name in _userStations) {
+      if (_userStations.hasOwnProperty(name)) {
+        stations[name] = _userStations[name];
+      }
     }
     return stations;
   }
@@ -191,7 +195,7 @@
    * @public
    */
   function getVolume() {
-    return typeof _volume.current == 'number' ? _volume.current : 0;
+    return typeof _volume.current === 'number' ? _volume.current : 0;
   }
 
   /**
@@ -200,7 +204,7 @@
    * @public
    */
   function getVolumeLast() {
-    return typeof _volume.last == 'number' ? _volume.last : 0;
+    return typeof _volume.last === 'number' ? _volume.last : 0;
   }
 
   /**
@@ -266,21 +270,25 @@
 
   // Load core stations list
   var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = (function() {
-    if (xhr.readyState == 4) {
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
       var json = JSON.parse(xhr.responseText);
-      for (var name in json) if (json.hasOwnProperty(name)) {
-        _coreStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, false, _hidden.hasOwnProperty(name));
+      for (var name in json) {
+        if (json.hasOwnProperty(name)) {
+          _coreStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, false, _hidden.hasOwnProperty(name));
+        }
       }
     }
-  });
+  };
   xhr.open('GET', chrome.extension.getURL('stations.json'), true);
   xhr.send();
 
   // Load users stations list
   var json = JSON.parse(localStorage.getItem('_stations')) || {};
-  for (var name in json) if (json.hasOwnProperty(name)) {
-    _userStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, true);
+  for (var name in json) {
+    if (json.hasOwnProperty(name)) {
+      _userStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, true);
+    }
   }
 
   /**

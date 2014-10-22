@@ -3,6 +3,8 @@
  * Proxy messages from background to web page.
  */
 (function(window) {
+  'use strict';
+
   if (window === window.top) {
     return;
   }
@@ -23,10 +25,10 @@
    * Proxy messages from web page to background.
    */
   window.addEventListener('message', function(event) {
-    if (event.source != window) {
+    if (event.source !== window) {
       return;
     }
-    if (event.data.hasOwnProperty('type') && event.data.type == 'fallback_from') {
+    if (event.data.hasOwnProperty('type') && event.data.type.toString() === 'fallback_from') {
       sendToBackground(event.data.action, event.data.data);
     }
   }, false);
@@ -37,7 +39,7 @@
    * @param {string=} data
    */
   function sendToBackground(action, data) {
-    port.postMessage({action: action, data: typeof data != 'undefined' ? data : null});
+    port.postMessage({action: action, data: typeof data !== 'undefined' ? data : null});
   }
 
   /**
@@ -49,7 +51,7 @@
     var message = {
       type: 'fallback_to',
       action: action,
-      data: typeof data != 'undefined' ? data : null
+      data: typeof data !== 'undefined' ? data : null
     };
     window.postMessage(message, '*');
   }

@@ -103,7 +103,7 @@ module.exports = function (grunt) {
       all: [
         'Gruntfile.js',
         '<%= config.app %>/scripts/{,*/}*.js',
-        '!<%= config.app %>/scripts/vendor/*'
+        '!<%= config.app %>/scripts/lib/*'
       ]
     },
 
