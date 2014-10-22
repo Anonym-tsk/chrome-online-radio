@@ -303,6 +303,7 @@ module.exports = function (grunt) {
       dist: {
         options: {
           buildnumber: true,
+          indentSize: 2,
           background: {
             target: 'scripts/background.js',
             exclude: [
@@ -321,7 +322,7 @@ module.exports = function (grunt) {
         options: {
           archive: function() {
             var manifest = grunt.file.readJSON('app/manifest.json');
-            return 'package/Online Radio-' + manifest.version + '.zip';
+            return 'package/chrome-online-radio-' + manifest.version + '.zip';
           }
         },
         files: [{
