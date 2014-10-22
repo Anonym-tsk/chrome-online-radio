@@ -2,11 +2,6 @@
 'use strict';
 
 // # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
-
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -81,15 +76,6 @@ module.exports = function (grunt) {
             '<%= config.app %>'
           ]
         }
-      },
-      test: {
-        options: {
-          open: false,
-          base: [
-            'test',
-            '<%= config.app %>'
-          ]
-        }
       }
     },
 
@@ -117,17 +103,8 @@ module.exports = function (grunt) {
       all: [
         'Gruntfile.js',
         '<%= config.app %>/scripts/{,*/}*.js',
-        '!<%= config.app %>/scripts/vendor/*',
-        'test/spec/{,*/}*.js'
+        '!<%= config.app %>/scripts/vendor/*'
       ]
-    },
-    mocha: {
-      all: {
-        options: {
-          run: true,
-          urls: ['http://localhost:<%= connect.options.port %>/index.html']
-        }
-      }
     },
 
      // Compiles Sass to CSS and generates necessary files if requested
@@ -327,11 +304,6 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('test', [
-    'connect:test',
-    'mocha'
-  ]);
-
   grunt.registerTask('build', [
     'clean:dist',
     'chromeManifestVersionUp',
@@ -345,7 +317,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'jshint',
-    'test',
     'build'
   ]);
 };
