@@ -120,7 +120,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
             stations = DataStorage.getStations();
             for (name in stations) {
               if (stations.hasOwnProperty(name)) {
-               DataStorage.setLast(name);
+                DataStorage.setLast(name);
                 station = stations[name];
                 break;
               }
@@ -135,10 +135,10 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
         stations = DataStorage.getStations();
         var keys = Object.keys(stations);
         var length = keys.length;
-        name = DataStorage.getLastName() || (action == 'next' ? keys[length - 1] : keys[0]);
+        name = DataStorage.getLastName() || (action === 'next' ? keys[length - 1] : keys[0]);
         for (var i = 0; i < length; i++) {
-          if (keys[i] == name) {
-            name = (action == 'next') ? keys[(i + 1) % length] : keys[(length + i - 1) % length];
+          if (keys[i] === name) {
+            name = (action === 'next') ? keys[(i + 1) % length] : keys[(length + i - 1) % length];
             break;
           }
         }
@@ -189,7 +189,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
    * @param {string=} data
    */
   function sendMessage(action, data) {
-    chrome.runtime.sendMessage({name: 'popup', action: action, data: typeof data != 'undefined' ? data : null});
+    chrome.runtime.sendMessage({name: 'popup', action: action, data: typeof data !== 'undefined' ? data : null});
   }
 
   /**
@@ -282,24 +282,28 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
           id: 'online_radio'
         });
       }
-      else while (i--) {
-        chrome.contextMenus.create({
-          title: _foundStreams[i].title,
-          contexts: contexts,
-          onclick: Utils.openOptions.bind(null, 'add#' + _foundStreams[i].title + '#' + _foundStreams[i].stream + '#' + _foundStreams[i].url)
-        });
+      else {
+        while (i--) {
+          chrome.contextMenus.create({
+            title: _foundStreams[i].title,
+            contexts: contexts,
+            onclick: Utils.openOptions.bind(null, 'add#' + _foundStreams[i].title + '#' + _foundStreams[i].stream + '#' + _foundStreams[i].url)
+          });
+        }
       }
     });
   }
 
   // Disable Opera offroad mode
-  window.opr && opr.offroad.enabled.get({}, function(details) {
-    if (details.levelOfControl === 'controllable_by_this_extension' || details.levelOfControl === 'controlled_by_this_extension') {
-      if (details.value == true) {
-        opr.offroad.enabled.set({'value': false}, function() {});
+  if (window.opr) {
+    opr.offroad.enabled.get({}, function(details) {
+      if (details.levelOfControl === 'controllable_by_this_extension' || details.levelOfControl === 'controlled_by_this_extension') {
+        if (details.value === true) {
+          opr.offroad.enabled.set({'value': false}, function() {});
+        }
       }
-    }
-  });
+    });
+  }
 
   // Check updates
   Utils.checkUpdates();
@@ -321,8 +325,8 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
     chrome.webRequest.onHeadersReceived.addListener(function(details) {
       var i = details.responseHeaders.length;
       while (i--) {
-        if (details.responseHeaders[i].name == 'Content-Type') {
-          if (details.responseHeaders[i].value == 'audio/mpeg' && details.tabId > 0) {
+        if (details.responseHeaders[i].name === 'Content-Type') {
+          if (details.responseHeaders[i].value === 'audio/mpeg' && details.tabId > 0) {
             addAudioHistory(details);
           }
           break;

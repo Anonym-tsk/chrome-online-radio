@@ -21,6 +21,7 @@
   "validthis": true,
   "globals" : {
     "chrome": true,
+    "opr": true,
     "define": true
   }
 }
