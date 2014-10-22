@@ -185,17 +185,6 @@ module.exports = function (grunt) {
       }
     },
 
-    svgmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= config.app %>/images',
-          src: '{,*/}*.svg',
-          dest: '<%= config.dist %>/images'
-        }]
-      }
-    },
-
     htmlmin: {
       dist: {
         options: {
@@ -215,22 +204,6 @@ module.exports = function (grunt) {
           dest: '<%= config.dist %>'
         }]
       }
-    },
-
-    cssmin: {
-       dist: {
-         files: {
-           '<%= config.dist %>/styles/fonts.css': [
-             '<%= config.app %>/styles/fonts.css'
-           ],
-           '<%= config.dist %>/styles/options.css': [
-             '<%= config.app %>/styles/options.css'
-           ],
-           '<%= config.dist %>/styles/popup.css': [
-             '<%= config.app %>/styles/popup.css'
-           ]
-         }
-       }
     },
 
     uglify: {
@@ -274,18 +247,6 @@ module.exports = function (grunt) {
           ]
         }]
       }
-    },
-
-    // Run some tasks in parallel to speed up build process
-    concurrent: {
-      chrome: [
-        'sass:chrome'
-      ],
-      dist: [
-        'sass:dist',
-        'imagemin',
-        'svgmin'
-      ]
     },
 
     // Compres dist files to package
@@ -360,7 +321,7 @@ module.exports = function (grunt) {
   grunt.registerTask('debug', function () {
     grunt.task.run([
       'jshint',
-      'concurrent:chrome',
+      'sass:chrome',
       'connect:chrome',
       'watch'
     ]);
@@ -374,8 +335,8 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'chromeManifestVersionUp',
-    'concurrent:dist',
-    'cssmin',
+    'sass:dist',
+    'imagemin',
     'concat',
     'uglify',
     'copy',
