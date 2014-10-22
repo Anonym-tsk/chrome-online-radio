@@ -5,6 +5,7 @@ dist
 .sass-cache
 app/bower_components
 test/bower_components
+app/styles/*.css
 package
 atlassian-ide-plugin.xml
 .idea

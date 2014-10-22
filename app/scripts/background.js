@@ -1,5 +1,5 @@
 ﻿require.config({
-  baseUrl: 'js'
+  baseUrl: 'scripts'
 });
 
 require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
