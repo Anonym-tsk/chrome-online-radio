@@ -295,16 +295,15 @@ module.exports = function (grunt) {
     grunt.file.write(config.dist + '/manifest.json', JSON.stringify(manifest, null, options.indentSize));
   });
 
-  grunt.registerTask('debug', function () {
-    grunt.task.run([
-      'jshint',
-      'sass:chrome',
-      'connect:chrome',
-      'watch'
-    ]);
-  });
+  grunt.registerTask('debug', [
+    'jshint',
+    'sass:chrome',
+    'connect:chrome',
+    'watch'
+  ]);
 
   grunt.registerTask('build', [
+    'jshint',
     'clean:dist',
     'chromeManifestVersionUp',
     'sass:dist',
@@ -316,7 +315,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'jshint',
     'build'
   ]);
 };
