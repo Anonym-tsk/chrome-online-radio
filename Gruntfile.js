@@ -39,9 +39,9 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
-      compass: {
+      sass: {
         files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:chrome']
+        tasks: ['sass:chrome']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -131,31 +131,32 @@ module.exports = function (grunt) {
     },
 
      // Compiles Sass to CSS and generates necessary files if requested
-    compass: {
+    sass: {
       options: {
-        sassDir: '<%= config.app %>/styles',
-        cssDir: '<%= config.dist %>/styles',
-        generatedImagesDir: '<%= config.dist %>/images/generated',
-        imagesDir: '<%= config.app %>/images',
-        javascriptsDir: '<%= config.app %>/scripts',
-        fontsDir: '<%= config.app %>/styles/fonts',
-        importPath: '<%= config.app %>/bower_components',
-        httpImagesPath: '/images',
-        httpGeneratedImagesPath: '/images/generated',
-        httpFontsPath: '/styles/fonts',
-        relativeAssets: false,
-        assetCacheBuster: false
+        style: 'compressed',
+        sourcemap: 'none'
       },
       chrome: {
         options: {
-          cssDir: '<%= config.app %>/styles',
-          generatedImagesDir: '<%= config.app %>/images/generated',
-          debugInfo: true
-        }
+          style: 'expanded',
+          update: true
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= config.app %>/styles',
+          src: ['*.sass'],
+          dest: '<%= config.app %>/styles',
+          ext: '.css'
+        }]
       },
       dist: {
-      },
-      test: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.app %>/styles',
+          src: ['*.sass'],
+          dest: '<%= config.dist %>/styles',
+          ext: '.css'
+        }]
       }
     },
 
@@ -278,15 +279,12 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up build process
     concurrent: {
       chrome: [
-        'compass:chrome',
+        'sass:chrome'
       ],
       dist: [
-        'compass:dist',
+        'sass:dist',
         'imagemin',
         'svgmin'
-      ],
-      test: [
-        'compass:test',
       ]
     },
 
