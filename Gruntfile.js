@@ -184,26 +184,26 @@ module.exports = function (grunt) {
     },
 
     uglify: {
-       dist: {
-         files: {
-           '<%= config.dist %>/scripts/popup.js': [
-             '<%= config.dist %>/scripts/popup.js'
-           ],
-           '<%= config.dist %>/scripts/utils/Translator.js': [
-             '<%= config.dist %>/scripts/utils/Translator.js'
-           ]
-         }
-       }
+      dist: {
+        files: {
+          '<%= config.dist %>/scripts/popup.js': [
+            '<%= config.dist %>/scripts/popup.js'
+          ],
+          '<%= config.dist %>/scripts/utils/Translator.js': [
+            '<%= config.dist %>/scripts/utils/Translator.js'
+          ]
+        }
+      }
     },
 
     concat: {
-       dist: {
-         files: {
-           '<%= config.dist %>/scripts/lib/require.js': [
-             '<%= config.app %>/scripts/lib/require.js'
-           ]
-         }
-       }
+      dist: {
+        files: {
+          '<%= config.dist %>/scripts/lib/require.js': [
+            '<%= config.app %>/scripts/lib/require.js'
+          ]
+        }
+      }
     },
 
     // Copies remaining files to places other tasks can use
