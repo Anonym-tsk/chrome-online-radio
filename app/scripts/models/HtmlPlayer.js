@@ -76,8 +76,8 @@ define(['models/DataStorage'], function(DataStorage) {
    * @return {Uint8Array}
    */
   function getAudioData() {
-    var getAudioAnalyser = (function() {
-      var context = new webkitAudioContext();
+    var getAudioAnalyser = function() {
+      var context = new window.webkitAudioContext();
       var analyser = context.createAnalyser();
       analyser.smoothingTimeConstant = 0.8;
       analyser.fftSize = 128;
@@ -85,7 +85,7 @@ define(['models/DataStorage'], function(DataStorage) {
       source.connect(analyser);
       analyser.connect(context.destination);
       return analyser;
-    }).bind(this);
+    }.bind(this);
 
     this._audioAnalyser = this._audioAnalyser || getAudioAnalyser();
     var freqByteData = new Uint8Array(this._audioAnalyser.frequencyBinCount);

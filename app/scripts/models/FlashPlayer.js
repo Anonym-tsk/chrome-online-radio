@@ -67,7 +67,7 @@ define(['models/DataStorage', 'utils/Utils'], function(DataStorage, Utils) {
    * @param {number|string=} data
    */
   function sendMessage(action, data) {
-    _port.postMessage({action: action, data: typeof data != 'undefined' ? data : null});
+    _port.postMessage({action: action, data: typeof data !== 'undefined' ? data : null});
   }
 
   /**
@@ -123,7 +123,7 @@ define(['models/DataStorage', 'utils/Utils'], function(DataStorage, Utils) {
     this._freqByteData = this._freqByteData || [];
     this._audioDataCounter = ++this._audioDataCounter || 1;
 
-    var isKeyFrame = !(this._audioDataCounter % 28) && _isPlaying;
+    var isKeyFrame = this._audioDataCounter % 28 === 0 && _isPlaying;
     if (isKeyFrame) {
       this._audioDataCounter = 1;
     }
@@ -160,19 +160,20 @@ define(['models/DataStorage', 'utils/Utils'], function(DataStorage, Utils) {
 
     // Listen messages from proxy
     chrome.runtime.onConnect.addListener(function(port) {
-      if (port.name == 'proxy') {
+      if (port.name === 'proxy') {
         _port = port;
 
         port.onMessage.addListener(function(message) {
           switch (message.action) {
             case 'ready':
               setVolume(DataStorage.getVolume());
+              /* falls through */
             case 'playing':
             case 'play':
             case 'abort':
             case 'error':
             case 'volumechange':
-              _isPlaying = (message.action == 'playing');
+              _isPlaying = (message.action === 'playing');
               if (_bindings.hasOwnProperty(message.action)) {
                 _bindings[message.action]();
               }
