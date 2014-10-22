@@ -215,27 +215,27 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
     switch (st) {
       case 'buffering':
         setIconText('…', [255, 144, 0, 255]);
-        chrome.browserAction.setIcon({path: {'19': 'icons/19o.png', '38': 'icons/38o.png'}});
+        chrome.browserAction.setIcon({path: {'19': 'images/19o.png', '38': 'images/38o.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('loading')});
         break;
       case 'playing':
         setIconText('►', [0, 180, 0, 255]);
-        chrome.browserAction.setIcon({path: {'19': 'icons/19g.png', '38': 'icons/38g.png'}});
+        chrome.browserAction.setIcon({path: {'19': 'images/19g.png', '38': 'images/38g.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title});
         break;
       case 'stopped':
         setIconText();
-        chrome.browserAction.setIcon({path: {'19': 'icons/19.png', '38': 'icons/38.png'}});
+        chrome.browserAction.setIcon({path: {'19': 'images/19.png', '38': 'images/38.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('stopped')});
         break;
       case 'error':
         setIconText();
-        chrome.browserAction.setIcon({path: {'19': 'icons/19r.png', '38': 'icons/38r.png'}});
+        chrome.browserAction.setIcon({path: {'19': 'images/19r.png', '38': 'images/38r.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('error')});
         break;
       default:
         setIconText();
-        chrome.browserAction.setIcon({path: {'19': 'icons/19.png', '38': 'icons/38.png'}});
+        chrome.browserAction.setIcon({path: {'19': 'images/19.png', '38': 'images/38.png'}});
         chrome.browserAction.setTitle({title: Translator.translate('name')});
     }
   }

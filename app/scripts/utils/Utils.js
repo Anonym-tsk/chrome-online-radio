@@ -54,7 +54,7 @@ define(['models/DataStorage', 'utils/Translator'], function(DataStorage, Transla
   function showNotification(message, callback) {
     chrome.notifications.create('radio_online', {
       title: Translator.translate('name'),
-      iconUrl: chrome.extension.getURL('icons/80.png'),
+      iconUrl: chrome.extension.getURL('images/80.png'),
       type: 'basic',
       message: message
     }, callback || (function() {}));

@@ -1,4 +1,4 @@
-require(['utils/Translator', 'lib/jquery.min'], function(Translator) {
+require(['../../js/utils/Translator', 'lib/jquery.min'], function(Translator) {
   'use strict';
 
   /**
