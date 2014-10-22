@@ -1,5 +1,8 @@
 ﻿require.config({
-  baseUrl: 'scripts'
+  baseUrl: 'scripts',
+  paths: {
+    jquery: 'lib/jquery.min'
+  }
 });
 
 require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
@@ -85,20 +88,20 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
    */
   function messageDispatcher(message) {
     var action, data = null, volume, volStep = 5, stations, name;
-    if (typeof message == 'string') {
+    if (typeof message === 'string') {
       action = message;
     }
-    else if (!message.name || message.name != 'background') {
+    else if (!message.name || message.name !== 'background') {
       return;
     }
     else {
       action = message.action;
-      data = message.data;
+      data = message.data && message.data.toString();
     }
 
     switch (action) {
       case 'play':
-        if (data == DataStorage.getLastName() && _player.isPlaying()) {
+        if (data === DataStorage.getLastName() && _player.isPlaying()) {
           _player.stop();
         }
         else {
@@ -115,10 +118,12 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
           var station = DataStorage.getLastStation();
           if (!station) {
             stations = DataStorage.getStations();
-            for (name in stations) if (stations.hasOwnProperty(name)) {
-              DataStorage.setLast(name);
-              station = stations[name];
-              break;
+            for (name in stations) {
+              if (stations.hasOwnProperty(name)) {
+               DataStorage.setLast(name);
+                station = stations[name];
+                break;
+              }
             }
           }
           _player.play(station.getStream());

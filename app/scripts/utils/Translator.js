@@ -1,4 +1,4 @@
-define(['lib/jquery.min'], function() {
+define(['jquery'], function($) {
   'use strict';
 
   function translateMessage(key) {

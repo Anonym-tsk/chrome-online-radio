@@ -1,4 +1,11 @@
-require(['utils/Translator', 'lib/jquery.min'], function(Translator) {
+require.config({
+  baseUrl: 'scripts',
+  paths: {
+    jquery: 'lib/jquery.min'
+  }
+});
+
+require(['jquery', 'utils/Translator'], function($, Translator) {
   'use strict';
 
   /**
@@ -111,7 +118,7 @@ require(['utils/Translator', 'lib/jquery.min'], function(Translator) {
         e.preventDefault();
         var $station = $(this).parent('.station'),
           name = $station.data('name');
-        if (confirm(Translator.translate('reallyDelete'))) {
+        if (window.confirm(Translator.translate('reallyDelete'))) {
           _storage.deleteStation(name);
           renderStations();
         }

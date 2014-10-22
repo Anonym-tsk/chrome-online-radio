@@ -1,4 +1,11 @@
-﻿require(['utils/Translator', 'lib/jquery.min'], function(Translator) {
+﻿require.config({
+  baseUrl: 'scripts',
+  paths: {
+    jquery: 'lib/jquery.min'
+  }
+});
+
+require(['jquery', 'utils/Translator'], function($, Translator) {
   'use strict';
 
   /**
@@ -42,7 +49,7 @@
    * @param {string=} data
    */
   function sendMessage(action, data) {
-    chrome.runtime.sendMessage({name: 'background', action: action, data: typeof data != 'undefined' ? data : null});
+    chrome.runtime.sendMessage({name: 'background', action: action, data: typeof data !== 'undefined' ? data : null});
   }
 
   /**
@@ -178,7 +185,7 @@
         );
       }
 
-      requestAnimationFrame(drawFrame, canvas);
+      window.requestAnimationFrame(drawFrame, canvas);
     })();
   }
 
@@ -364,7 +371,7 @@
       $player.removeClass('buffering error').addClass('playing');
     };
 
-    if (!$player.hasClass('ready') && state != 'buffering') {
+    if (!$player.hasClass('ready') && state !== 'buffering') {
       start();
     }
 
@@ -386,7 +393,7 @@
 
   // Listen messages from background
   chrome.runtime.onMessage.addListener(function(message) {
-    if (!message.name || message.name != 'popup') {
+    if (!message.name || message.name !== 'popup') {
       return;
     }
     setPlayerState(message.action);
