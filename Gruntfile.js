@@ -165,14 +165,10 @@ module.exports = function (grunt) {
     htmlmin: {
       dist: {
         options: {
-          // removeCommentsFromCDATA: true,
-          // collapseWhitespace: true,
-          // collapseBooleanAttributes: true,
-          // removeAttributeQuotes: true,
-          // removeRedundantAttributes: true,
-          // useShortDoctype: true,
-          // removeEmptyAttributes: true,
-          // removeOptionalTags: true
+          removeCommentsFromCDATA: true,
+          collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          removeEmptyAttributes: true
         },
         files: [{
           expand: true,
@@ -185,24 +181,16 @@ module.exports = function (grunt) {
 
     uglify: {
       dist: {
-        files: {
-          '<%= config.dist %>/scripts/popup.js': [
-            '<%= config.dist %>/scripts/popup.js'
+        files: [{
+          expand: true,
+          cwd: '<%= config.app %>/scripts',
+          src: [
+            '{,*/}*.js',
+            '!lib/*.js',
+            '!chromereload.js'
           ],
-          '<%= config.dist %>/scripts/utils/Translator.js': [
-            '<%= config.dist %>/scripts/utils/Translator.js'
-          ]
-        }
-      }
-    },
-
-    concat: {
-      dist: {
-        files: {
-          '<%= config.dist %>/scripts/lib/require.js': [
-            '<%= config.app %>/scripts/lib/require.js'
-          ]
-        }
+          dest: '<%= config.dist %>/scripts'
+        }]
       }
     },
 
@@ -215,12 +203,9 @@ module.exports = function (grunt) {
           cwd: '<%= config.app %>',
           dest: '<%= config.dist %>',
           src: [
-            '*.{ico,png,txt}',
-            'images/{,*/}*.{webp,gif}',
-            '{,*/}*.html',
-            'styles/{,*/}*.css',
-            'styles/fonts/{,*/}*.*',
             '_locales/{,*/}*.json',
+            'stations.json',
+            'scripts/lib/{,*/}*.js'
           ]
         }]
       }
@@ -308,7 +293,7 @@ module.exports = function (grunt) {
     'chromeManifestVersionUp',
     'sass:dist',
     'imagemin',
-    'concat',
+    'htmlmin',
     'uglify',
     'copy',
     'compress'
