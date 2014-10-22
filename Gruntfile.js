@@ -172,28 +172,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Reads HTML for usemin blocks to enable smart builds that automatically
-    // concat, minify and revision files. Creates configurations in memory so
-    // additional tasks can operate on them
-    useminPrepare: {
-      options: {
-        dest: '<%= config.dist %>'
-      },
-      html: [
-        '<%= config.app %>/popup.html',
-        '<%= config.app %>/options.html'
-      ]
-    },
-
-    // Performs rewrites based on rev and the useminPrepare configuration
-    usemin: {
-      options: {
-        assetsDirs: ['<%= config.dist %>', '<%= config.dist %>/images']
-      },
-      html: ['<%= config.dist %>/{,*/}*.html'],
-      css: ['<%= config.dist %>/styles/{,*/}*.css']
-    },
-
     // The following *-min tasks produce minifies files in the dist folder
     imagemin: {
       dist: {
@@ -238,30 +216,44 @@ module.exports = function (grunt) {
       }
     },
 
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= config.dist %>/styles/main.css': [
-    //         '<%= config.app %>/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= config.dist %>/scripts/scripts.js': [
-    //         '<%= config.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
+    cssmin: {
+       dist: {
+         files: {
+           '<%= config.dist %>/styles/fonts.css': [
+             '<%= config.app %>/styles/fonts.css'
+           ],
+           '<%= config.dist %>/styles/options.css': [
+             '<%= config.app %>/styles/options.css'
+           ],
+           '<%= config.dist %>/styles/popup.css': [
+             '<%= config.app %>/styles/popup.css'
+           ]
+         }
+       }
+    },
+
+    uglify: {
+       dist: {
+         files: {
+           '<%= config.dist %>/scripts/popup.js': [
+             '<%= config.dist %>/scripts/popup.js'
+           ],
+           '<%= config.dist %>/scripts/utils/Translator.js': [
+             '<%= config.dist %>/scripts/utils/Translator.js'
+           ]
+         }
+       }
+    },
+
+    concat: {
+       dist: {
+         files: {
+           '<%= config.dist %>/scripts/lib/require.js': [
+             '<%= config.app %>/scripts/lib/require.js'
+           ]
+         }
+       }
+    },
 
     // Copies remaining files to places other tasks can use
     copy: {
@@ -298,30 +290,12 @@ module.exports = function (grunt) {
       ]
     },
 
-    // Auto buildnumber, exclude debug files. smart builds that event pages
-    chromeManifest: {
-      dist: {
-        options: {
-          buildnumber: true,
-          indentSize: 2,
-          background: {
-            target: 'scripts/background.js',
-            exclude: [
-              'scripts/chromereload.js'
-            ]
-          }
-        },
-        src: '<%= config.app %>',
-        dest: '<%= config.dist %>'
-      }
-    },
-
     // Compres dist files to package
     compress: {
       dist: {
         options: {
           archive: function() {
-            var manifest = grunt.file.readJSON('app/manifest.json');
+            var manifest = grunt.file.readJSON(config.app + '/manifest.json');
             return 'package/chrome-online-radio-' + manifest.version + '.zip';
           }
         },
@@ -332,7 +306,57 @@ module.exports = function (grunt) {
           dest: ''
         }]
       }
+    },
+
+    // Update plugin version
+    chromeManifestVersionUp: {
+      options: {
+        exclude: ['scripts/chromereload.js']
+      }
     }
+  });
+
+  grunt.registerTask('chromeManifestVersionUp', function () {
+    var options = this.options({
+      exclude: [],
+      indentSize: 2
+    });
+
+    var manifest = grunt.file.readJSON(config.app + '/manifest.json');
+    var buildnumber = manifest.version.split('.');
+
+    // Increase build number that from origin manifest
+    var versionUp = function (numbers, index) {
+      if (!numbers[index]) {
+        grunt.fail.fatal('Build number has overflowing ' + numbers);
+        throw 'Build number overflow ' + numbers;
+      }
+      if (numbers[index] + 1 <= 65535) {
+        numbers[index]++;
+        return numbers.join('.');
+      } else {
+        versionUp(numbers, ++index);
+      }
+    };
+
+    // Update version of dest manifest.json
+    manifest.version = versionUp(buildnumber, buildnumber.length - 1);
+    grunt.log.writeln('Build number has changed to ' + grunt.log.wordlist(buildnumber));
+
+    // Update source manifest
+    grunt.file.write(config.app + '/manifest.json', JSON.stringify(manifest, null, options.indentSize));
+
+    // exclude the scripts from background
+    var backgroundScripts = [];
+    grunt.util._.each(manifest.background.scripts, function (script) {
+      if (grunt.util._.indexOf(options.exclude, script) === -1) {
+        backgroundScripts.push(script);
+      }
+    });
+    manifest.background.scripts = backgroundScripts;
+
+    // Write updated manifest to destination.
+    grunt.file.write(config.dist + '/manifest.json', JSON.stringify(manifest, null, options.indentSize));
   });
 
   grunt.registerTask('debug', function () {
@@ -351,14 +375,12 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'chromeManifest:dist',
-    'useminPrepare',
+    'chromeManifestVersionUp',
     'concurrent:dist',
     'cssmin',
     'concat',
     'uglify',
     'copy',
-    'usemin',
     'compress'
   ]);
 
