@@ -195,7 +195,7 @@
    * @public
    */
   function getVolume() {
-    return typeof _volume.current === 'number' ? _volume.current : 0;
+    return parseInt(_volume.current, 10) || 0;
   }
 
   /**
@@ -204,7 +204,7 @@
    * @public
    */
   function getVolumeLast() {
-    return typeof _volume.last === 'number' ? _volume.last : 0;
+    return parseInt(_volume.last, 10) || 80;
   }
 
   /**
