@@ -91,7 +91,31 @@ module.exports = function (grunt) {
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
-        jshintrc: '.jshintrc',
+        node: true,
+        browser: true,
+        esnext: true,
+        bitwise: true,
+        camelcase: true,
+        curly: true,
+        eqeqeq: true,
+        immed: true,
+        indent: 2,
+        latedef: true,
+        newcap: true,
+        noarg: true,
+        quotmark: 'single',
+        regexp: true,
+        undef: true,
+        unused: true,
+        strict: true,
+        trailing: true,
+        smarttabs: true,
+        validthis: true,
+        globals : {
+          chrome: true,
+          opr: true,
+          define: true
+        },
         reporter: require('jshint-stylish')
       },
       all: [
