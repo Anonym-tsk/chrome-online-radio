@@ -1,0 +1,43 @@
+[
+  "<%= config.dist %>/_locales/en/messages.json",
+  "<%= config.dist %>/_locales/ru/messages.json",
+
+  "<%= config.dist %>/images/16.png",
+  "<%= config.dist %>/images/19.png",
+  "<%= config.dist %>/images/19g.png",
+  "<%= config.dist %>/images/19o.png",
+  "<%= config.dist %>/images/19r.png",
+  "<%= config.dist %>/images/32.png",
+  "<%= config.dist %>/images/38.png",
+  "<%= config.dist %>/images/38g.png",
+  "<%= config.dist %>/images/38o.png",
+  "<%= config.dist %>/images/38r.png",
+  "<%= config.dist %>/images/48.png",
+  "<%= config.dist %>/images/80.png",
+  "<%= config.dist %>/images/96.png",
+  "<%= config.dist %>/images/128.png",
+  "<%= config.dist %>/images/256.png",
+  "<%= config.dist %>/images/icon.png",
+
+  "<%= config.dist %>/scripts/ext/proxy.js",
+  "<%= config.dist %>/scripts/lib/jquery.min.js",
+  "<%= config.dist %>/scripts/lib/require.js",
+  "<%= config.dist %>/scripts/models/DataStorage.js",
+  "<%= config.dist %>/scripts/models/FlashPlayer.js",
+  "<%= config.dist %>/scripts/models/HtmlPlayer.js",
+  "<%= config.dist %>/scripts/models/Station.js",
+  "<%= config.dist %>/scripts/utils/Translator.js",
+  "<%= config.dist %>/scripts/utils/Utils.js",
+  "<%= config.dist %>/scripts/background.js",
+  "<%= config.dist %>/scripts/options.js",
+  "<%= config.dist %>/scripts/popup.js",
+
+  "<%= config.dist %>/styles/fonts.css",
+  "<%= config.dist %>/styles/options.css",
+  "<%= config.dist %>/styles/popup.css",
+
+  "<%= config.dist %>/manifest.json",
+  "<%= config.dist %>/stations.json",
+  "<%= config.dist %>/options.html",
+  "<%= config.dist %>/popup.html"
+]

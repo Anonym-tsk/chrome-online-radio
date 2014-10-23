@@ -1,7 +1,5 @@
-// Generated on 2014-10-22 using generator-chrome-extension 0.2.11
 'use strict';
 
-// # Globbing
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -162,6 +160,7 @@ module.exports = function (grunt) {
       }
     },
 
+    // Minify html
     htmlmin: {
       dist: {
         options: {
@@ -179,6 +178,7 @@ module.exports = function (grunt) {
       }
     },
 
+    // Minify scripts
     uglify: {
       dist: {
         files: [{
@@ -192,6 +192,11 @@ module.exports = function (grunt) {
           dest: '<%= config.dist %>/scripts'
         }]
       }
+    },
+
+    // Check build
+    fileExists: {
+      dist: grunt.file.readJSON('build.json')
     },
 
     // Copies remaining files to places other tasks can use
@@ -296,6 +301,7 @@ module.exports = function (grunt) {
     'htmlmin',
     'uglify',
     'copy',
+    'fileExists',
     'compress'
   ]);
 
