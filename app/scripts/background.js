@@ -219,42 +219,25 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
 
     switch (st) {
       case 'buffering':
-        setIconText('…', [255, 144, 0, 255]);
         chrome.browserAction.setIcon({path: {'19': 'images/19o.png', '38': 'images/38o.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('loading')});
         break;
       case 'playing':
-        setIconText('►', [0, 180, 0, 255]);
         chrome.browserAction.setIcon({path: {'19': 'images/19g.png', '38': 'images/38g.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title});
         break;
       case 'stopped':
-        setIconText();
         chrome.browserAction.setIcon({path: {'19': 'images/19.png', '38': 'images/38.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('stopped')});
         break;
       case 'error':
-        setIconText();
         chrome.browserAction.setIcon({path: {'19': 'images/19r.png', '38': 'images/38r.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('error')});
         break;
       default:
-        setIconText();
         chrome.browserAction.setIcon({path: {'19': 'images/19.png', '38': 'images/38.png'}});
         chrome.browserAction.setTitle({title: Translator.translate('name')});
     }
-  }
-
-  /**
-   * Set browser icon text and color.
-   * @param {string=} text
-   * @param {string|Array=} color
-   */
-  function setIconText(text, color) {
-    text = text || '';
-    color = color || [255, 79, 87, 255];
-    chrome.browserAction.setBadgeBackgroundColor({color: color});
-    chrome.browserAction.setBadgeText({text: text});
   }
 
   /**
