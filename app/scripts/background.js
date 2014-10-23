@@ -5,6 +5,14 @@
   }
 });
 
+// Check updates.
+chrome.runtime.onInstalled.addListener(function(details) {
+  'use strict';
+  require(['utils/Utils'], function(Utils) {
+    Utils.checkUpdates(details);
+  });
+});
+
 require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
   'models/HtmlPlayer', 'utils/Translator'], function(Utils, DataStorage, FlashPlayer, HtmlPlayer, Translator) {
   'use strict';
@@ -287,9 +295,6 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
       }
     });
   }
-
-  // Check updates
-  Utils.checkUpdates();
 
   // Run!
   HtmlPlayer.canPlayMP3(function(status) {

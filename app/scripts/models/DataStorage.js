@@ -38,12 +38,6 @@
   var _volume = JSON.parse(localStorage.getItem('_volume')) || {current: 80, last: 80};
 
   /**
-   * Extension version.
-   * @type {string}
-   */
-  var _version = localStorage.getItem('_version') || null;
-
-  /**
    * Save value to localStorage.
    * @param {string} name
    * @param {*} value
@@ -104,25 +98,6 @@
   function setFavorites(favorites) {
     _favorites = favorites;
     _save('_favorites', JSON.stringify(_favorites));
-  }
-
-  /**
-   * Get saved extension version.
-   * @return {string}
-   * @public
-   */
-  function getVersion() {
-    return _version;
-  }
-
-  /**
-   * Save extension version.
-   * @param {string} version
-   * @public
-   */
-  function setVersion(version) {
-    _version = version;
-    _save('_version', _version);
   }
 
   /**
@@ -300,8 +275,6 @@
     isFavorite: isFavorite,
     getFavorites: getFavorites,
     setFavorites: setFavorites,
-    getVersion: getVersion,
-    setVersion: setVersion,
     getStations: getStations,
     getStationByName: getStationByName,
     setLast: setLast,

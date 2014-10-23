@@ -27,19 +27,21 @@ define(['models/DataStorage', 'utils/Translator'], function(DataStorage, Transla
           DataStorage.addStation(json[name].title, [json[name].stream], json[name].url || '', json[name].image || '', name);
         }
       }
+    },
+    '2.0.0': function() {
+      localStorage.removeItem('_version');
     }
   };
 
   /**
    * Check updates and run callbacks.
+   * @param {{previousVersion: string, reason: string}} details
    */
-  function checkUpdates() {
-    var previousVersion = DataStorage.getVersion(),
+  function checkUpdates(details) {
+    var previousVersion = details.previousVersion,
         currentVersion = chrome.runtime.getManifest().version;
 
-    if (!previousVersion) { // Первый запуск
-      DataStorage.setVersion(currentVersion);
-    } else if (currentVersion > previousVersion) {
+    if (previousVersion && currentVersion > previousVersion) {
       for (var version in updates) {
         if (updates.hasOwnProperty(version)) {
           if (version > previousVersion && version <= currentVersion) {
@@ -48,7 +50,6 @@ define(['models/DataStorage', 'utils/Translator'], function(DataStorage, Transla
           }
         }
       }
-      DataStorage.setVersion(currentVersion);
     }
   }
 
