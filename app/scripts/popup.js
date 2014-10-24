@@ -61,7 +61,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
     var $station = $('.station[data-name="' + name + '"]').addClass('favorite'),
         $prev = $station.prev(),
         height = parseInt($station.outerHeight(), 10),
-        top = (parseInt($station.position().top, 10) + parseInt($stations.scrollTop(), 10));
+        top = parseInt($station.position().top, 10) + parseInt($stations.scrollTop(), 10);
 
     $station.addClass('move').css({top: top + 'px'});
     $prev.css({marginBottom: height + 'px'});
@@ -391,6 +391,19 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
     }
   }
 
+  /**
+   * Scroll popup to current station.
+   */
+  function scrollToLastStation() {
+    var station = _storage.getLastStation();
+    if (!station) {
+      return;
+    }
+
+    var $station = $('.station[data-name="' + station.name + '"]');
+    $stations.scrollTop($stations.scrollTop() + $station.position().top - parseInt($station.outerHeight(), 10));
+  }
+
   // Listen messages from background
   chrome.runtime.onMessage.addListener(function(message) {
     if (!message.name || message.name !== 'popup') {
@@ -405,4 +418,5 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
   setVolume(_storage.getVolume(), true, true);
   renderEqualizer();
   setPlayerState();
+  scrollToLastStation();
 });
