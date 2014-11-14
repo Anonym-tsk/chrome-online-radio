@@ -270,5 +270,14 @@
     "streams": [
       "http://radio.mfm.ua:80/online128"
     ]
+  },
+  "silver": {
+    "title": "Серебряный Дождь",
+    "url": "http://www.silver.ru/",
+    "image": "http://www.silver.ru/_/i/logo.png",
+    "streams": [
+      "http://radiosilver.corbina.net:8000/silver128.mp3",
+      "http://radiosilver.corbina.net:8000/silver48.mp3"
+    ]
   }
 }
