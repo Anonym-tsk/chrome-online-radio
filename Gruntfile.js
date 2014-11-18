@@ -376,9 +376,13 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'manifestUp',
     'build-chrome',
     'build-opera'
+  ]);
+
+  grunt.registerTask('release', [
+    'manifestUp',
+    'build'
   ]);
 
   grunt.registerTask('default', [
