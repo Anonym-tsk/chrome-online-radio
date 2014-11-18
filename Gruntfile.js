@@ -240,6 +240,13 @@ module.exports = function(grunt) {
           dest: ''
         }]
       }
+    },
+
+    // Update plugin version
+    chromeManifestVersionUp: {
+      options: {
+        exclude: ['scripts/chromereload.js']
+      }
     }
   });
 
@@ -293,7 +300,21 @@ module.exports = function(grunt) {
     'watch'
   ]);
 
-  grunt.registerTask('build', [
+  grunt.registerTask('build-chrome', [
+    'jshint',
+    'clean',
+    'chromeManifestVersionUp',
+    'sass:dist',
+    'imagemin',
+    'htmlmin',
+    'uglify',
+    'copy',
+    'fileExists',
+    'compress'
+  ]);
+
+  // TODO: Opera
+  grunt.registerTask('build-opera', [
     'jshint',
     'clean',
     'chromeManifestVersionUp',
@@ -307,6 +328,6 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'build'
+    'build-chrome'
   ]);
 };
