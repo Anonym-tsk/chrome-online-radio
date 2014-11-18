@@ -1,4 +1,4 @@
-﻿define(['models/Station'], function(Station) {
+define(['models/Station'], function(Station) {
   'use strict';
 
   /**
