@@ -145,7 +145,20 @@ module.exports = function(grunt) {
           ext: '.css'
         }]
       },
-      dist: {
+      expanded: {
+        options: {
+          style: 'expanded',
+          sourcemap: 'none'
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= config.app %>/styles',
+          src: ['*.sass'],
+          dest: '<%= config.dist %>/styles',
+          ext: '.css'
+        }]
+      },
+      compressed: {
         files: [{
           expand: true,
           cwd: '<%= config.app %>/styles',
@@ -242,20 +255,15 @@ module.exports = function(grunt) {
       }
     },
 
-    // Update plugin version
-    chromeManifestVersionUp: {
+    // Excluded scripts from manifest
+    manifestCopy: {
       options: {
         exclude: ['scripts/chromereload.js']
       }
     }
   });
 
-  grunt.registerTask('chromeManifestVersionUp', function() {
-    var options = this.options({
-      exclude: [],
-      indentSize: 2
-    });
-
+  grunt.registerTask('manifestUp', function() {
     var manifest = grunt.file.readJSON(config.app + '/manifest.json');
     var buildnumber = manifest.version.split('.');
 
@@ -278,7 +286,12 @@ module.exports = function(grunt) {
     grunt.log.writeln('Build number has changed to ' + grunt.log.wordlist(buildnumber));
 
     // Update source manifest
-    grunt.file.write(config.app + '/manifest.json', JSON.stringify(manifest, null, options.indentSize));
+    grunt.file.write(config.app + '/manifest.json', JSON.stringify(manifest, null, 2));
+  });
+
+  grunt.registerTask('manifestCopy', function() {
+    var options = this.options({exclude: []});
+    var manifest = grunt.file.readJSON(config.app + '/manifest.json');
 
     // exclude the scripts from background
     var backgroundScripts = [];
@@ -290,7 +303,7 @@ module.exports = function(grunt) {
     manifest.background.scripts = backgroundScripts;
 
     // Write updated manifest to destination.
-    grunt.file.write(config.dist + '/manifest.json', JSON.stringify(manifest, null, options.indentSize));
+    grunt.file.write(config.dist + '/manifest.json', JSON.stringify(manifest, null, 2));
   });
 
   grunt.registerTask('debug', [
@@ -303,8 +316,8 @@ module.exports = function(grunt) {
   grunt.registerTask('build-chrome', [
     'jshint',
     'clean',
-    'chromeManifestVersionUp',
-    'sass:dist',
+    'manifestCopy',
+    'sass:compressed',
     'imagemin',
     'htmlmin',
     'uglify',
@@ -317,8 +330,8 @@ module.exports = function(grunt) {
   grunt.registerTask('build-opera', [
     'jshint',
     'clean',
-    'chromeManifestVersionUp',
-    'sass:dist',
+    'manifestCopy',
+    'sass:expanded',
     'imagemin',
     'htmlmin',
     'uglify',
@@ -327,7 +340,12 @@ module.exports = function(grunt) {
     'compress'
   ]);
 
-  grunt.registerTask('default', [
+  grunt.registerTask('build', [
+    'manifestUp',
     'build-chrome'
+  ]);
+
+  grunt.registerTask('default', [
+    'build'
   ]);
 };
