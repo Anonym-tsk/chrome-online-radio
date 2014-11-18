@@ -1,6 +1,9 @@
 'use strict';
 
-module.exports = function (grunt) {
+/**
+ * @param {grunt} grunt
+ */
+module.exports = function(grunt) {
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -30,7 +33,7 @@ module.exports = function (grunt) {
       },
       sass: {
         files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['sass:chrome']
+        tasks: ['sass:debug']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -63,7 +66,7 @@ module.exports = function (grunt) {
         // change this to '0.0.0.0' to access the server from outside
         hostname: 'localhost'
       },
-      chrome: {
+      debug: {
         options: {
           open: false,
           base: [
@@ -75,8 +78,6 @@ module.exports = function (grunt) {
 
     // Empties folders to start fresh
     clean: {
-      chrome: {
-      },
       dist: {
         files: [{
           dot: true,
@@ -111,7 +112,7 @@ module.exports = function (grunt) {
         trailing: true,
         smarttabs: true,
         validthis: true,
-        globals : {
+        globals: {
           chrome: true,
           opr: true,
           define: true
@@ -131,7 +132,7 @@ module.exports = function (grunt) {
         style: 'compressed',
         sourcemap: 'none'
       },
-      chrome: {
+      debug: {
         options: {
           style: 'expanded',
           update: true
@@ -239,17 +240,10 @@ module.exports = function (grunt) {
           dest: ''
         }]
       }
-    },
-
-    // Update plugin version
-    chromeManifestVersionUp: {
-      options: {
-        exclude: ['scripts/chromereload.js']
-      }
     }
   });
 
-  grunt.registerTask('chromeManifestVersionUp', function () {
+  grunt.registerTask('chromeManifestVersionUp', function() {
     var options = this.options({
       exclude: [],
       indentSize: 2
@@ -259,7 +253,7 @@ module.exports = function (grunt) {
     var buildnumber = manifest.version.split('.');
 
     // Increase build number that from origin manifest
-    var versionUp = function (numbers, index) {
+    var versionUp = function(numbers, index) {
       if (!numbers[index]) {
         grunt.fail.fatal('Build number has overflowing ' + numbers);
         throw 'Build number overflow ' + numbers;
@@ -281,7 +275,7 @@ module.exports = function (grunt) {
 
     // exclude the scripts from background
     var backgroundScripts = [];
-    grunt.util._.each(manifest.background.scripts, function (script) {
+    grunt.util._.each(manifest.background.scripts, function(script) {
       if (grunt.util._.indexOf(options.exclude, script) === -1) {
         backgroundScripts.push(script);
       }
@@ -294,14 +288,14 @@ module.exports = function (grunt) {
 
   grunt.registerTask('debug', [
     'jshint',
-    'sass:chrome',
-    'connect:chrome',
+    'sass:debug',
+    'connect:debug',
     'watch'
   ]);
 
   grunt.registerTask('build', [
     'jshint',
-    'clean:dist',
+    'clean',
     'chromeManifestVersionUp',
     'sass:dist',
     'imagemin',
