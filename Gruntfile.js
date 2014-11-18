@@ -222,7 +222,7 @@ module.exports = function(grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
-      dist: {
+      assets: {
         files: [{
           expand: true,
           dot: true,
@@ -234,16 +234,52 @@ module.exports = function(grunt) {
             'scripts/lib/{,*/}*.js'
           ]
         }]
+      },
+      html: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= config.app %>',
+          dest: '<%= config.dist %>',
+          src: '*.html'
+        }]
+      },
+      js: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= config.app %>/scripts',
+          dest: '<%= config.dist %>/scripts',
+          src: [
+            '{,*/}*.js',
+            '!lib/*.js',
+            '!chromereload.js'
+          ]
+        }]
       }
     },
 
     // Compres dist files to package
     compress: {
-      dist: {
+      chrome: {
         options: {
           archive: function() {
             var manifest = grunt.file.readJSON(config.app + '/manifest.json');
             return 'package/chrome-online-radio-' + manifest.version + '.zip';
+          }
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist/',
+          src: ['**'],
+          dest: ''
+        }]
+      },
+      opera: {
+        options: {
+          archive: function() {
+            var manifest = grunt.file.readJSON(config.app + '/manifest.json');
+            return 'package/opera-online-radio-' + manifest.version + '.zip';
           }
         },
         files: [{
@@ -321,28 +357,28 @@ module.exports = function(grunt) {
     'imagemin',
     'htmlmin',
     'uglify',
-    'copy',
+    'copy:assets',
     'fileExists',
-    'compress'
+    'compress:chrome'
   ]);
 
-  // TODO: Opera
   grunt.registerTask('build-opera', [
     'jshint',
     'clean',
     'manifestCopy',
     'sass:expanded',
     'imagemin',
-    'htmlmin',
-    'uglify',
-    'copy',
+    'copy:html',
+    'copy:js',
+    'copy:assets',
     'fileExists',
-    'compress'
+    'compress:opera'
   ]);
 
   grunt.registerTask('build', [
     'manifestUp',
-    'build-chrome'
+    'build-chrome',
+    'build-opera'
   ]);
 
   grunt.registerTask('default', [
