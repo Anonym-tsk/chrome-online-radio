@@ -14,7 +14,9 @@
     "https://*/*"
   ],
   "web_accessible_resources": [
-    "images/38.png"
+    "images/38.png",
+    "images/19.101.ru.png",
+    "images/38.101.ru.png"
   ],
   "content_scripts": [
     {
@@ -25,6 +27,15 @@
         "scripts/ext/proxy.js"
       ],
       "all_frames": true,
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "http://101.ru/*"
+      ],
+      "js": [
+        "scripts/ext/101.ru.js"
+      ],
       "run_at": "document_end"
     }
   ],
