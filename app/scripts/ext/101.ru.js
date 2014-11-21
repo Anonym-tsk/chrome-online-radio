@@ -73,13 +73,28 @@
     xhr.send(null);
   }
 
+  function sendMessage(action, data) {
+    chrome.runtime.sendMessage({name: 'background', action: action, data: typeof data !== 'undefined' ? data : null});
+  }
+
   var button = document.createElement('span');
   button.className = 'online-radio-add-button';
   button.title = chrome.i18n.getMessage('add');
   button.onclick = function() {
-    loadPlaylist(function(result) {
+    loadPlaylist(function(streams) {
       stop();
-      console.warn(result);
+
+      var link = document.querySelector('#channel_infoblock a:not([target])'),
+          title = document.querySelector('#player-site .channel-base h1'),
+          image = document.querySelector('#chan_cover img');
+
+      sendMessage('add', [
+        title ? '101.ru ● ' + title.innerText : '101.ru',
+        streams,
+        link && link.href,
+        image && image.src,
+        link && link.innerText
+      ]);
     });
   };
   injectStyles();

@@ -95,7 +95,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
    * @param {{}|string} message
    */
   function messageDispatcher(message) {
-    var action, data = null, volume, volStep = 5, stations, name;
+    var action, data = null, volume, volStep = 5, stations, station, name;
     if (typeof message === 'string') {
       action = message;
     } else if (!message.name || message.name !== 'background') {
@@ -121,7 +121,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
           _player.stop();
         }
         else {
-          var station = DataStorage.getLastStation();
+          station = DataStorage.getLastStation();
           if (!station) {
             stations = DataStorage.getStations();
             for (name in stations) {
@@ -188,7 +188,10 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
         break;
 
       case 'add':
-        //DataStorage.addStation.apply(null, data);
+        station = DataStorage.addStation.apply(null, data);
+        DataStorage.setLast(station.name);
+        _player.play(station.getStream());
+        alert(station.title + '\n' + Translator.translate('added'));
         break;
     }
   }

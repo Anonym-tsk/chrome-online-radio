@@ -200,17 +200,16 @@ define(['models/Station'], function(Station) {
    * @param {string=} url Station site url.
    * @param {string=} image Station image url.
    * @param {string|number=} name Station name for update station.
+   * @return {Station}
    * @public
    */
   function addStation(title, streams, url, image, name) {
     if (!name) { // Создаем новую станцию
-      var keys = Object.keys(_userStations);
-      name = keys.length > 0 ? parseInt(keys[keys.length - 1], 10) + 1 : 1;
-    } else if (!_userStations[name]) { // Проверим, есть ли станция с таким именем
-      return;
+      name = (+new Date()).toString() + Object.keys(_userStations).length.toString();
     }
     _userStations[name] = new Station(name, title, url, streams, image, true);
     _save('_stations', JSON.stringify(_userStations));
+    return _userStations[name];
   }
 
   /**

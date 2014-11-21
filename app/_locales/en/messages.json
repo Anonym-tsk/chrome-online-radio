@@ -36,6 +36,9 @@
   "add": {
     "message": "Add station"
   },
+  "added": {
+    "message": "Station added"
+  },
   "edit": {
     "message": "Edit station"
   },
