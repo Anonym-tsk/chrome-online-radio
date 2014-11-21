@@ -40,11 +40,11 @@ define(['models/Station'], function(Station) {
   /**
    * Save value to localStorage.
    * @param {string} name
-   * @param {*} value
+   * @param {string} value
    * @private
    */
   function _save(name, value) {
-    localStorage.setItem(name, value);
+    localStorage.setItem(name.toString(), value.toString());
   }
 
   /**

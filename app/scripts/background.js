@@ -98,13 +98,11 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
     var action, data = null, volume, volStep = 5, stations, name;
     if (typeof message === 'string') {
       action = message;
-    }
-    else if (!message.name || message.name !== 'background') {
+    } else if (!message.name || message.name !== 'background') {
       return;
-    }
-    else {
+    } else {
       action = message.action;
-      data = message.data && message.data.toString();
+      data = message.data;
     }
 
     switch (action) {
@@ -187,6 +185,10 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
 
       case 'options':
         Utils.openOptions(data);
+        break;
+
+      case 'add':
+        //DataStorage.addStation.apply(null, data);
         break;
     }
   }
