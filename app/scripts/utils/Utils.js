@@ -24,12 +24,31 @@ define(['models/DataStorage', 'utils/Translator'], function(DataStorage, Transla
       var json = JSON.parse(localStorage.getItem('_stations')) || {};
       for (var name in json) {
         if (json.hasOwnProperty(name)) {
-          DataStorage.addStation(json[name].title, [json[name].stream], json[name].url || '', json[name].image || '', name);
+          var station = json[name];
+          station.name = name;
+          station.streams = [json[name].stream];
+          DataStorage.addStation(station);
         }
       }
     },
     '2.0.0': function() {
       localStorage.removeItem('_version');
+    },
+    '2.0.4': function() {
+      // Now it's user's station
+      DataStorage.addStation({
+        name: 'chillout.101.ru',
+        title: '101.ru ● Chillоut',
+        url: 'http://chillout.101.ru/',
+        streams: [
+          'http://eu4.101.ru:8000/c15_3',
+          'http://ru2.101.ru:8000/c15_3',
+          'http://eu7.101.ru:8000/c15_3',
+          'http://nbn.101.ru:8000/c15_3',
+          'http://ru1.101.ru:8000/c15_3'
+        ],
+        image: 'http://101.ru/vardata/modules/channel/dynamics/pro/24.jpg'
+      });
     }
   };
 

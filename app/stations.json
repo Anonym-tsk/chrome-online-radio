@@ -48,14 +48,6 @@
       "http://rr.fmtuner.ru/"
     ]
   },
-  "chillout": {
-    "title": "Chillоut",
-    "url": "http://chillout.101.ru",
-    "image": "http://101.ru/vardata/modules/channel/dynamics/pro/24.jpg",
-    "streams": [
-      "http://eu4.101.ru:8000/c15_3?setst=051433100137284426120130705"
-    ]
-  },
   "rockfm": {
     "title": "Rock FM",
     "url": "http://www.rockfm.ru",

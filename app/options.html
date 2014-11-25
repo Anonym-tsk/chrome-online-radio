@@ -6,6 +6,32 @@
   <title>Online Radio</title>
   <link href="styles/fonts.css" rel="stylesheet">
   <link href="styles/options.css" rel="stylesheet">
+
+  <template id="addStation">
+    <form class="addStation">
+      <div class="field">
+        <label data-i18n="stationName"></label>
+        <input type="text" name="title" required="required">
+      </div>
+      <div class="field">
+        <label data-i18n="siteLink"></label>
+        <input type="url" name="url" data-i18n-placeholder="optional">
+      </div>
+      <div class="field">
+        <label data-i18n="imageLink"></label>
+        <input type="url" name="image" data-i18n-placeholder="optional">
+      </div>
+      <div class="field field-streams">
+        <label data-i18n="streamUrl"></label>
+        <input type="url" name="streams" required="required">
+        <i class="icon icon-delete"></i>
+        <i class="icon icon-add"></i>
+      </div>
+      <div class="field">
+        <input type="submit" data-i18n-value="add">
+      </div>
+    </form>
+  </template>
 </head>
 
 <body data-page="stations">
@@ -15,7 +41,7 @@
     <ul class="menu">
       <li data-page="stations" data-i18n="stations"></li>
       <li data-page="add" data-i18n="add"></li>
-      <li data-extpage="chrome://extensions/configureCommands" data-i18n="hotkeys"></li>
+      <li data-page="hotkeys" data-i18n="hotkeys"></li>
       <li data-page="flash" data-i18n="error"></li>
     </ul>
   </div>
@@ -26,27 +52,6 @@
     </section>
     <section data-page="add">
       <h1 data-i18n="add"></h1>
-      <form id="addStation" class="addStation">
-        <div class="field">
-          <label data-i18n="stationName"></label>
-          <input type="text" name="title" required="required">
-        </div>
-        <div class="field">
-          <label data-i18n="siteLink"></label>
-          <input type="url" name="url" data-i18n-placeholder="optional">
-        </div>
-        <div class="field">
-          <label data-i18n="imageLink"></label>
-          <input type="url" name="image" data-i18n-placeholder="optional">
-        </div>
-        <div class="field">
-          <label data-i18n="streamUrl"></label>
-          <input type="url" name="stream" required="required">
-        </div>
-        <div class="field">
-          <input type="submit" data-i18n-value="add">
-        </div>
-      </form>
     </section>
     <section data-page="flash">
       <h1 data-i18n="error"></h1>

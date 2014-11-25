@@ -52,18 +52,71 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
     var hash = window.location.hash.substring(1);
     hash = hash.split('#');
 
-    if (hash[0]) {
-      $('body').attr('data-page', hash[0]);
+    switch (hash[0]) {
+      case 'add':
+        openAddStationTab.apply(null, hash);
+        break;
+      case 'flash':
+        openFlashTab();
+        break;
+      default:
+        openStationsTab();
+    }
+  }
+
+  /**
+   * Get form template from head.
+   * @return {jQuery}
+   */
+  function getFormTemplate() {
+    var template = $('#addStation').html(),
+        $template = $(template);
+    Translator.translateAll($template);
+    return $template;
+  }
+
+  /**
+   * Open add station page.
+   * @param {Event|string=} event
+   * @param {string=} title
+   * @param {string=} stream
+   * @param {string=} url
+   */
+  function openAddStationTab(event, title, stream, url) {
+    var $template = getFormTemplate(),
+        $page = $('section[data-page="add"]');
+
+    if (typeof event === 'string') {
+      $template.find('[name="title"]').val(title || '');
+      $template.find('[name="streams"]').val(stream || '');
+      $template.find('[name="url"]').val(url || '');
     }
 
-    if (hash[1] && hash[2]) {
-      var $station = $('#addStation');
-      $station.find('[name="title"]').val(hash[1]);
-      $station.find('[name="stream"]').val(hash[2]);
-      if (hash[3]) {
-        $station.find('[name="url"]').val(hash[3]);
-      }
-    }
+    $('body').attr('data-page', 'add');
+    $page.find('.addStation').remove();
+    $page.append($template);
+  }
+
+  /**
+   * Open stations list page.
+   */
+  function openStationsTab() {
+    $('body').attr('data-page', 'stations');
+    $('section[data-page="stations"]').find('.edit').removeClass('edit').find('.addStation').remove();
+  }
+
+  /**
+   * Open flash error page.
+   */
+  function openFlashTab() {
+    $('body').attr('data-page', 'flash');
+  }
+
+  /**
+   * Open hotkeys options.
+   */
+  function openHotkeysTab() {
+    chrome.tabs.create({url: 'chrome://extensions/configureCommands'});
   }
 
   /**
@@ -84,35 +137,33 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
    */
   function initEvents() {
     $('ul.menu')
-      .on('click', 'li[data-page]', function(e) {
-        e.preventDefault();
-        $('body').attr('data-page', $(this).data('page'));
-      })
-      .on('click', 'li[data-extpage]', function(e) {
-        e.preventDefault();
-        chrome.tabs.create({url: $(this).data('extpage')});
-      });
+      .on('click', 'li[data-page="add"]', openAddStationTab)
+      .on('click', 'li[data-page="stations"]', openStationsTab)
+      .on('click', 'li[data-page="flash"]', openFlashTab)
+      .on('click', 'li[data-page="hotkeys"]', openHotkeysTab);
 
     $('#stations')
       .on('click', '.station > .icon-edit', function(e) {
         e.preventDefault();
         var $station = $(this).parent('.station');
         if ($station.hasClass('edit')) {
-          $station.find('.addStation').remove();
-          $station.removeClass('edit');
+          $station.removeClass('edit').find('.addStation').remove();
           return;
         }
 
         var name = $station.data('name'),
           station = _storage.getStationByName(name);
 
-        var $form = $('#addStation').clone().removeAttr('id').data('name', name);
-        $form.find('[name="title"]').val(station.title);
-        $form.find('[name="url"]').val(station.url || '');
-        $form.find('[name="image"]').val(station.image);
-        $form.find('[name="stream"]').val(station.getStream());
-        $form.find('[type="submit"]').val(Translator.translate('save'));
-        $station.addClass('edit').append($form);
+        var $template = getFormTemplate().data('name', name);
+        $template.find('[name="title"]').val(station.title);
+        $template.find('[name="url"]').val(station.url || '');
+        $template.find('[name="image"]').val(station.image || '');
+        var $input = $template.find('[name="streams"]').val(station.streams[0]);
+        for (var i = 1, l = station.streams.length; i < l; i++) {
+          $input = $input.clone().val(station.streams[i]).insertAfter($input);
+        }
+        $template.find('[type="submit"]').val(Translator.translate('save'));
+        $station.addClass('edit').append($template);
       })
       .on('click', '.station > .icon-delete', function(e) {
         e.preventDefault();
@@ -131,20 +182,34 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         renderStations();
       });
 
-    $(document).on('submit', '.addStation', function(e) {
-      e.preventDefault();
-      var $this = $(this);
-      _storage.addStation(
-        $this.find('[name="title"]').val(),
-        [$this.find('[name="stream"]').val()],
-        $this.find('[name="url"]').val(),
-        $this.find('[name="image"]').val(),
-        $this.data('name')
-      );
-      renderStations();
-      $('body').attr('data-page', 'stations');
-      $this.get(0).reset();
-    });
+    $(document)
+      .on('click', '.field-streams > .icon-add', function(e) {
+        e.preventDefault();
+        var $input = $(this).siblings('input:last');
+        $input.clone().val('').insertAfter($input);
+      })
+      .on('click', '.field-streams > .icon-delete', function(e) {
+        e.preventDefault();
+        $(this).siblings('input:last').remove();
+      })
+      .on('submit', '.addStation', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            station = {name: $this.data('name')};
+
+        $this.serializeArray().forEach(function(item) {
+          if (item.name === 'streams') {
+            station[item.name] = station[item.name] || [];
+            station[item.name].push(item.value);
+          } else {
+            station[item.name] = item.value;
+          }
+        });
+
+        _storage.addStation(station);
+        renderStations();
+        openStationsTab();
+      });
   }
 
   openTab();

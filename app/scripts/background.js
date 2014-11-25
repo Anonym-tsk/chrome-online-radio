@@ -188,7 +188,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
         break;
 
       case 'add':
-        station = DataStorage.addStation.apply(null, data);
+        station = DataStorage.addStation(data);
         DataStorage.setLast(station.name);
         _player.play(station.getStream());
         window.alert(station.title + '\n' + Translator.translate('added'));

@@ -66,7 +66,7 @@
           a.href = station.file;
           return a.origin + a.pathname;
         });
-        successCallback(result);
+        successCallback(result.slice(0, 5));
       }
     };
     xhr.open('GET', playlistUrl, true);
@@ -88,13 +88,13 @@
           title = document.querySelector('#player-site .channel-base h1'),
           image = document.querySelector('#chan_cover img');
 
-      sendMessage('add', [
-        title ? '101.ru ● ' + title.innerText : '101.ru',
-        streams,
-        link && link.href,
-        image && image.src,
-        link && link.innerText
-      ]);
+      sendMessage('add', {
+        title: title ? '101.ru ● ' + title.innerText : '101.ru',
+        streams: streams,
+        image: image && image.src,
+        url: link && link.href,
+        name: link && link.innerText
+      });
     });
   };
   injectStyles();

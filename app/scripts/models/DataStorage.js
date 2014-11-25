@@ -195,21 +195,17 @@ define(['models/Station'], function(Station) {
 
   /**
    * Save users station.
-   * @param {string} title Station title.
-   * @param {string[]} streams Station streams.
-   * @param {string=} url Station site url.
-   * @param {string=} image Station image url.
-   * @param {string|number=} name Station name for update station.
+   * @param {{name: string, title: string, url: string, streams: [], image: string}} stationMap
    * @return {Station}
    * @public
    */
-  function addStation(title, streams, url, image, name) {
-    if (!name) { // Создаем новую станцию
-      name = (+new Date()).toString() + Object.keys(_userStations).length.toString();
+  function addStation(stationMap) {
+    if (!stationMap.name) { // Создаем новую станцию
+      stationMap.name = (+new Date()).toString() + Object.keys(_userStations).length.toString();
     }
-    _userStations[name] = new Station(name, title, url, streams, image, true);
+    _userStations[stationMap.name] = new Station(stationMap.name, stationMap.title, stationMap.url || '', stationMap.streams, stationMap.image || '', true);
     _save('_stations', JSON.stringify(_userStations));
-    return _userStations[name];
+    return _userStations[stationMap.name];
   }
 
   /**

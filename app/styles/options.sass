@@ -237,16 +237,21 @@ body[data-page="flash"]
   font-size: 25px
   line-height: 36px
   color: #c90000
-  width: 26px
+  width: 20px
 .icon-restore
   font-size: 22px
   line-height: 36px
   color: #018F01
-  width: 26px
+  width: 24px
 .icon-edit
   color: #408FCE
   font-size: 24px
   line-height: 38px
+  width: 26px
+.icon-add
+  color: #408FCE
+  font-size: 24px
+  line-height: 36px
   width: 26px
 
 #stations
@@ -283,15 +288,15 @@ body[data-page="flash"]
       text-overflow: ellipsis
       line-height: 32px
       box-shadow: none
-    .icon
+    > .icon
       float: right
       display: none
       margin: 0 0 0 3px
     &:hover
       background: #EAF5FB
-      .icon
+      > .icon
         display: block
-      .icon-restore
+      > .icon-restore
         display: none
     &:last-child
       border-bottom: none
@@ -300,39 +305,59 @@ body[data-page="flash"]
       color: #8F8F8F
       background-color: #F0F0F0
       &:hover
-        .icon-delete
+        > .icon-delete
           display: none
-        .icon-restore
+        > .icon-restore
           display: block
     &.edit
       height: auto
 
   .addStation
+    $width: 180px
+    padding: 5px 15px
     .field
       padding: 1px 3px 1px 0
       label
-        width: 180px
+        width: $width
         line-height: 18px
         font-size: 13px
       input
-        width: 455px
+        width: 425px
         height: 14px
         line-height: 14px
         font-size: 13px
         &[type="submit"]
           margin: 5px 0 0 179px
-          width: 469px
+          width: 439px
           height: 34px
           line-height: 32px
           font-size: 13px
+    .field-streams
+      input
+        margin: 0 0 4px $width
+      input + input:last-of-type
+        padding: 3px 18px 3px 5px
+        width: 412px
+      .icon + .icon,
+      input + input + .icon
+        display: block
+      .icon
+        font-size: 14px
+        line-height: 14px
+      .icon-add
+        left: 621px
+        bottom: 7px
+      .icon-delete
+        left: 602px
+        bottom: 7px
 
 .addStation
+  $width: 200px
   .field
-    overflow: hidden
     margin: 0 0 2px 0
     padding: 3px 3px 3px 0
     label
-      width: 200px
+      width: $width
       float: left
       line-height: 24px
     input
@@ -341,6 +366,28 @@ body[data-page="flash"]
       &[type="submit"]
         margin: 20px 0 0 198px
         width: 485px
+  .field-streams
+    position: relative
+    input
+      margin: 0 0 8px $width
+    input + input:last-of-type
+      padding: 3px 21px 3px 5px
+      width: 454px
+    .icon + .icon,
+    input + input + .icon
+      display: block
+    .icon
+      font-size: 18px
+      line-height: 18px
+      display: none
+      cursor: pointer
+      position: absolute
+    .icon-add
+      left: 686px
+      bottom: 14px
+    .icon-delete
+      left: 664px
+      bottom: 14px
 
 .message
   background: #EBF8FF
