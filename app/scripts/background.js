@@ -191,7 +191,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
         station = DataStorage.addStation.apply(null, data);
         DataStorage.setLast(station.name);
         _player.play(station.getStream());
-        alert(station.title + '\n' + Translator.translate('added'));
+        window.alert(station.title + '\n' + Translator.translate('added'));
         break;
     }
   }
