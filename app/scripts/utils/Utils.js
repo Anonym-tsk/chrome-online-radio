@@ -1,4 +1,4 @@
-define(['models/DataStorage', 'utils/Translator'], function(DataStorage, Translator) {
+define(['models/DataStorage'], function(DataStorage) {
   'use strict';
 
   /**
