@@ -11,35 +11,37 @@ module.exports = function(grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
-  // Configurable paths
-  var config = {
-    app: 'app',
-    dist: 'dist'
-  };
-
   grunt.initConfig({
 
-    // Project settings
-    config: config,
+    // Project config
+    config: {
+      path: {
+        app: 'app',
+        dist: 'dist',
+        package: 'package'
+      },
+      package: grunt.file.readJSON('package.json'),
+      manifest: grunt.file.readJSON('app/manifest.json')
+    },
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
+        files: ['<%= config.path.app %>/scripts/{,*/}*.js'],
         tasks: ['jshint'],
         options: {
           livereload: true
         }
       },
       sass: {
-        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%= config.path.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['sass:debug']
       },
       gruntfile: {
         files: ['Gruntfile.js']
       },
       styles: {
-        files: ['<%= config.app %>/styles/{,*/}*.css'],
+        files: ['<%= config.path.app %>/styles/{,*/}*.css'],
         tasks: [],
         options: {
           livereload: true
@@ -50,10 +52,10 @@ module.exports = function(grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= config.app %>/*.html',
-          '<%= config.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= config.app %>/manifest.json',
-          '<%= config.app %>/_locales/{,*/}*.json'
+          '<%= config.path.app %>/*.html',
+          '<%= config.path.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= config.path.app %>/manifest.json',
+          '<%= config.path.app %>/_locales/{,*/}*.json'
         ]
       }
     },
@@ -70,7 +72,7 @@ module.exports = function(grunt) {
         options: {
           open: false,
           base: [
-            '<%= config.app %>'
+            '<%= config.path.app %>'
           ]
         }
       }
@@ -82,8 +84,8 @@ module.exports = function(grunt) {
         files: [{
           dot: true,
           src: [
-            '<%= config.dist %>/*',
-            '!<%= config.dist %>/.git*'
+            '<%= config.path.dist %>/*',
+            '!<%= config.path.dist %>/.git*'
           ]
         }]
       }
@@ -121,8 +123,8 @@ module.exports = function(grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= config.app %>/scripts/{,*/}*.js',
-        '!<%= config.app %>/scripts/lib/*'
+        '<%= config.path.app %>/scripts/{,*/}*.js',
+        '!<%= config.path.app %>/scripts/lib/*'
       ]
     },
 
@@ -139,9 +141,9 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/styles',
+          cwd: '<%= config.path.app %>/styles',
           src: ['*.sass'],
-          dest: '<%= config.app %>/styles',
+          dest: '<%= config.path.app %>/styles',
           ext: '.css'
         }]
       },
@@ -152,18 +154,18 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/styles',
+          cwd: '<%= config.path.app %>/styles',
           src: ['*.sass'],
-          dest: '<%= config.dist %>/styles',
+          dest: '<%= config.path.dist %>/styles',
           ext: '.css'
         }]
       },
       compressed: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/styles',
+          cwd: '<%= config.path.app %>/styles',
           src: ['*.sass'],
-          dest: '<%= config.dist %>/styles',
+          dest: '<%= config.path.dist %>/styles',
           ext: '.css'
         }]
       }
@@ -174,9 +176,9 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/images',
+          cwd: '<%= config.path.app %>/images',
           src: '{,*/}*.{gif,jpeg,jpg,png}',
-          dest: '<%= config.dist %>/images'
+          dest: '<%= config.path.dist %>/images'
         }]
       }
     },
@@ -192,9 +194,9 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= config.app %>',
+          cwd: '<%= config.path.app %>',
           src: '*.html',
-          dest: '<%= config.dist %>'
+          dest: '<%= config.path.dist %>'
         }]
       }
     },
@@ -204,13 +206,13 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/scripts',
+          cwd: '<%= config.path.app %>/scripts',
           src: [
             '{,*/}*.js',
             '!lib/*.js',
             '!chromereload.js'
           ],
-          dest: '<%= config.dist %>/scripts'
+          dest: '<%= config.path.dist %>/scripts'
         }]
       }
     },
@@ -226,8 +228,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= config.app %>',
-          dest: '<%= config.dist %>',
+          cwd: '<%= config.path.app %>',
+          dest: '<%= config.path.dist %>',
           src: [
             '_locales/{,*/}*.json',
             'stations.json',
@@ -239,8 +241,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= config.app %>',
-          dest: '<%= config.dist %>',
+          cwd: '<%= config.path.app %>',
+          dest: '<%= config.path.dist %>',
           src: '*.html'
         }]
       },
@@ -248,8 +250,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= config.app %>/scripts',
-          dest: '<%= config.dist %>/scripts',
+          cwd: '<%= config.path.app %>/scripts',
+          dest: '<%= config.path.dist %>/scripts',
           src: [
             '{,*/}*.js',
             '!lib/*.js',
@@ -263,10 +265,7 @@ module.exports = function(grunt) {
     compress: {
       chrome: {
         options: {
-          archive: function() {
-            var manifest = grunt.file.readJSON(config.app + '/manifest.json');
-            return 'package/chrome-online-radio-' + manifest.version + '.zip';
-          }
+          archive: 'package/chrome-<%= config.package.name %>-<%= config.package.version %>.zip'
         },
         files: [{
           expand: true,
@@ -277,10 +276,7 @@ module.exports = function(grunt) {
       },
       opera: {
         options: {
-          archive: function() {
-            var manifest = grunt.file.readJSON(config.app + '/manifest.json');
-            return 'package/opera-online-radio-' + manifest.version + '.zip';
-          }
+          archive: 'package/opera-<%= config.package.name %>-<%= config.package.version %>.zip'
         },
         files: [{
           expand: true,
@@ -288,6 +284,24 @@ module.exports = function(grunt) {
           src: ['**'],
           dest: ''
         }]
+      }
+    },
+
+    // Bump version
+    bump: {
+      options: {
+        files: ['package.json', '<%= config.path.app %>/manifest.json'],
+        updateConfigs: ['config.package', 'config.manifest'],
+        commit: true,
+        commitMessage: 'Release %VERSION%',
+        commitFiles: ['package.json', '<%= config.path.app %>/manifest.json'],
+        createTag: true,
+        tagName: '%VERSION%',
+        tagMessage: 'Version %VERSION%',
+        push: false,
+        pushTo: 'origin',
+        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+        globalReplace: false
       }
     },
 
@@ -299,35 +313,9 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('manifestUp', function() {
-    var manifest = grunt.file.readJSON(config.app + '/manifest.json');
-    var buildnumber = manifest.version.split('.');
-
-    // Increase build number that from origin manifest
-    var versionUp = function(numbers, index) {
-      if (!numbers[index]) {
-        grunt.fail.fatal('Build number has overflowing ' + numbers);
-        throw 'Build number overflow ' + numbers;
-      }
-      if (numbers[index] + 1 <= 65535) {
-        numbers[index]++;
-        return numbers.join('.');
-      } else {
-        versionUp(numbers, ++index);
-      }
-    };
-
-    // Update version of dest manifest.json
-    manifest.version = versionUp(buildnumber, buildnumber.length - 1);
-    grunt.log.writeln('Build number has changed to ' + grunt.log.wordlist(buildnumber));
-
-    // Update source manifest
-    grunt.file.write(config.app + '/manifest.json', JSON.stringify(manifest, null, 2));
-  });
-
   grunt.registerTask('manifestCopy', function() {
     var options = this.options({exclude: []});
-    var manifest = grunt.file.readJSON(config.app + '/manifest.json');
+    var manifest = grunt.config.get('config.manifest');
 
     // exclude the scripts from background
     var backgroundScripts = [];
@@ -339,7 +327,7 @@ module.exports = function(grunt) {
     manifest.background.scripts = backgroundScripts;
 
     // Write updated manifest to destination.
-    grunt.file.write(config.dist + '/manifest.json', JSON.stringify(manifest, null, 2));
+    grunt.file.write(grunt.config.get('config.path.dist') + '/manifest.json', JSON.stringify(manifest, null, 2));
   });
 
   grunt.registerTask('debug', [
@@ -381,7 +369,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('release', [
-    'manifestUp',
+    'bump',
     'build'
   ]);
 
