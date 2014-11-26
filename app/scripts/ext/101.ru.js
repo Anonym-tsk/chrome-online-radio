@@ -35,17 +35,12 @@
         'height:19px;' +
         'margin:5px 0 0 0;' +
         'float:left;' +
-        'background:url("' + chrome.extension.getURL('images/19.101.ru.png') + '") no-repeat center;' +
+        'background:url("' + chrome.extension.getURL('images/38.101.ru.png') + '") no-repeat center;' +
         'background-size:19px 19px;' +
         '-webkit-filter: brightness(10) grayscale(1);' +
       '}' +
       '.online-radio-add-button:hover {' +
         '-webkit-filter: brightness(1) grayscale(0);' +
-      '}' +
-      '@media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2) {' +
-        '.online-radio-add-button {' +
-          'background-image:url("' + chrome.extension.getURL('images/38.101.ru.png') + '");' +
-        '}' +
       '}';
     var style = document.createElement('style');
     style.appendChild(document.createTextNode(css));
