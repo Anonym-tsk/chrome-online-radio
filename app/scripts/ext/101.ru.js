@@ -4,7 +4,7 @@
 (function() {
   'use strict';
 
-  var btnContainer = document.getElementById('pl_vote_y');
+  var btnContainer = document.querySelector('.channel-base');
   var playButton = document.querySelector('.general_play');
   if (!btnContainer) {
     return;
@@ -31,8 +31,9 @@
         'cursor:pointer;' +
         'width:19px;' +
         'height:19px;' +
-        'margin:5px 0 0 0;' +
-        'float:left;' +
+        'position:absolute;' +
+        'top:5px;' +
+        'right:0;' +
         'background:url("' + chrome.extension.getURL('images/38.101.ru.png') + '") no-repeat center;' +
         'background-size:19px 19px;' +
         '-webkit-filter: brightness(10) grayscale(1);' +
