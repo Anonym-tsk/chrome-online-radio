@@ -150,7 +150,7 @@
   "radioromantika": {
     "title": "Радио Romantika",
     "url": "http://www.radioromantika.ru/",
-    "image": "http://www.radioromantika.ru/design/images/2012-logo.png",
+    "image": "http://www.radioromantika.ru/design/images/header-logo.png",
     "streams": [
       "http://eu4.101.ru:8000/v4_1?setst=082535900138555562720131127"
     ]
@@ -165,8 +165,8 @@
   },
   "megapolis": {
     "title": "Мегаполис FM",
-    "url": "http://www.megapolis895.fm/",
-    "image": "http://www.megapolis895.fm/i/logo.png",
+    "url": "http://www.megapolisfm.ru/",
+    "image": "http://www.megapolisfm.ru/assets/logo.jpg",
     "streams": [
       "http://stream04.media.rambler.ru/megapolis128.mp3"
     ]
@@ -215,7 +215,7 @@
   "hermitage": {
     "title": "Радио Эрмитаж",
     "url": "http://www.radiohermitage.ru/news/",
-    "image": "http://www.radiohermitage.ru/img/img05.gif",
+    "image": "http://www.radiohermitage.ru/img/logo.png",
     "streams": [
       "http://91.190.117.131:8000/live"
     ]
@@ -228,22 +228,14 @@
       "http://keksserver.streamr.ru:8037/keks128"
     ]
   },
-  "unost": {
-    "title": "Радио Юность",
-    "url": "http://www.radiounost.ru/",
-    "image": "http://www.dv-reclama.ru/upload/main/ba8/radiounost_200.gif",
-    "streams": [
-      "http://icecast.vgtrk.cdnvideo.ru/ufm_mp3_192kbps"
-    ]
-  },
   "sportfm": {
     "title": "Спорт FM",
     "url": "http://sportfm.ru/",
-    "image": "http://pofm.ru/images/radio/sport_fm.jpg",
+    "image": "http://sportfm.ru/local/templates/sport/images/logo3.png",
     "streams": [
-      "http://online.sportfm.ru:8000/sport128",
-      "http://online.sportfm.ru:8000/sport64",
-      "http://online.sportfm.ru:8000/sport32"
+      "http://sportfm.hostingradio.ru:8050/sportfm128.mp3",
+      "http://sportfm.hostingradio.ru:8050/sportfm64.mp3",
+      "http://sportfm.hostingradio.ru:8050/sportfm32.mp3"
     ]
   },
   "cityfm": {
@@ -270,6 +262,15 @@
     "streams": [
       "http://radiosilver.corbina.net:8000/silver128.mp3",
       "http://radiosilver.corbina.net:8000/silver48.mp3"
+    ]
+  },
+  "rddfm": {
+    "title": "Радио для двоих",
+    "url": "http://www.rddfm.ru/",
+    "image": "http://www.rddfm.ru/template/i/logo.png",
+    "streams": [
+      "http://217.170.67.77/rdd",
+      "http://78.140.209.15:8000/rdd128"
     ]
   }
 }
