@@ -55,15 +55,19 @@
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        var json = JSON.parse(xhr.responseText.slice(1, xhr.responseText.length - 2));
-        var result = json.Streams.filter(function(station) {
+        var result = [],
+            json = JSON.parse(xhr.responseText.slice(1, xhr.responseText.length - 2));
+        json.Streams.filter(function(station) {
           return station.MediaType.toLowerCase() === 'mp3';
         }).sort(function(station1, station2) {
           return station1.Bandwidth < station2.Bandwidth;
-        }).map(function(station) {
-          return station.Url;
+        }).forEach(function(station) {
+          result.push(station.Url);
+          if (station.Url[station.Url.length - 1] === '/') {
+            result.push(station.Url + ';'); // Shoutcast fix
+          }
         });
-        successCallback(result.slice(0, 5));
+        successCallback(result.slice(0, 6));
       }
     };
     xhr.open('GET', url, true);
