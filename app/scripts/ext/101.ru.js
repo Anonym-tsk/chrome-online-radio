@@ -34,12 +34,12 @@
         'position:absolute;' +
         'top:5px;' +
         'right:0;' +
-        'background:url("' + chrome.extension.getURL('images/38.101.ru.png') + '") no-repeat center;' +
-        'background-size:19px 19px;' +
-        '-webkit-filter: brightness(10) grayscale(1);' +
+        'background:#fff;' +
+        '-webkit-mask:url("' + chrome.extension.getURL('images/38.png') + '") no-repeat center;' +
+        '-webkit-mask-size:19px 19px;' +
       '}' +
       '.online-radio-add-button:hover {' +
-        '-webkit-filter: brightness(1) grayscale(0);' +
+        'background:#ef8800;' +
       '}';
     var style = document.createElement('style');
     style.appendChild(document.createTextNode(css));

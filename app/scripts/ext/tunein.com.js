@@ -124,7 +124,7 @@
               streams: streams,
               image: image,
               url: link,
-              name: link
+              name: link.replace(/\W/g, '')
             });
           });
         });
