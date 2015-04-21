@@ -12,7 +12,6 @@
   "images/38g.png",
   "images/38o.png",
   "images/38r.png",
-  "images/38.101.ru.png",
   "images/48.png",
   "images/80.png",
   "images/96.png",
@@ -22,6 +21,7 @@
 
   "scripts/ext/proxy.js",
   "scripts/ext/101.ru.js",
+  "scripts/ext/tunein.com.js",
   "scripts/lib/jquery.min.js",
   "scripts/lib/require.js",
   "scripts/models/DataStorage.js",
