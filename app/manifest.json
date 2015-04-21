@@ -13,7 +13,7 @@
     "https://*/*"
   ],
   "web_accessible_resources": [
-    "images/38.101.ru.png"
+    "images/38.png"
   ],
   "content_scripts": [
     {
@@ -32,6 +32,15 @@
       ],
       "js": [
         "scripts/ext/101.ru.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "http://tunein.com/*"
+      ],
+      "js": [
+        "scripts/ext/tunein.com.js"
       ],
       "run_at": "document_end"
     }
