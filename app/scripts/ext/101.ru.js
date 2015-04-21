@@ -31,9 +31,8 @@
         'cursor:pointer;' +
         'width:19px;' +
         'height:19px;' +
-        'position:absolute;' +
-        'top:5px;' +
-        'right:0;' +
+        'margin:5px 0 0 0;' +
+        'float:left;' +
         'background:#fff;' +
         '-webkit-mask:url("' + chrome.extension.getURL('images/38.png') + '") no-repeat center;' +
         '-webkit-mask-size:19px 19px;' +
@@ -93,5 +92,5 @@
     });
   };
   injectStyles();
-  btnContainer.appendChild(button);
+  btnContainer.insertBefore(button, btnContainer.querySelector('#airfavmsg'));
 })();
