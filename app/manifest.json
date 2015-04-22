@@ -43,6 +43,15 @@
         "scripts/ext/tunein.com.js"
       ],
       "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "http://radiopotok.ru/*"
+      ],
+      "js": [
+        "scripts/ext/radiopotok.ru.js"
+      ],
+      "run_at": "document_end"
     }
   ],
   "background": {
