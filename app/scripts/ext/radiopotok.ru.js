@@ -48,6 +48,39 @@
     }
   }
 
+  function buttonClickHandler(playButton) {
+    stop();
+
+    var head = document.getElementsByTagName('head')[0],
+        header = playButton.parentNode.parentNode,
+        streams = [],
+
+        linkTag = header.querySelector('a[rel=canonical]'),
+        metaLink = head.querySelector('meta[property="og:url"]'),
+        link = linkTag && linkTag.href || metaLink && metaLink.content,
+
+        metaTitle = head.querySelector('meta[property="og:description"]'),
+        title = playButton.dataset.title || linkTag && linkTag.textContent || metaTitle && metaTitle.content,
+
+        imageTag = header.parentNode.parentNode.querySelector('.img-thumbnail'),
+        metaImage = head.querySelector('meta[property="og:image"]'),
+        image = imageTag && imageTag.src.replace('/s_', '/') || metaImage && metaImage.content.replace('/s_', '/');
+
+    [playButton.dataset.stream1, playButton.dataset.stream2, playButton.dataset.stream3].forEach(function(stream) {
+      if (stream) {
+        streams.push(stream);
+      }
+    });
+
+    sendMessage('add', {
+      title: 'radiopotok.ru ● ' + title,
+      streams: streams,
+      image: image,
+      url: link,
+      name: link.replace(/\W/g, '')
+    });
+  }
+
   var playButtons = document.querySelectorAll('.btn.play-radio');
   if (!playButtons.length) {
     return;
@@ -60,37 +93,7 @@
     button.type = 'button';
     button.className = 'online-radio-add-button btn btn-default';
     button.title = chrome.i18n.getMessage('add');
-    button.onclick = (function(playButton) {
-      stop();
-
-      var head = document.getElementsByTagName('head')[0],
-          header = playButton.parentNode.parentNode,
-          streams = [],
-
-          linkTag = header.querySelector('a[rel=canonical]'),
-          metaLink = head.querySelector('meta[property="og:url"]'),
-          link = linkTag && linkTag.href || metaLink && metaLink.content,
-
-          metaTitle = head.querySelector('meta[property="og:description"]'),
-          title = playButton.dataset.title || linkTag && linkTag.textContent || metaTitle && metaTitle.content,
-
-          imageTag = header.parentNode.parentNode.querySelector('.img-thumbnail'),
-          metaImage = head.querySelector('meta[property="og:image"]'),
-          image = imageTag && imageTag.src.replace('/s_', '/') || metaImage && metaImage.content.replace('/s_', '/');
-
-      [playButton.dataset.stream1, playButton.dataset.stream2, playButton.dataset.stream3].forEach(function(stream) {
-        stream && streams.push(stream);
-      });
-
-      sendMessage('add', {
-        title: 'radiopotok.ru ● ' + title,
-        streams: streams,
-        image: image,
-        url: link,
-        name: link.replace(/\W/g, '')
-      });
-    }).bind(button, playButtons[i]);
-
+    button.onclick = buttonClickHandler.bind(button, playButtons[i]);
     playButtons[i].parentNode.insertBefore(button, playButtons[i]);
   }
 })();

@@ -22,6 +22,7 @@
   "scripts/ext/proxy.js",
   "scripts/ext/101.ru.js",
   "scripts/ext/tunein.com.js",
+  "scripts/ext/radiopotok.ru.js",
   "scripts/lib/jquery.min.js",
   "scripts/lib/require.js",
   "scripts/models/DataStorage.js",
