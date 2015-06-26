@@ -5,7 +5,9 @@ define(['models/Station'], function(Station) {
    * Favorites.
    * @type {[]}
    */
-  var _favorites = JSON.parse(localStorage.getItem('_favorites')) || [];
+  var _favorites = (JSON.parse(localStorage.getItem('_favorites')) || []).map(function(item) {
+    return item.toString();
+  });
 
   /**
    * Last station name.

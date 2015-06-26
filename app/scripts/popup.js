@@ -230,7 +230,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
     }
 
     for (var n in stations) {
-      if (stations.hasOwnProperty(n) && !_storage.isFavorite(n) && !stations[n].isHidden()) {
+      if (stations.hasOwnProperty(n) && !_storage.isFavorite(n.toString()) && !stations[n].isHidden()) {
         $stations.append(renderStation(stations[n].name, stations[n].title, stations[n].image));
       }
     }
