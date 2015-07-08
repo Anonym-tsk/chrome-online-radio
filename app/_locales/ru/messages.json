@@ -110,5 +110,29 @@
   },
   "please_enable_radio": {
     "message": "Включите радио для добавления"
+  },
+  "export_stations": {
+    "message": "Экспорт радиостанций"
+  },
+  "import_stations": {
+    "message": "Импорт радиостанций"
+  },
+  "export": {
+    "message": "Экспорт"
+  },
+  "import": {
+    "message": "Импорт"
+  },
+  "savefile": {
+    "message": "Сохранить в файл"
+  },
+  "loadfile": {
+    "message": "Загрузить из файла"
+  },
+  "import_error": {
+    "message": "Ошибка импорта"
+  },
+  "import_success": {
+    "message": "Импорт завершён успешно"
   }
 }

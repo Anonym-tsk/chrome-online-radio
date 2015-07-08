@@ -121,7 +121,10 @@ textarea
   &:focus
     box-shadow: 0px 0px 2px 0px #1389D8
 
-input[type="submit"]
+textarea
+  resize: vertical
+
+input[type="submit"], button
   background-color: #02abda
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#02abda), color-stop(100%,#00607E))
   background-image: -webkit-linear-gradient(top, #02abda 0%, #00607E 100%)
@@ -139,12 +142,18 @@ input[type="submit"]
   padding: 0 20px
   margin: 0
   cursor: pointer
+  outline: none
   &:hover
     background-color: #037699
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#037699), color-stop(100%,#02abda))
     background-image: -webkit-linear-gradient(top, #037699 0%, #02abda 100%)
     background-image: linear-gradient(top, #037699 0%, #02abda 100%)
     line-height: 33px
+  &:disabled
+    background-color: #d1d1d1
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d1d1d1), color-stop(100%, #acacac))
+    background-image: -webkit-linear-gradient(top, #d1d1d1 0%, #acacac 100%)
+    background-image: linear-gradient(top, #d1d1d1 0%, #acacac 100%)
 
 #wrapper
   overflow: hidden
@@ -223,6 +232,20 @@ body[data-page="add"]
     display: block
   ul.menu
     li[data-page="add"]
+      @extend .active
+
+body[data-page="export"]
+  section[data-page="export"]
+    display: block
+  ul.menu
+    li[data-page="export"]
+      @extend .active
+
+body[data-page="import"]
+  section[data-page="import"]
+    display: block
+  ul.menu
+    li[data-page="import"]
       @extend .active
 
 body[data-page="flash"]
@@ -350,6 +373,34 @@ body[data-page="flash"]
       .icon-delete
         left: 602px
         bottom: 7px
+
+#export, #import
+  .field
+    margin: 0 0 2px 0
+    padding: 3px 3px 3px 0
+    label
+      width: 120px
+      float: left
+      line-height: 24px
+    textarea
+      width: 550px
+      height: 170px
+      margin: 0
+  .message
+    display: none
+
+#export
+  button
+    margin: 20px 0 0 118px
+    width: 564px
+
+#import
+  button.loadfile
+    margin: 20px 10px 0 118px
+    width: 410px
+  button.importdata
+    margin: 20px 0 0 0
+    width: 140px
 
 .addStation
   $width: 200px

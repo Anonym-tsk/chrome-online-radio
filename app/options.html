@@ -42,6 +42,8 @@
       <li data-page="stations" data-i18n="stations"></li>
       <li data-page="add" data-i18n="add"></li>
       <li data-page="hotkeys" data-i18n="hotkeys"></li>
+      <li data-page="export" data-i18n="export_stations"></li>
+      <li data-page="import" data-i18n="import_stations"></li>
       <li data-page="flash" data-i18n="error"></li>
     </ul>
   </div>
@@ -52,6 +54,29 @@
     </section>
     <section data-page="add">
       <h1 data-i18n="add"></h1>
+    </section>
+    <section data-page="export">
+      <h1 data-i18n="export_stations"></h1>
+      <div id="export">
+        <div class="field export">
+          <label data-i18n="export"></label>
+          <textarea readonly></textarea>
+          <button class="savefile" data-i18n="savefile"></button>
+        </div>
+      </div>
+    </section>
+    <section data-page="import">
+      <h1 data-i18n="import_stations"></h1>
+      <div id="import">
+        <div class="message error" data-i18n="import_error"></div>
+        <div class="message success" data-i18n="import_success"></div>
+        <div class="field import">
+          <label data-i18n="import"></label>
+          <textarea></textarea>
+          <button class="loadfile" data-i18n="loadfile"></button>
+          <button disabled class="importdata" data-i18n="import"></button>
+        </div>
+      </div>
     </section>
     <section data-page="flash">
       <h1 data-i18n="error"></h1>

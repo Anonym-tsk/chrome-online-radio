@@ -23,6 +23,43 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
   var _storage = _background.getStorage();
 
   /**
+   * Save options data to file.
+   * @param {string} options
+   * @private
+   */
+  function _saveOptionsFile(options) {
+    var a = document.createElement('a');
+    var file = new Blob([options], {encoding: 'UTF-8', type: 'application/json;charset=UTF-8'});
+    a.href = URL.createObjectURL(file);
+    a.download = 'OnlineRadio.json';
+    a.click();
+  }
+
+  function _getFileContent(callback) {
+    var fileChooser = document.createElement('input');
+    fileChooser.type = 'file';
+    fileChooser.multiple = false;
+    fileChooser.accept = '.json,application/json';
+
+    fileChooser.addEventListener('change', function() {
+      var file = fileChooser.files[0],
+          reader = new FileReader();
+
+      reader.onload = function(evt) {
+        callback(evt.target.result);
+      };
+
+      reader.onerror = function() {
+        callback(null);
+      };
+
+      reader.readAsText(file);
+    });
+
+    fileChooser.click();
+  }
+
+  /**
    * Renders one station for stations list.
    * @param {string} name
    * @param {Station} station
@@ -120,6 +157,21 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
   }
 
   /**
+   * Open export page.
+   */
+  function openExportTab() {
+    $('body').attr('data-page', 'export');
+    $('#export').find('.export > textarea').val(_storage.exportData());
+  }
+
+  /**
+   * Open import page.
+   */
+  function openImportTab() {
+    $('body').attr('data-page', 'import');
+  }
+
+  /**
    * Renders stations list.
    */
   function renderStations() {
@@ -140,7 +192,9 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       .on('click', 'li[data-page="add"]', openAddStationTab)
       .on('click', 'li[data-page="stations"]', openStationsTab)
       .on('click', 'li[data-page="flash"]', openFlashTab)
-      .on('click', 'li[data-page="hotkeys"]', openHotkeysTab);
+      .on('click', 'li[data-page="hotkeys"]', openHotkeysTab)
+      .on('click', 'li[data-page="export"]', openExportTab)
+      .on('click', 'li[data-page="import"]', openImportTab);
 
     $('#stations')
       .on('click', '.station > .icon-edit', function(e) {
@@ -209,6 +263,42 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         _storage.addStation(station);
         renderStations();
         openStationsTab();
+      });
+
+    $('#export').on('click', '.savefile', function(e) {
+      e.preventDefault();
+      _saveOptionsFile(_storage.exportData());
+    });
+
+    $('#import')
+      .on('click', '.loadfile', function(e) {
+        e.preventDefault();
+        _getFileContent(function(data) {
+          var $container = $('#import'),
+              $error = $container.find('.error'),
+              $success = $container.find('.success'),
+              $textarea = $container.find('textarea');
+          if (data) {
+            $textarea.val(data).trigger('paste');
+            $error.hide();
+          } else {
+            $success.hide();
+            $error.show();
+          }
+        });
+      })
+      .on('click', '.importdata', function(e) {
+        e.preventDefault();
+        var $container = $('#import'),
+            $error = $container.find('.error'),
+            $success = $container.find('.success'),
+            $textarea = $container.find('textarea'),
+            result = _storage.importData($textarea.val());
+        $error.toggle(!result);
+        $success.toggle(result);
+      })
+      .on('input propertychange paste', 'textarea', function() {
+        $('#import').find('.importdata').attr('disabled', !this.value.length || !this.value.trim());
       });
   }
 

@@ -139,6 +139,37 @@ define(['models/Station'], function(Station) {
   }
 
   /**
+   * Export data to string.
+   * @return {string}
+   */
+  function exportData() {
+    return JSON.stringify({
+      'stations': _userStations
+    });
+  }
+
+  /**
+   * Import data from string.
+   * @return {string}
+   */
+  function importData(data) {
+    try {
+      data = JSON.parse(data);
+      if (!data.stations) {
+        return false;
+      }
+      for (var i in data.stations) {
+        if (data.stations.hasOwnProperty(i)) {
+          addStation(data.stations[i]);
+        }
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /**
    * Set the last played station.
    * @param {string} name Station name.
    * @public
@@ -274,6 +305,8 @@ define(['models/Station'], function(Station) {
     setFavorites: setFavorites,
     getStations: getStations,
     getStationByName: getStationByName,
+    exportData: exportData,
+    importData: importData,
     setLast: setLast,
     getLastName: getLastName,
     getLastStation: getLastStation,

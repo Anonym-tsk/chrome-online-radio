@@ -110,5 +110,29 @@
   },
   "please_enable_radio": {
     "message": "Turn on the radio to add a station"
+  },
+  "export_stations": {
+    "message": "Export stations"
+  },
+  "import_stations": {
+    "message": "Import stations"
+  },
+  "export": {
+    "message": "Export"
+  },
+  "import": {
+    "message": "Import"
+  },
+  "savefile": {
+    "message": "Save as file"
+  },
+  "loadfile": {
+    "message": "Load from file"
+  },
+  "import_error": {
+    "message": "Error importing data"
+  },
+  "import_success": {
+    "message": "Import completed successfully"
   }
 }
