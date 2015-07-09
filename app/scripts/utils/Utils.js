@@ -69,6 +69,8 @@ define(['models/DataStorage'], function(DataStorage) {
           }
         }
       }
+
+      openOptions('changelog');
     }
   }
 
