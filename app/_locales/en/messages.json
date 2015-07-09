@@ -134,5 +134,21 @@
   },
   "import_success": {
     "message": "Import completed successfully"
+  },
+  "changelog": {
+    "message": "Changelog"
+  },
+  "extension_updated": {
+    "message": "Extension updated"
+  },
+
+  "changelog_2_0_9": {
+    "message": "<b>2.0.9</b><br> — Import and export stations<br> — Added a new stations"
+  },
+  "changelog_2_0_8": {
+    "message": "<b>2.0.8</b><br> — Integration with http://radiopotok.ru"
+  },
+  "changelog_2_0_7": {
+    "message": "<b>2.0.8</b><br> — Integration with http://101.ru and http://tunein.com"
   }
 }

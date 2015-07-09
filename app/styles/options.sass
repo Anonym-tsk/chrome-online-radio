@@ -248,6 +248,13 @@ body[data-page="import"]
     li[data-page="import"]
       @extend .active
 
+body[data-page="changelog"]
+  section[data-page="changelog"]
+    display: block
+  ul.menu
+    li[data-page="changelog"]
+      @extend .active
+
 body[data-page="flash"]
   section[data-page="flash"]
     display: block
@@ -402,6 +409,10 @@ body[data-page="flash"]
   button.importdata
     margin: 20px 0 0 0
     width: 140px
+
+#changelog
+  .message
+    display: none
 
 .addStation
   $width: 200px

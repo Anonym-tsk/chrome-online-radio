@@ -10,7 +10,7 @@ define(['jquery'], function($) {
     $parent.find('[data-i18n]').each(function() {
       var $this = $(this);
       var i18nName = $this.data('i18n');
-      $this.text(translateMessage(i18nName));
+      $this.html(translateMessage(i18nName));
     });
     $parent.find('[data-i18n-title]').each(function() {
       var $this = $(this);

@@ -96,6 +96,10 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       case 'flash':
         openFlashTab();
         break;
+      case 'changelog':
+        $('#changelog').find('.message').show();
+        openChangelogTab();
+        break;
       default:
         openStationsTab();
     }
@@ -150,6 +154,13 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
   }
 
   /**
+   * Open changelog page.
+   */
+  function openChangelogTab() {
+    $('body').attr('data-page', 'changelog');
+  }
+
+  /**
    * Open hotkeys options.
    */
   function openHotkeysTab() {
@@ -194,7 +205,8 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       .on('click', 'li[data-page="flash"]', openFlashTab)
       .on('click', 'li[data-page="hotkeys"]', openHotkeysTab)
       .on('click', 'li[data-page="export"]', openExportTab)
-      .on('click', 'li[data-page="import"]', openImportTab);
+      .on('click', 'li[data-page="import"]', openImportTab)
+      .on('click', 'li[data-page="changelog"]', openChangelogTab);
 
     $('#stations')
       .on('click', '.station > .icon-edit', function(e) {
