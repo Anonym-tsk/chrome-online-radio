@@ -2,9 +2,17 @@
   "nashe": {
     "title": "Наше Радио",
     "url": "http://www.nashe.ru/",
-    "image": "http://nasheradio.advera.ru/logo.jpg",
+    "image": "http://www.nashe.ru/common/bar/img/logo.png",
     "streams": [
       "http://mp3.nashe.ru/nashe-128.mp3"
+    ]
+  },
+  "nashe_spb": {
+    "title": "Наше Радио Питер",
+    "url": "http://www.nashe.ru/?city=spb",
+    "image": "http://www.nashe.ru/common/bar/img/spb_logo.png",
+    "streams": [
+      "http://nashe.streamr.ru/nashespb128.mp3"
     ]
   },
   "nashe20": {
