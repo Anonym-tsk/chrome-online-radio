@@ -296,6 +296,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
             result = _storage.importData($textarea.val());
         $error.toggle(!result);
         $success.toggle(result);
+        renderStations();
       })
       .on('input propertychange paste', 'textarea', function() {
         $('#import').find('.importdata').attr('disabled', !this.value.length || !this.value.trim());
