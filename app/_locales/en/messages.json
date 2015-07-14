@@ -142,6 +142,9 @@
     "message": "Extension updated"
   },
 
+  "changelog_2_1_1": {
+    "message": "<b>2.1.1</b><br> — Experimental version. Bugfix for Opera and Yandex.Browser"
+  },
   "changelog_2_0_9": {
     "message": "<b>2.0.9</b><br> — Import and export stations<br> — Added a new stations"
   },

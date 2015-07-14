@@ -290,17 +290,6 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
     });
   }
 
-  // Disable Opera offroad mode
-  if (window.opr) {
-    opr.offroad.enabled.get({}, function(details) {
-      if (details.levelOfControl === 'controllable_by_this_extension' || details.levelOfControl === 'controlled_by_this_extension') {
-        if (details.value === true) {
-          opr.offroad.enabled.set({'value': false}, function() {});
-        }
-      }
-    });
-  }
-
   // Run!
   HtmlPlayer.canPlayMP3(function(status) {
     if (!status) {

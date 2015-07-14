@@ -101,10 +101,9 @@ define(['models/DataStorage'], function(DataStorage) {
   function canPlayMP3(callback) {
     try {
       var audio = new Audio();
-      if (!audio.canPlayType('audio/mpeg; codecs="mp3"')) {
-        callback(false);
-      }
-      else {
+      if (audio.canPlayType('audio/mpeg; codecs="mp3"') === 'probably') {
+        callback(true);
+      } else {
         audio.addEventListener('canplaythrough', function() {
           callback(true);
         }, false);
@@ -112,7 +111,7 @@ define(['models/DataStorage'], function(DataStorage) {
           callback(false, this.error);
         }, false);
       }
-      audio.src = 'data:audio/mpeg;base64,/+MYxAAAAANIAAAAAExBTUUzLjk4LjIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+      audio.src = 'data:audio/mpeg;base64,/+MYxAAAAANIAUAAAASEEB/jwOFM/0MM/90b/+RhST//w4NFwOjf///PZu////9lns5GFDv//l9GlUIEEIAAAgIg8Ir/JGq3/+MYxDsLIj5QMYcoAP0dv9HIjUcH//yYSg+CIbkGP//8w0bLVjUP///3Z0x5QCAv/yLjwtGKTEFNRTMuOTeqqqqqqqqqqqqq/+MYxEkNmdJkUYc4AKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
       audio.load();
     }
     catch (e) {
