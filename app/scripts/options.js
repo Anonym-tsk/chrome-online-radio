@@ -224,9 +224,10 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         $template.find('[name="title"]').val(station.title);
         $template.find('[name="url"]').val(station.url || '');
         $template.find('[name="image"]').val(station.image || '');
-        var $input = $template.find('[name="streams"]').val(station.streams[0]);
-        for (var i = 1, l = station.streams.length; i < l; i++) {
-          $input = $input.clone().val(station.streams[i]).insertAfter($input);
+        var names = Object.keys(station.streams);
+        var $input = $template.find('[name="streams"]').val(station.streams[names[0]]);
+        for (var i = 1, l = names.length; i < l; i++) {
+          $input = $input.clone().val(station.streams[names[i]]).insertAfter($input);
         }
         $template.find('[type="submit"]').val(Translator.translate('save'));
         $station.addClass('edit').append($template);

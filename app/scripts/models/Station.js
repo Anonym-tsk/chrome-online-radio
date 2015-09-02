@@ -2,11 +2,24 @@ define(function() {
   'use strict';
 
   /**
+   * Array to object converter.
+   * @param {[]} arr
+   * @return {{}}
+   * @private
+   */
+  function _arrayToObject(arr) {
+    return arr.reduce(function(o, v, i) {
+      o[i] = v;
+      return o;
+    }, {});
+  }
+
+  /**
    * Station class.
    * @param {string} name
    * @param {string} title
    * @param {string} url
-   * @param {string[]} streams
+   * @param {{string: string}|[]} streams
    * @param {string=} image
    * @param {boolean=} isUserStation
    * @param {boolean=} isHidden
@@ -32,10 +45,10 @@ define(function() {
     this.url = url;
 
     /**
-     * Streams array.
-     * @type {string[]}
+     * Streams object.
+     * @type {{string: string}}
      */
-    this.streams = streams;
+    this.streams = Array.isArray(streams) ? _arrayToObject(streams) : streams;
 
     /**
      * Image url.
@@ -59,10 +72,10 @@ define(function() {
 
     /**
      * Current station index.
-     * @type {number}
+     * @type {string}
      * @private
      */
-    this._currentStreamIndex = 0;
+    this._currentStreamName = '0';
   }
 
   /**
@@ -70,7 +83,10 @@ define(function() {
    * @return {string}
    */
   Station.prototype.getNextStream = function() {
-    this._currentStreamIndex = ++this._currentStreamIndex % this.streams.length;
+    var names = Object.keys(this.streams),
+        index = names.indexOf(this._currentStreamName),
+        newIndex = (index + 1) % names.length;
+    this._currentStreamName = names[newIndex];
     return this.getStream();
   };
 
@@ -79,7 +95,7 @@ define(function() {
    * @return {string}
    */
   Station.prototype.getStream = function() {
-    return this.streams[this._currentStreamIndex];
+    return this.streams[this._currentStreamName];
   };
 
   /**

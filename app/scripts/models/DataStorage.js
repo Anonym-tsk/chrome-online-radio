@@ -228,7 +228,7 @@ define(['models/Station'], function(Station) {
 
   /**
    * Save users station.
-   * @param {{name: string, title: string, url: string, streams: [], image: string}} stationMap
+   * @param {{name: string, title: string, url: string, streams: {}|[], image: string}} stationMap
    * @return {Station}
    * @public
    */

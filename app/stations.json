@@ -3,282 +3,282 @@
     "title": "Наше Радио",
     "url": "http://www.nashe.ru/",
     "image": "http://www.nashe.ru/common/bar/img/logo.png",
-    "streams": [
-      "http://mp3.nashe.ru/nashe-128.mp3"
-    ]
+    "streams": {
+      "128K": "http://mp3.nashe.ru/nashe-128.mp3"
+    }
   },
   "nashe_spb": {
     "title": "Наше Радио Питер",
     "url": "http://www.nashe.ru/?city=spb",
     "image": "http://www.nashe.ru/common/bar/img/spb_logo.png",
-    "streams": [
-      "http://nashe.streamr.ru/nashespb128.mp3"
-    ]
+    "streams": {
+      "128K": "http://nashe.streamr.ru/nashespb128.mp3"
+    }
   },
   "nashe20": {
     "title": "Наше 2.0",
     "url": "http://www.nashe.ru/nashe20/",
     "image": "http://www.nashe.ru/images/logo_20.png",
-    "streams": [
-      "http://mp3.nashe.ru/nashe20-128.mp3",
-      "http://mp3.nashe.ru/nashe20-64.mp3"
-    ]
+    "streams": {
+      "128K": "http://mp3.nashe.ru/nashe20-128.mp3",
+      "64K": "http://mp3.nashe.ru/nashe20-64.mp3"
+    }
   },
   "maximum": {
     "title": "Максимум",
     "url": "http://www.maximum.ru/online/",
     "image": "http://onlainradio.ru/image/radio/radio_maxsimum.jpg",
-    "streams": [
-      "http://maximum.fmtuner.ru/"
-    ]
+    "streams": {
+      "0": "http://maximum.fmtuner.ru/"
+    }
   },
   "hitfm": {
     "title": "Хит FМ",
     "url": "http://www.hitfm.ru/online_player.asp",
     "image": "http://onlainradio.ru/image/radio/hit_fm_pryamoi_efir.jpg",
-    "streams": [
-      "http://rhit.fmtuner.ru/"
-    ]
+    "streams": {
+      "0": "http://rhit.fmtuner.ru/"
+    }
   },
   "dfm": {
     "title": "DFM",
     "url": "http://www.dfm.ru/listen/dfmonline/",
     "image": "http://onlainradio.ru/image/radio/dfm_radio.jpg",
-    "streams": [
-      "http://dfm.fmtuner.ru/"
-    ]
+    "streams": {
+      "0": "http://dfm.fmtuner.ru/"
+    }
   },
   "russkoe": {
     "title": "Русское Радио",
     "url": "http://www.rusradio.ru/",
     "image": "http://onlainradio.ru/image/radio/russkoe_radio1.jpg",
-    "streams": [
-      "http://rr.fmtuner.ru/"
-    ]
+    "streams": {
+      "0": "http://rr.fmtuner.ru/"
+    }
   },
   "rockfm": {
     "title": "Rock FM",
     "url": "http://www.rockfm.ru",
     "image": "http://archicompany.com/wp-content/uploads/2012/09/rock-fm_ru.jpg",
-    "streams": [
-      "http://mp3.nashe.ru/rock-128.mp3"
-    ]
+    "streams": {
+      "128K": "http://mp3.nashe.ru/rock-128.mp3"
+    }
   },
   "montecarlo": {
     "title": "Монте-Карло",
     "url": "http://montecarlo.ru/",
     "image": "http://montecarlo.ru/upload/images/rmc300.jpg",
-    "streams": [
-      "http://mc.fmtuner.ru/"
-    ]
+    "streams": {
+      "0": "http://mc.fmtuner.ru/"
+    }
   },
   "echo": {
     "title": "Эхо Москвы",
     "url": "http://www.echo.msk.ru/",
     "image": "http://www.echo.msk.ru/i/logo.png",
-    "streams": [
-      "http://81.19.85.197/echo.mp3"
-    ]
+    "streams": {
+      "0": "http://81.19.85.197/echo.mp3"
+    }
   },
   "europa": {
     "title": "Европа Плюс",
     "url": "http://www.europaplus.ru/",
     "image": "http://www.europaplus.ru/template/2012/img/new_player/logo-europa.png",
-    "streams": [
-      "http://ep2561.streamr.ru:8052/europaplus256.mp3"
-    ]
+    "streams": {
+      "256K": "http://ep2561.streamr.ru:8052/europaplus256.mp3"
+    }
   },
   "europa_ua": {
     "title": "Europa Plus Ukraine",
     "url": "http://europaplus.ua/",
     "image": "http://europaplus.ua/media/default/images/logo.png",
-    "streams": [
-      "http://cast.radiogroup.com.ua:8000/europaplus",
-      "http://cast.europaplus.ua/europaplus"
-    ]
+    "streams": {
+      "0": "http://cast.radiogroup.com.ua:8000/europaplus",
+      "1": "http://cast.europaplus.ua/europaplus"
+    }
   },
   "relax": {
     "title": "Relax FM",
     "url": "http://www.relax-fm.ru/",
     "image": "http://www.relax-fm.ru/design/images/logo.png",
-    "streams": [
-      "http://ru2.101.ru:8000/v13_1",
-      "http://217.29.51.162:8000/relaxfm-128k.mp3"
-    ]
+    "streams": {
+      "0": "http://ru2.101.ru:8000/v13_1",
+      "1": "http://217.29.51.162:8000/relaxfm-128k.mp3"
+    }
   },
   "rostov": {
     "title": "Радио Ростова",
     "url": "http://www.radiorostov.ru/",
     "image": "http://www.radiorostov.ru/images/logo-scull.jpg",
-    "streams": [
-      "http://81.19.85.200/rostov.mp3",
-      "http://live.radiorostov.ru:8000/rostovradio"
-    ]
+    "streams": {
+      "0": "http://81.19.85.200/rostov.mp3",
+      "1": "http://live.radiorostov.ru:8000/rostovradio"
+    }
   },
   "retro": {
     "title": "Ретро FM",
     "url": "http://retrofm.ru/",
     "image": "http://retrofm.ru/template/Retro-2012/img/siteimage/logo_top.png",
-    "streams": [
-      "http://retroserver.streamr.ru:8043/retro128"
-    ]
+    "streams": {
+      "128K": "http://retroserver.streamr.ru:8043/retro128"
+    }
   },
   "dorognoe": {
     "title": "Дорожное радио",
     "url": "http://www.dorognoe.ru/",
     "image": "http://www.dorognoe.ru/templates/road_explo/images/logo_new.png",
-    "streams": [
-      "http://dorognoe.hostingradio.ru:8000/dor_64_no"
-    ]
+    "streams": {
+      "64K": "http://dorognoe.hostingradio.ru:8000/dor_64_no"
+    }
   },
   "humour": {
     "title": "Юмор FM",
     "url": "http://www.veseloeradio.ru/",
     "image": "http://www.veseloeradio.ru/design/images/logo.png",
-    "streams": [
-      "http://eu4.101.ru:8000/v5_1?setst=082535900138555562720131127"
-    ]
+    "streams": {
+      "0": "http://eu4.101.ru:8000/v5_1?setst=082535900138555562720131127"
+    }
   },
   "avtoradio": {
     "title": "Авторадио",
     "url": "http://www.avtoradio.ru/",
     "image": "http://www.avtoradio.ru/design/images/logo_avtoradio_chalet_2.gif",
-    "streams": [
-      "http://eu4.101.ru:8000/v3_1?setst=-1"
-    ]
+    "streams": {
+      "0": "http://eu4.101.ru:8000/v3_1?setst=-1"
+    }
   },
   "radiorecord": {
     "title": "Радио Рекорд",
     "url": "http://www.radiorecord.ru/",
     "image": "http://www.radiorecord.ru/upload/iblock/4a0/4a0276d033142aaa48fb9e2920f89763.jpg",
-    "streams": [
-      "http://air.radiorecord.ru:8101/rr_128"
-    ]
+    "streams": {
+      "128K": "http://air.radiorecord.ru:8101/rr_128"
+    }
   },
   "radioromantika": {
     "title": "Радио Romantika",
     "url": "http://www.radioromantika.ru/",
     "image": "http://www.radioromantika.ru/design/images/header-logo.png",
-    "streams": [
-      "http://eu4.101.ru:8000/v4_1?setst=082535900138555562720131127"
-    ]
+    "streams": {
+      "0": "http://eu4.101.ru:8000/v4_1?setst=082535900138555562720131127"
+    }
   },
   "comedy": {
     "title": "Comedy Radio",
     "url": "http://comedy-radio.ru/",
     "image": "http://comedy-radio.ru/design/images/logo.png",
-    "streams": [
-      "http://nbn.101.ru:8000/v11_1"
-    ]
+    "streams": {
+      "0": "http://nbn.101.ru:8000/v11_1"
+    }
   },
   "megapolis": {
     "title": "Мегаполис FM",
     "url": "http://www.megapolisfm.ru/",
     "image": "http://www.megapolisfm.ru/assets/logo.jpg",
-    "streams": [
-      "http://stream04.media.rambler.ru/megapolis128.mp3"
-    ]
+    "streams": {
+      "128K": "http://stream04.media.rambler.ru/megapolis128.mp3"
+    }
   },
   "medlyakfm": {
     "title": "Медляк FM",
     "url": "http://www.radiorecord.ru/medlyakfm/",
     "image": "http://radiomaniya.ru/online_radio/images/medlyakfm.png",
-    "streams": [
-      "http://air.radiorecord.ru:8102/mdl_128"
-    ]
+    "streams": {
+      "128K": "http://air.radiorecord.ru:8102/mdl_128"
+    }
   },
   "loveradio": {
     "title": "Love Radio",
     "url": "http://www.loveradio.ru/",
     "image": "http://download.loveradio.ru/pub/685040.jpg",
-    "streams": [
-      "http://77.73.90.46:9150/loveradio",
-      "http://87.76.13.136:8000/;stream/1"
-    ]
+    "streams": {
+      "0": "http://77.73.90.46:9150/loveradio",
+      "1": "http://87.76.13.136:8000/;stream/1"
+    }
   },
   "radiosibir": {
     "title": "Радио Сибирь",
     "url": "http://radiosibir.ru/",
     "image": "http://radiosibir.ru/sites/default/files/l.png",
-    "streams": [
-      "http://radiosibir.ru:8090/HQ"
-    ]
+    "streams": {
+      "0": "http://radiosibir.ru:8090/HQ"
+    }
   },
   "tengrifm": {
     "title": "Tengri FM",
     "url": "http://tengrifm.kz/",
     "image": "http://old.tengrifm.kz/images/logo-for-vk.png",
-    "streams": [
-      "http://195.210.47.197:8000/live"
-    ]
+    "streams": {
+      "0": "http://195.210.47.197:8000/live"
+    }
   },
   "energy": {
     "title": "Радио ENERGY",
     "url": "http://www.energyfm.ru/",
     "image": "http://www.energyfm.ru/design/images/14_logo_w.gif",
-    "streams": [
-      "http://ru1.101.ru:8000/v1_1"
-    ]
+    "streams": {
+      "0": "http://ru1.101.ru:8000/v1_1"
+    }
   },
   "hermitage": {
     "title": "Радио Эрмитаж",
     "url": "http://www.radiohermitage.ru/news/",
     "image": "http://www.radiohermitage.ru/img/logo.png",
-    "streams": [
-      "http://91.190.117.131:8000/live"
-    ]
+    "streams": {
+      "0": "http://91.190.117.131:8000/live"
+    }
   },
   "keks": {
     "title": "Кекс FM",
     "url": "http://keks.fm/",
     "image": "http://keks.fm/media/default/images/logo.png",
-    "streams": [
-      "http://keksserver.streamr.ru:8037/keks128"
-    ]
+    "streams": {
+      "128K": "http://keksserver.streamr.ru:8037/keks128"
+    }
   },
   "sportfm": {
     "title": "Спорт FM",
     "url": "http://sportfm.ru/",
     "image": "http://sportfm.ru/local/templates/sport/images/logo3.png",
-    "streams": [
-      "http://sportfm.hostingradio.ru:8050/sportfm128.mp3",
-      "http://sportfm.hostingradio.ru:8050/sportfm64.mp3",
-      "http://sportfm.hostingradio.ru:8050/sportfm32.mp3"
-    ]
+    "streams": {
+      "128K": "http://sportfm.hostingradio.ru:8050/sportfm128.mp3",
+      "64K": "http://sportfm.hostingradio.ru:8050/sportfm64.mp3",
+      "32K": "http://sportfm.hostingradio.ru:8050/sportfm32.mp3"
+    }
   },
   "cityfm": {
     "title": "Сити FM",
     "url": "http://www.city-fm.ru/",
     "image": "http://pofm.ru/images/radio/city_fm.jpg",
-    "streams": [
-      "http://79.143.70.114:8000/cityfm-128k.mp3",
-      "http://79.143.70.114:8000/cityfm-64k.mp3"
-    ]
+    "streams": {
+      "128K": "http://79.143.70.114:8000/cityfm-128k.mp3",
+      "64K": "http://79.143.70.114:8000/cityfm-64k.mp3"
+    }
   },
   "mfm": {
     "title": "MFM Station",
     "url": "http://mfm.ua/",
     "image": "http://3.bp.blogspot.com/-2FD_h3kU6nU/TZ7sGS3JNTI/AAAAAAAABdU/auF-NMlXWyg/s1600/mfm.gif",
-    "streams": [
-      "http://radio.mfm.ua:80/online128"
-    ]
+    "streams": {
+      "128K": "http://radio.mfm.ua:80/online128"
+    }
   },
   "silver": {
     "title": "Серебряный Дождь",
     "url": "http://www.silver.ru/",
     "image": "http://www.silver.ru/_/i/logo.png",
-    "streams": [
-      "http://radiosilver.corbina.net:8000/silver128.mp3",
-      "http://radiosilver.corbina.net:8000/silver48.mp3"
-    ]
+    "streams": {
+      "128K": "http://radiosilver.corbina.net:8000/silver128.mp3",
+      "48K": "http://radiosilver.corbina.net:8000/silver48.mp3"
+    }
   },
   "rddfm": {
     "title": "Радио для двоих",
     "url": "http://www.rddfm.ru/",
     "image": "http://www.rddfm.ru/template/i/logo.png",
-    "streams": [
-      "http://217.170.67.77/rdd",
-      "http://78.140.209.15:8000/rdd128"
-    ]
+    "streams": {
+      "0": "http://217.170.67.77/rdd",
+      "1": "http://78.140.209.15:8000/rdd128"
+    }
   }
 }
