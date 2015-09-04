@@ -78,7 +78,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
         return;
       }
 
-      if (_attempts++ < 4) {
+      if (_attempts++ < 10) {
         var station = DataStorage.getLastStation();
         _player.play(station ? station.getNextStream() : null);
       }
@@ -192,6 +192,11 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
         DataStorage.setLast(station.name);
         _player.play(station.getStream());
         window.alert(station.title + '\n' + Translator.translate('added'));
+        break;
+
+      case 'stream':
+        station = DataStorage.getLastStation();
+        _player.play(station.getStream(data));
         break;
     }
   }

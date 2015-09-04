@@ -79,6 +79,18 @@ define(function() {
   }
 
   /**
+   * Current stream name.
+   * @return {string}
+   */
+  Station.prototype.getStreamName = function() {
+    if (!this.streams[this._currentStreamName]) {
+      var names = Object.keys(this.streams);
+      this._currentStreamName = names[0].toString();
+    }
+    return this._currentStreamName;
+  };
+
+  /**
    * Next stream.
    * @return {string}
    */
@@ -86,16 +98,19 @@ define(function() {
     var names = Object.keys(this.streams),
         index = names.indexOf(this._currentStreamName),
         newIndex = (index + 1) % names.length;
-    this._currentStreamName = names[newIndex];
-    return this.getStream();
+    return this.getStream(names[newIndex]);
   };
 
   /**
    * Current stream.
+   * @param {string} name=
    * @return {string}
    */
-  Station.prototype.getStream = function() {
-    return this.streams[this._currentStreamName];
+  Station.prototype.getStream = function(name) {
+    if (typeof name !== 'undefined') {
+      this._currentStreamName = name.toString();
+    }
+    return this.streams[this.getStreamName()];
   };
 
   /**

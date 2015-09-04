@@ -309,6 +309,11 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         e.preventDefault();
         e.stopPropagation();
         sendMessage('play', $player.data('name'));
+      })
+      .on('click', '.quality', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        sendMessage('stream', $(this).data('name'));
       });
 
     $('#footer')
@@ -343,18 +348,22 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
           $description = $player.find('.description').empty();
 
       $player.addClass('buffering ready').toggleClass('favorite', $station.hasClass('favorite')).data('name', station.name);
-      $player.find('.title').text(station.title);
+      var $title = $player.find('.title').text(station.title).removeClass('link');
+      if (station.url) {
+        $title.addClass('link').attr('title', Translator.translate('link'));
+      }
 
       setTimeout(function(image) {
         this.css('backgroundImage', image ? 'url(' + image + ')' : '');
       }.bind($player.find('.image'), station.image), 50);
 
-      if (station.url) {
-        var linkText = station.url.match(/^[a-z]+:\/\/([^/^?^&^#]+)/);
-        linkText = linkText && linkText[1] ? linkText[1] : station.url;
-        var $link = $('<span/>', {'class': 'link', 'text': linkText, 'title': Translator.translate('link')});
-        $description.append($link);
-      }
+      var names = Object.keys(station.streams);
+      var currentStreamName = station.getStreamName();
+      names.forEach(function(name) {
+        $('<button/>', {'class': 'quality', 'text': isFinite(name) ? '♬' : name, 'title': station.streams[name], 'data-name': name})
+            .appendTo($description)
+            .toggleClass('__active', currentStreamName === name);
+      });
     };
 
     var error = function() {
