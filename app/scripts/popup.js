@@ -329,6 +329,17 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         e.preventDefault();
         chrome.tabs.create({url: 'mailto:chrome@css3.su?Subject=Online%20Radio%20Extension'});
       });
+
+    $('#search')
+      .on('keyup paste search blur', '.search', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var value = this.value.toLowerCase();
+        $stations.find('.station').hide()
+          .filter(function() {
+            return $(this).children('.title').text().toLowerCase().indexOf(value) >= 0;
+          }).show();
+      });
   }
 
   /**
