@@ -29,7 +29,7 @@
     "url": "http://www.maximum.ru/online/",
     "image": "http://onlainradio.ru/image/radio/radio_maxsimum.jpg",
     "streams": {
-      "0": "http://maximum.fmtuner.ru/"
+      "96K": "http://maximum.fmtuner.ru/"
     }
   },
   "hitfm": {
@@ -37,7 +37,7 @@
     "url": "http://www.hitfm.ru/online_player.asp",
     "image": "http://onlainradio.ru/image/radio/hit_fm_pryamoi_efir.jpg",
     "streams": {
-      "0": "http://rhit.fmtuner.ru/"
+      "96K": "http://rhit.fmtuner.ru/"
     }
   },
   "dfm": {
@@ -45,7 +45,7 @@
     "url": "http://www.dfm.ru/listen/dfmonline/",
     "image": "http://onlainradio.ru/image/radio/dfm_radio.jpg",
     "streams": {
-      "0": "http://dfm.fmtuner.ru/"
+      "96K": "http://dfm.fmtuner.ru/"
     }
   },
   "russkoe": {
@@ -53,7 +53,7 @@
     "url": "http://www.rusradio.ru/",
     "image": "http://onlainradio.ru/image/radio/russkoe_radio1.jpg",
     "streams": {
-      "0": "http://rr.fmtuner.ru/"
+      "96K": "http://rr.fmtuner.ru/"
     }
   },
   "rockfm": {
@@ -69,7 +69,7 @@
     "url": "http://montecarlo.ru/",
     "image": "http://montecarlo.ru/upload/images/rmc300.jpg",
     "streams": {
-      "0": "http://mc.fmtuner.ru/"
+      "96K": "http://mc.fmtuner.ru/"
     }
   },
   "echo": {
@@ -77,7 +77,7 @@
     "url": "http://www.echo.msk.ru/",
     "image": "http://www.echo.msk.ru/i/logo.png",
     "streams": {
-      "0": "http://81.19.85.197/echo.mp3"
+      "140K": "http://81.19.85.197/echo.mp3"
     }
   },
   "europa": {
@@ -93,8 +93,8 @@
     "url": "http://europaplus.ua/",
     "image": "http://europaplus.ua/media/default/images/logo.png",
     "streams": {
-      "0": "http://cast.radiogroup.com.ua:8000/europaplus",
-      "1": "http://cast.europaplus.ua/europaplus"
+      "128K": "http://cast.radiogroup.com.ua:8000/europaplus",
+      "128K (alternative)": "http://cast.europaplus.ua/europaplus"
     }
   },
   "relax": {
@@ -102,8 +102,8 @@
     "url": "http://www.relax-fm.ru/",
     "image": "http://www.relax-fm.ru/design/images/logo.png",
     "streams": {
-      "0": "http://ru2.101.ru:8000/v13_1",
-      "1": "http://217.29.51.162:8000/relaxfm-128k.mp3"
+      "128K": "http://ru2.101.ru:8000/v13_1",
+      "128K (alternative)": "http://217.29.51.162:8000/relaxfm-128k.mp3"
     }
   },
   "rostov": {
@@ -136,7 +136,7 @@
     "url": "http://www.veseloeradio.ru/",
     "image": "http://www.veseloeradio.ru/design/images/logo.png",
     "streams": {
-      "0": "http://eu4.101.ru:8000/v5_1?setst=082535900138555562720131127"
+      "128K": "http://eu4.101.ru:8000/v5_1"
     }
   },
   "avtoradio": {
@@ -144,7 +144,7 @@
     "url": "http://www.avtoradio.ru/",
     "image": "http://www.avtoradio.ru/design/images/logo_avtoradio_chalet_2.gif",
     "streams": {
-      "0": "http://eu4.101.ru:8000/v3_1?setst=-1"
+      "128K": "http://eu4.101.ru:8000/v3_1"
     }
   },
   "radiorecord": {
@@ -160,7 +160,7 @@
     "url": "http://www.radioromantika.ru/",
     "image": "http://www.radioromantika.ru/design/images/header-logo.png",
     "streams": {
-      "0": "http://eu4.101.ru:8000/v4_1?setst=082535900138555562720131127"
+      "128K": "http://eu4.101.ru:8000/v4_1"
     }
   },
   "comedy": {
@@ -168,7 +168,7 @@
     "url": "http://comedy-radio.ru/",
     "image": "http://comedy-radio.ru/design/images/logo.png",
     "streams": {
-      "0": "http://nbn.101.ru:8000/v11_1"
+      "128K": "http://nbn.101.ru:8000/v11_1"
     }
   },
   "megapolis": {
@@ -192,8 +192,8 @@
     "url": "http://www.loveradio.ru/",
     "image": "http://download.loveradio.ru/pub/685040.jpg",
     "streams": {
-      "0": "http://77.73.90.46:9150/loveradio",
-      "1": "http://87.76.13.136:8000/;stream/1"
+      "128K": "http://77.73.90.46:9150/loveradio",
+      "64K": "http://87.76.13.136:8000/;stream/1"
     }
   },
   "radiosibir": {
@@ -201,7 +201,7 @@
     "url": "http://radiosibir.ru/",
     "image": "http://radiosibir.ru/sites/default/files/l.png",
     "streams": {
-      "0": "http://radiosibir.ru:8090/HQ"
+      "192K": "http://radiosibir.ru:8090/HQ"
     }
   },
   "tengrifm": {
@@ -209,7 +209,7 @@
     "url": "http://tengrifm.kz/",
     "image": "http://old.tengrifm.kz/images/logo-for-vk.png",
     "streams": {
-      "0": "http://195.210.47.197:8000/live"
+      "128K": "http://195.210.47.197:8000/live"
     }
   },
   "energy": {
@@ -217,7 +217,7 @@
     "url": "http://www.energyfm.ru/",
     "image": "http://www.energyfm.ru/design/images/14_logo_w.gif",
     "streams": {
-      "0": "http://ru1.101.ru:8000/v1_1"
+      "128K": "http://ru1.101.ru:8000/v1_1"
     }
   },
   "hermitage": {
@@ -225,7 +225,7 @@
     "url": "http://www.radiohermitage.ru/news/",
     "image": "http://www.radiohermitage.ru/img/logo.png",
     "streams": {
-      "0": "http://91.190.117.131:8000/live"
+      "128K": "http://91.190.117.131:8000/live"
     }
   },
   "keks": {
@@ -277,8 +277,8 @@
     "url": "http://www.rddfm.ru/",
     "image": "http://www.rddfm.ru/template/i/logo.png",
     "streams": {
-      "0": "http://217.170.67.77/rdd",
-      "1": "http://78.140.209.15:8000/rdd128"
+      "128K": "http://78.140.209.15:8000/rdd128",
+      "64K": "http://217.170.67.77/rdd"
     }
   }
 }
