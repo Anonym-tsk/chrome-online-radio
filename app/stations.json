@@ -174,7 +174,7 @@
   "megapolis": {
     "title": "Мегаполис FM",
     "url": "http://www.megapolisfm.ru/",
-    "image": "http://www.megapolisfm.ru/assets/logo.jpg",
+    "image": "http://www.megapolisfm.ru/images/main-logo.png",
     "streams": {
       "128K": "http://stream04.media.rambler.ru/megapolis128.mp3"
     }
@@ -246,13 +246,12 @@
       "32K": "http://sportfm.hostingradio.ru:8050/sportfm32.mp3"
     }
   },
-  "cityfm": {
-    "title": "Сити FM",
-    "url": "http://www.city-fm.ru/",
-    "image": "http://pofm.ru/images/radio/city_fm.jpg",
+  "likefm": {
+    "title": "Like FM",
+    "url": "http://www.radiolikefm.ru/",
+    "image": "http://www.radiolikefm.ru/design/images/full_logo.png",
     "streams": {
-      "128K": "http://79.143.70.114:8000/cityfm-128k.mp3",
-      "64K": "http://79.143.70.114:8000/cityfm-64k.mp3"
+      "128K": "http://eu7.101.ru:8000/v12_1"
     }
   },
   "mfm": {
