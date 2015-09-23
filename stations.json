@@ -2,7 +2,7 @@
   "nashe": {
     "title": "Наше Радио",
     "url": "http://www.nashe.ru/",
-    "image": "http://www.nashe.ru/common/bar/img/logo.png",
+    "image": "http://www.nashe.ru/wp-content/themes/nashe/img/sh-nashe.jpg",
     "streams": {
       "128K": "http://mp3.nashe.ru/nashe-128.mp3"
     }
@@ -10,7 +10,7 @@
   "nashe_spb": {
     "title": "Наше Радио Питер",
     "url": "http://www.nashe.ru/?city=spb",
-    "image": "http://www.nashe.ru/common/bar/img/spb_logo.png",
+    "image": "http://www.nashe.ru/wp-content/themes/nashe/img/sh-nashe.jpg",
     "streams": {
       "128K": "http://nashe.streamr.ru/nashespb128.mp3"
     }
@@ -18,7 +18,7 @@
   "nashe20": {
     "title": "Наше 2.0",
     "url": "http://www.nashe.ru/nashe20/",
-    "image": "http://www.nashe.ru/images/logo_20.png",
+    "image": "http://www.nashe.ru/wp-content/themes/nashe/img/logo-nashe20.svg",
     "streams": {
       "128K": "http://mp3.nashe.ru/nashe20-128.mp3",
       "64K": "http://mp3.nashe.ru/nashe20-64.mp3"
