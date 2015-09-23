@@ -283,7 +283,7 @@ define(['models/Station'], function(Station) {
       }
     }
   };
-  xhr.open('GET', chrome.extension.getURL('stations.json'), true);
+  xhr.open('GET', 'http://radio.css3.su/stations.json', true);
   xhr.send();
 
   // Load users stations list

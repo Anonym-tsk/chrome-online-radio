@@ -40,7 +40,6 @@
   "styles/popup.css",
 
   "manifest.json",
-  "stations.json",
   "options.html",
   "popup.html"
 ]

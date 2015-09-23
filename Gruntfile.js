@@ -227,7 +227,6 @@ module.exports = function(grunt) {
           dest: '<%= config.path.dist %>',
           src: [
             '_locales/{,*/}*.json',
-            'stations.json',
             'scripts/lib/{,*/}*.js'
           ]
         }]
