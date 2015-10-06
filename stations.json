@@ -279,5 +279,14 @@
       "128K": "http://78.140.209.15:8000/rdd128",
       "64K": "http://217.170.67.77/rdd"
     }
+  },
+  "radiocyclone": {
+    "title": "Radio Cyclone",
+    "url": "http://radiocyclone.com/",
+    "image": "http://radiocyclone.com/img/logo.png",
+    "streams": {
+      "320K": "http://107.170.157.15:8005/",
+      "192K": "http://107.170.157.15:8000/"
+    }
   }
 }
