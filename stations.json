@@ -296,5 +296,15 @@
     "streams": {
       "128K": "http://choco.hostingradio.ru:10010/fm128"
     }
+  },
+  "komsomol": {
+    "title": "Комсомольская правда",
+    "url": "http://www.kp.ru/radio/fm/index.html",
+    "image": "http://www.kp.ru/share/i/4/1071708/big.png",
+    "streams": {
+      "128K": "http://russia.radiokp128.mp3.streamr.ru",
+      "64K": "http://russia.radiokp64.mp3.streamr.ru",
+      "32K": "http://russia.radiokp32.mp3.streamr.ru"
+    }
   }
 }
