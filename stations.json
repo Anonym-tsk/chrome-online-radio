@@ -4,7 +4,8 @@
     "url": "http://www.nashe.ru/",
     "image": "http://www.nashe.ru/wp-content/themes/nashe/img/sh-nashe.jpg",
     "streams": {
-      "128K": "http://mp3.nashe.ru/nashe-128.mp3"
+      "128K": "http://nashe1.hostingradio.ru/nashe-128.mp3",
+      "64K": "http://nashe1.hostingradio.ru/nashe-64.mp3"
     }
   },
   "nashe_spb": {
@@ -12,7 +13,7 @@
     "url": "http://www.nashe.ru/?city=spb",
     "image": "http://www.nashe.ru/wp-content/themes/nashe/img/sh-nashe.jpg",
     "streams": {
-      "128K": "http://nashe.streamr.ru/nashespb128.mp3"
+      "128K": "http://nashe1.hostingradio.ru/nashespb128.mp3"
     }
   },
   "nashe20": {
@@ -20,8 +21,8 @@
     "url": "http://www.nashe.ru/nashe20/",
     "image": "http://www.nashe.ru/wp-content/themes/nashe/img/sh-nashe.jpg",
     "streams": {
-      "128K": "http://mp3.nashe.ru/nashe20-128.mp3",
-      "64K": "http://mp3.nashe.ru/nashe20-64.mp3"
+      "128K": "http://nashe1.hostingradio.ru/nashe20-128.mp3",
+      "64K": "http://nashe1.hostingradio.ru/nashe20-64.mp3"
     }
   },
   "maximum": {
@@ -61,7 +62,8 @@
     "url": "http://www.rockfm.ru",
     "image": "http://archicompany.com/wp-content/uploads/2012/09/rock-fm_ru.jpg",
     "streams": {
-      "128K": "http://mp3.nashe.ru/rock-128.mp3"
+      "128K": "http://nashe1.hostingradio.ru/rock-128.mp3",
+      "64K": "http://nashe1.hostingradio.ru/rock-64.mp3"
     }
   },
   "montecarlo": {
