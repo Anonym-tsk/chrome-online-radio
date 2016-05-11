@@ -30,7 +30,7 @@
     "url": "http://www.maximum.ru/online/",
     "image": "http://onlainradio.ru/image/radio/radio_maxsimum.jpg",
     "streams": {
-      "96K": "http://maximum.fmtuner.ru/"
+      "96K": "http://icecast.radiomaximum.cdnvideo.ru/maximum.mp3"
     }
   },
   "hitfm": {
@@ -38,7 +38,7 @@
     "url": "http://www.hitfm.ru/online_player.asp",
     "image": "http://onlainradio.ru/image/radio/hit_fm_pryamoi_efir.jpg",
     "streams": {
-      "96K": "http://rhit.fmtuner.ru/"
+      "96K": "http://icecast.radiohitfm.cdnvideo.ru/hit.mp3"
     }
   },
   "dfm": {
@@ -46,7 +46,7 @@
     "url": "http://www.dfm.ru/listen/dfmonline/",
     "image": "http://onlainradio.ru/image/radio/dfm_radio.jpg",
     "streams": {
-      "96K": "http://dfm.fmtuner.ru/"
+      "96K": "http://icecast.radiodfm.cdnvideo.ru/dfm.mp3"
     }
   },
   "russkoe": {
@@ -54,7 +54,7 @@
     "url": "http://www.rusradio.ru/",
     "image": "http://onlainradio.ru/image/radio/russkoe_radio1.jpg",
     "streams": {
-      "96K": "http://rr.fmtuner.ru/"
+      "96K": "http://icecast.russkoeradio.cdnvideo.ru/rr.mp3"
     }
   },
   "rockfm": {
