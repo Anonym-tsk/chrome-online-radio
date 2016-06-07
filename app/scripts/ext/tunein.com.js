@@ -56,7 +56,7 @@
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
         var result = [],
-            json = JSON.parse(xhr.responseText.slice(1, xhr.responseText.length - 2));
+            json = JSON.parse(xhr.responseText);
         json.Streams.filter(function(station) {
           return station.MediaType.toLowerCase() === 'mp3';
         }).sort(function(station1, station2) {
