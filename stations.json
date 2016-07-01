@@ -318,5 +318,13 @@
       "64K": "http://russia.radiokp64.mp3.streamr.ru",
       "32K": "http://russia.radiokp32.mp3.streamr.ru"
     }
+  },
+  "pilotfm": {
+    "title": "",
+    "url": "https://pilotfm.ru/online",
+    "image": "https://pilotfm.ru/img/logo.jpg",
+    "streams": {
+      "128K": "https://online.pilotfm.ru:8443/pilot"
+    }
   }
 }
