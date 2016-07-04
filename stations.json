@@ -326,5 +326,14 @@
     "streams": {
       "128K": "https://online.pilotfm.ru:8443/pilot"
     }
+  },
+  "rockarsenal": {
+    "title": "Rock Arsenal",
+    "url": "http://www.rockarsenal.ru/",
+    "image": "http://www.rockarsenal.ru/bitrix/templates/main/images/logo.png",
+    "streams": {
+      "128K": "http://online.rockarsenal.ru:8000/rockarsenal",
+      "32K": "http://online.rockarsenal.ru:8000/rockarsenal32"
+    }
   }
 }
