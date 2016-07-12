@@ -324,6 +324,16 @@ module.exports = function(grunt) {
     grunt.file.write(grunt.config.get('config.path.dist') + '/manifest.json', JSON.stringify(manifest, null, 2));
   });
 
+  grunt.registerTask('stationsCopy', function() {
+    var done = this.async(),
+        exec = require('child_process').exec;
+
+    var command = 'git show gh-pages:stations.json > ' + grunt.config.get('config.path.dist') + '/stations.json';
+    exec(command, function(error, stdout, stderr) {
+      done(!stderr);
+    });
+  });
+
   grunt.registerTask('check', function() {
     console.log('Checking build...');
 
@@ -363,6 +373,7 @@ module.exports = function(grunt) {
     'jshint',
     'clean',
     'manifestCopy',
+    'stationsCopy',
     'sass:compressed',
     'imagemin',
     'htmlmin',
@@ -376,6 +387,7 @@ module.exports = function(grunt) {
     'jshint',
     'clean',
     'manifestCopy',
+    'stationsCopy',
     'sass:expanded',
     'imagemin',
     'copy:html',

@@ -271,28 +271,51 @@ define(['models/Station'], function(Station) {
     }
   }
 
-  // Load core stations list
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      var json = JSON.parse(xhr.responseText);
-      for (var name in json) {
-        if (json.hasOwnProperty(name)) {
-          _coreStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, false, _hidden.hasOwnProperty(name));
+  /**
+   * Load core stations by url.
+   * @param {string} url
+   * @param {function=} onerror
+   * @private
+   */
+  function _loadCoreStations(url, onerror) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        var json = JSON.parse(xhr.responseText);
+        for (var name in json) {
+          if (json.hasOwnProperty(name)) {
+            _coreStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, false, _hidden.hasOwnProperty(name));
+          }
         }
       }
+    };
+    if (onerror) {
+      xhr.onerror = onerror;
     }
-  };
-  xhr.open('GET', 'http://radio.css3.su/stations.json', true);
-  xhr.send();
+    xhr.open('GET', url, true);
+    xhr.send();
+  }
 
-  // Load users stations list
-  var json = JSON.parse(localStorage.getItem('_stations')) || {};
-  for (var name in json) {
-    if (json.hasOwnProperty(name)) {
-      _userStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, true);
+  /**
+   * Load user stations.
+   * @private
+   */
+  function _loadUserStations() {
+    var json = JSON.parse(localStorage.getItem('_stations')) || {};
+    for (var name in json) {
+      if (json.hasOwnProperty(name)) {
+        _userStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, true);
+      }
     }
   }
+
+  // Load core stations list
+  _loadCoreStations('http://radio.css3.su/stations.json', function() {
+    _loadCoreStations(chrome.extension.getURL('stations.json'));
+  });
+
+  // Load users stations list
+  _loadUserStations();
 
   /**
    * @typedef {{}} DataStorage
