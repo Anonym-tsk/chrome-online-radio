@@ -22,18 +22,6 @@ define(['models/Station'], function(Station) {
   var _coreStations = {};
 
   /**
-   * User stations.
-   * @type {{}}
-   */
-  var _userStations = {};
-
-  /**
-   * Hidden stations list.
-   * @type {{}}
-   */
-  var _hidden = JSON.parse(localStorage.getItem('_hidden')) || {};
-
-  /**
    * Volume.
    * @type {{current: number, last: number}}
    */
@@ -114,11 +102,6 @@ define(['models/Station'], function(Station) {
         stations[name] = _coreStations[name];
       }
     }
-    for (name in _userStations) {
-      if (_userStations.hasOwnProperty(name)) {
-        stations[name] = _userStations[name];
-      }
-    }
     return stations;
   }
 
@@ -132,41 +115,7 @@ define(['models/Station'], function(Station) {
     if (_coreStations.hasOwnProperty(name)) {
       return _coreStations[name];
     }
-    if (_userStations.hasOwnProperty(name)) {
-      return _userStations[name];
-    }
     return null;
-  }
-
-  /**
-   * Export data to string.
-   * @return {string}
-   */
-  function exportData() {
-    return JSON.stringify({
-      'stations': _userStations
-    });
-  }
-
-  /**
-   * Import data from string.
-   * @return {string}
-   */
-  function importData(data) {
-    try {
-      data = JSON.parse(data);
-      if (!data.stations) {
-        return false;
-      }
-      for (var i in data.stations) {
-        if (data.stations.hasOwnProperty(i)) {
-          addStation(data.stations[i]);
-        }
-      }
-      return true;
-    } catch (e) {
-      return false;
-    }
   }
 
   /**
@@ -227,51 +176,6 @@ define(['models/Station'], function(Station) {
   }
 
   /**
-   * Save users station.
-   * @param {{name: string, title: string, url: string, streams: {}|[], image: string}} stationMap
-   * @return {Station}
-   * @public
-   */
-  function addStation(stationMap) {
-    if (!stationMap.name) { // Создаем новую станцию
-      stationMap.name = (+new Date()).toString() + Object.keys(_userStations).length.toString();
-    }
-    _userStations[stationMap.name] = new Station(stationMap.name, stationMap.title, stationMap.url || '', stationMap.streams, stationMap.image || '', true);
-    _save('_stations', JSON.stringify(_userStations));
-    return _userStations[stationMap.name];
-  }
-
-  /**
-   * Delete users station.
-   * @param {string} name Station name.
-   * @public
-   */
-  function deleteStation(name) {
-    if (_userStations.hasOwnProperty(name)) {
-      delete _userStations[name];
-      _save('_stations', JSON.stringify(_userStations));
-    }
-    else if (_coreStations.hasOwnProperty(name)) {
-      _coreStations[name].setHidden(true);
-      _hidden[name] = 1;
-      _save('_hidden', JSON.stringify(_hidden));
-    }
-  }
-
-  /**
-   * Restore deleted core station.
-   * @param {string} name Station name.
-   * @public
-   */
-  function restoreStation(name) {
-    if (_hidden.hasOwnProperty(name)) {
-      _coreStations[name].setHidden(false);
-      delete _hidden[name];
-      _save('_hidden', JSON.stringify(_hidden));
-    }
-  }
-
-  /**
    * Load core stations by url.
    * @param {string} url
    * @param {function=} onerror
@@ -282,11 +186,9 @@ define(['models/Station'], function(Station) {
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         var json = JSON.parse(xhr.responseText);
-        for (var name in json) {
-          if (json.hasOwnProperty(name)) {
-            _coreStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, false, _hidden.hasOwnProperty(name));
-          }
-        }
+        json.forEach(function(data) {
+          _coreStations[data.frequency] = new Station(data.frequency, data.name, data.domen, data.frequency, data.streams, data.logo);
+        });
       }
     };
     if (onerror) {
@@ -296,26 +198,10 @@ define(['models/Station'], function(Station) {
     xhr.send();
   }
 
-  /**
-   * Load user stations.
-   * @private
-   */
-  function _loadUserStations() {
-    var json = JSON.parse(localStorage.getItem('_stations')) || {};
-    for (var name in json) {
-      if (json.hasOwnProperty(name)) {
-        _userStations[name] = new Station(name, json[name].title, json[name].url, json[name].streams, json[name].image, true);
-      }
-    }
-  }
-
   // Load core stations list
-  _loadCoreStations('http://radio.css3.su/stations.json', function() {
+  _loadCoreStations('http://www.kp.ru/json/unisound_radioplayer/v2/data.json', function() {
     _loadCoreStations(chrome.extension.getURL('stations.json'));
   });
-
-  // Load users stations list
-  _loadUserStations();
 
   /**
    * @typedef {{}} DataStorage
@@ -328,16 +214,11 @@ define(['models/Station'], function(Station) {
     setFavorites: setFavorites,
     getStations: getStations,
     getStationByName: getStationByName,
-    exportData: exportData,
-    importData: importData,
     setLast: setLast,
     getLastName: getLastName,
     getLastStation: getLastStation,
     getVolume: getVolume,
     getVolumeLast: getVolumeLast,
-    setVolume: setVolume,
-    addStation: addStation,
-    deleteStation: deleteStation,
-    restoreStation: restoreStation
+    setVolume: setVolume
   };
 });

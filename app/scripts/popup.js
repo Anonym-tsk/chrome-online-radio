@@ -112,25 +112,22 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
    * Renders one station for stations list.
    * @param {string} name
    * @param {string} title
-   * @param {string} image
+   * @param {string} frequency
    * @return {jQuery}
    * @private
    */
-  function renderStation(name, title, image) {
+  function renderStation(name, title, frequency) {
     var isFavorite = _storage.isFavorite(name),
         $station = $('<div/>', {'class': 'station', 'data-name': name}).toggleClass('favorite', isFavorite),
-        $image = $('<div/>', {'class': 'image'}),
         $play = $('<i/>', {'class': 'icon icon-play', 'title': Translator.translate('play')}),
         $stop = $('<i/>', {'class': 'icon icon-stop', 'title': Translator.translate('stop')}),
-        $title = $('<h3/>', {'class': 'title', 'text': title}),
+        $name = $('<span/>', {'class': 'name', 'text': title}),
+        $frequency = $('<span/>', {'class': 'frequency', 'text': '(' + frequency + ' FM)'}),
+        $title = $('<h3/>', {'class': 'title'}).append($name, $frequency),
         $like = $('<i/>', {'class': 'icon icon-like', 'title': Translator.translate('like')}),
         $dislike = $('<i/>', {'class': 'icon icon-dislike', 'title': Translator.translate('dislike')});
 
-    setTimeout(function(src) {
-      this.css('backgroundImage', src ? 'url(' + src + ')' : '');
-    }.bind($image, image), 50);
-
-    return $station.append($image, $play, $stop, $like, $dislike, $title);
+    return $station.append($play, $stop, $like, $dislike, $title);
   }
 
   /**
@@ -155,11 +152,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
 
     // Canvas context
     var canvasContext = canvas.getContext('2d');
-    var gradient = canvasContext.createLinearGradient(0, 0, 0, CANVAS_HEIGHT);
-    gradient.addColorStop(1, '#0088cc');
-    gradient.addColorStop(0.5, '#00719f');
-    gradient.addColorStop(0, '#005E84');
-    canvasContext.fillStyle = gradient;
+    canvasContext.fillStyle = '#ffffff';
 
     // First render
     for (var i = 0; i < NUM_BARS; ++i) {
@@ -224,14 +217,14 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
 
     for (var i = 0, l = favorites.length; i < l; i++) {
       var name = favorites[i];
-      if (stations.hasOwnProperty(name) && !stations[name].isHidden()) {
-        $favorites.prepend(renderStation(name, stations[name].title, stations[name].image));
+      if (stations.hasOwnProperty(name)) {
+        $favorites.prepend(renderStation(name, stations[name].title, stations[name].frequency));
       }
     }
 
     for (var n in stations) {
-      if (stations.hasOwnProperty(n) && !_storage.isFavorite(n.toString()) && !stations[n].isHidden()) {
-        $stations.append(renderStation(stations[n].name, stations[n].title, stations[n].image));
+      if (stations.hasOwnProperty(n) && !_storage.isFavorite(n.toString())) {
+        $stations.append(renderStation(stations[n].name, stations[n].title, stations[n].frequency));
       }
     }
   }
@@ -266,14 +259,14 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         e.stopPropagation();
         sendMessage('link', $player.data('name'));
       })
-      .on('click', '.icon-like', function(e) {
+      .on('click', '.icon-like-big', function(e) {
         e.preventDefault();
         e.stopPropagation();
         var name = $player.data('name');
         sendMessage('like', name);
         renderLike(name);
       })
-      .on('click', '.icon-dislike', function(e) {
+      .on('click', '.icon-dislike-big', function(e) {
         e.preventDefault();
         e.stopPropagation();
         var name = $player.data('name');
@@ -327,18 +320,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       })
       .on('click', '.icon-feedback', function(e) {
         e.preventDefault();
-        chrome.tabs.create({url: 'mailto:chrome@css3.su?Subject=Online%20Radio%20Extension'});
-      });
-
-    $('#search')
-      .on('keyup paste search blur', '.search', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var value = this.value.toLowerCase();
-        $stations.find('.station').hide()
-          .filter(function() {
-            return $(this).children('.title').text().toLowerCase().indexOf(value) >= 0;
-          }).show();
+        chrome.tabs.create({url: 'mailto:radiokp@kp.ru?Subject=Online%20Radio%20Extension'});
       });
   }
 
@@ -371,7 +353,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       var names = Object.keys(station.streams);
       var currentStreamName = station.getStreamName();
       names.forEach(function(name) {
-        $('<button/>', {'class': 'quality', 'text': isFinite(name) ? '♬' : name, 'title': station.streams[name], 'data-name': name})
+        $('<button/>', {'class': 'quality', 'text': name, 'title': station.streams[name], 'data-name': name})
             .appendTo($description)
             .toggleClass('__active', currentStreamName === name);
       });

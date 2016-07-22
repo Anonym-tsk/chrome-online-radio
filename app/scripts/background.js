@@ -13,8 +13,7 @@ chrome.runtime.onInstalled.addListener(function(details) {
   });
 });
 
-require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
-  'models/HtmlPlayer', 'utils/Translator'], function(Utils, DataStorage, FlashPlayer, HtmlPlayer, Translator) {
+require(['utils/Utils', 'models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], function(Utils, DataStorage, HtmlPlayer, Translator) {
   'use strict';
 
   /**
@@ -44,14 +43,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
   var _attempts = 0;
 
   /**
-   * Found streams on page.
-   * @type {Array}
-   * @private
-   */
-  var _foundStreams = [];
-
-  /**
-   * @type {HtmlPlayer|FlashPlayer}
+   * @type {HtmlPlayer}
    * @private
    */
   var _player = HtmlPlayer;
@@ -183,17 +175,6 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
         chrome.tabs.create({url: DataStorage.getStationByName(data).url});
         break;
 
-      case 'options':
-        Utils.openOptions(data);
-        break;
-
-      case 'add':
-        station = DataStorage.addStation(data);
-        DataStorage.setLast(station.name);
-        _player.play(station.getStream());
-        window.alert(station.title + '\n' + Translator.translate('added'));
-        break;
-
       case 'stream':
         station = DataStorage.getLastStation();
         _player.play(station.getStream(data));
@@ -208,24 +189,6 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
    */
   function sendMessage(action, data) {
     chrome.runtime.sendMessage({name: 'popup', action: action, data: typeof data !== 'undefined' ? data : null});
-  }
-
-  /**
-   * Save found audio stream to history.
-   * @param {Object} response
-   */
-  function addAudioHistory(response) {
-    chrome.tabs.get(response.tabId, function(tab) {
-      _foundStreams.push({
-        title: tab.title,
-        stream: response.url,
-        favicon: tab.favIconUrl,
-        tabId: tab.id,
-        url: tab.url
-      });
-      _foundStreams = _foundStreams.slice(-15, _foundStreams.length);
-      updateContextMenu();
-    });
   }
 
   /**
@@ -258,47 +221,11 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
     }
   }
 
-  /**
-   * Update context menu by audio history.
-   */
-  function updateContextMenu() {
-    chrome.contextMenus.removeAll(function() {
-      var contexts = ['page', 'frame', 'selection'];
-      chrome.contextMenus.create({
-        title: Translator.translate('add'),
-        contexts: contexts,
-        enabled: false
-      });
-      chrome.contextMenus.create({
-        type: 'separator',
-        contexts: contexts
-      });
-
-      var i = _foundStreams.length;
-      if (!i) {
-        chrome.contextMenus.create({
-          title: Translator.translate('please_enable_radio'),
-          contexts: contexts,
-          enabled: false,
-          id: 'online_radio'
-        });
-      }
-      else {
-        while (i--) {
-          chrome.contextMenus.create({
-            title: _foundStreams[i].title,
-            contexts: contexts,
-            onclick: Utils.openOptions.bind(null, 'add#' + _foundStreams[i].title + '#' + _foundStreams[i].stream + '#' + _foundStreams[i].url)
-          });
-        }
-      }
-    });
-  }
-
   // Run!
   HtmlPlayer.canPlayMP3(function(status) {
     if (!status) {
-      _player = FlashPlayer;
+      // TODO: show error
+      return;
     }
     _player.init();
 
@@ -308,21 +235,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
     // Hotkeys listener
     chrome.commands.onCommand.addListener(messageDispatcher);
 
-    // Detect audio
-    chrome.webRequest.onHeadersReceived.addListener(function(details) {
-      var i = details.responseHeaders.length;
-      while (i--) {
-        if (details.responseHeaders[i].name === 'Content-Type') {
-          if (details.responseHeaders[i].value === 'audio/mpeg' && details.tabId > 0) {
-            addAudioHistory(details);
-          }
-          break;
-        }
-      }
-    }, {urls: ['http://*/*', 'https://*/*'], types: ['other', 'object']}, ['responseHeaders']);
-
     // Init background page
-    updateContextMenu();
     initEvents();
     setStatus();
   });

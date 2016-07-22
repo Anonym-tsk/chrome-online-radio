@@ -35,7 +35,7 @@ module.exports = function(grunt) {
       },
       sass: {
         files: ['<%= config.path.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['sass:debug']
+        tasks: ['datauri', 'sass:debug']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -304,6 +304,19 @@ module.exports = function(grunt) {
       options: {
         exclude: ['scripts/chromereload.js']
       }
+    },
+
+    // Data-uri variables for assets
+    datauri: {
+      options: {
+        varPrefix: 'asset-',
+        varSuffix: ''
+      },
+      preprocess: {
+        files: {
+          '<%= config.path.app %>/styles/_assets.scss': '<%= config.path.app %>/assets/*.{png,jpg}'
+        }
+      }
     }
   });
 
@@ -325,13 +338,14 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('stationsCopy', function() {
-    var done = this.async(),
-        exec = require('child_process').exec;
-
-    var command = 'git show gh-pages:stations.json > ' + grunt.config.get('config.path.dist') + '/stations.json';
-    exec(command, function(error, stdout, stderr) {
-      done(!stderr);
-    });
+    // var done = this.async(),
+    //     exec = require('child_process').exec;
+    //
+    // var command = 'git show gh-pages:stations.json > ' + grunt.config.get('config.path.dist') + '/stations.json';
+    // exec(command, function(error, stdout, stderr) {
+    //   done(!stderr);
+    // });
+    // TODO: wget from http://www.kp.ru/json/unisound_radioplayer/v2/data.json
   });
 
   grunt.registerTask('check', function() {
@@ -364,6 +378,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('debug', [
     'jshint',
+    'datauri',
     'sass:debug',
     'connect:debug',
     'watch'
@@ -374,6 +389,7 @@ module.exports = function(grunt) {
     'clean',
     'manifestCopy',
     'stationsCopy',
+    'datauri',
     'sass:compressed',
     'imagemin',
     'htmlmin',
@@ -388,6 +404,7 @@ module.exports = function(grunt) {
     'clean',
     'manifestCopy',
     'stationsCopy',
+    'datauri',
     'sass:expanded',
     'imagemin',
     'copy:html',

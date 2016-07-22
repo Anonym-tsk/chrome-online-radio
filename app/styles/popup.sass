@@ -1,3 +1,5 @@
+@import _assets
+
 $width: 420px
 
 body
@@ -31,30 +33,55 @@ h1, h2, h3
 
 .icon-like,
 .icon-dislike
-  font-size: 20px
-  line-height: 35px
-  color: #c90000
   float: right
-  padding: 0 2px 0 0
+  width: 32px
+  height: 32px
+  background-position: center
 
-.icon-white
-  color: #fff
+.icon-like
+  background-image: url($asset-like)
+  &:hover
+    background-image: url($asset-like_hover)
+
+.icon-dislike
+  background-image: url($asset-dislike)
+  &:hover
+    background-image: url($asset-dislike_hover)
+
+.icon-like-big,
+.icon-dislike-big
+  float: right
+  width: 32px
+  height: 32px
+  background-position: center
+
+.icon-like-big
+  background-image: url($asset-icon_favorite_header)
+  &:hover
+    background-image: url($asset-icon-favorite_header_hover)
+
+.icon-dislike-big
+  background-image: url($asset-icon_favorite_header_hover)
+  &:hover
+    background-image: url($asset-icon-favorite_header)
 
 .icon-play,
 .icon-stop
   float: left
   width: 32px
-  line-height: 35px
+  height: 32px
+  background-position: center
   margin: 0 14px 0 0
-  text-align: center
 
 .icon-play
-  font-size: 21px
-  color: #408FCE
+  background-image: url($asset-icon_play)
+  &:hover
+    background-image: url($asset-icon_play_hover)
 
 .icon-stop
-  font-size: 17px
-  color: #408FCE
+  background-image: url($asset-icon_stop)
+  &:hover
+    background-image: url($asset-icon_stop_hover)
 
 .icon-play-big
   width: 52px
@@ -101,41 +128,35 @@ h1, h2, h3
   padding: 10px
   position: relative
   border-bottom: 1px solid #D9D9D9
-  background: #FFF
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFF), color-stop(100%,#F7F7F7))
-  background-image: -webkit-linear-gradient(top, #FFF 0%, #F7F7F7 100%)
-  background-image: linear-gradient(top, #FFF 0%, #F7F7F7 100%)
+  background: #0088cc
   .image
     float: left
     width: 80px
     height: 80px
     margin: 0 18px 0 0
     text-align: center
-    border: 1px solid transparent
-    box-shadow: 0px 0px 0px 1px #d9d9d9
     position: relative
-    background-color: #FAFAFA
     background-repeat: no-repeat
     background-size: contain
     background-position: center
     background-image: url('../../images/80.png')
     .icon
       display: none
-      background-color: rgba(250, 250, 250, .9)
       background-position: center
       width: 100%
       height: 100%
   .icons
     float: right
-    font-size: 0
-    line-height: 0
+    width: 32px
+    height: 32px
     .icon
       cursor: pointer
       display: none
       line-height: 29px
   .title
+    color: #fff
     font-size: 18px
-    font-weight: normal
+    font-weight: bold
     margin: 0 0 3px 0
     white-space: nowrap
     overflow: hidden
@@ -154,18 +175,17 @@ h1, h2, h3
       margin: 0 3px 0 0
       padding: 0 4px
       display: inline-block
-      border: 1px solid #D9D9D9
-      font-size: 10px
+      font-size: 12px
       line-height: 17px
-      border-radius: 3px
       cursor: pointer
       outline: none
-      background: transparent
-      box-shadow: inset -1px -1px 3px 0 #D9D9D9
+      color: #fff
+      border: none
+      background: none
       &.__active
         cursor: default
-        color: #fff
-        background: #0088cc
+        color: #444
+        background: #c8efff
         box-shadow: none
   .equalizer
     // Должно быть значением вида "5/8 * FFT_SIZE * (SPACER_WIDTH + BAR_WIDTH) / 2 - SPACER_WIDTH" при N >= 5
@@ -208,7 +228,7 @@ h1, h2, h3
         .icon-play-big
           display: block
     .icons
-      .icon-like
+      .icon-like-big
         display: inline-block
 
   &.playing
@@ -243,30 +263,10 @@ h1, h2, h3
           display: none
   &.favorite
     .icons
-      .icon-like
+      .icon-like-big
         display: none
-      .icon-dislike
+      .icon-dislike-big
         display: inline-block
-
-#search
-  width: 100%
-  padding: 0
-  margin: 0
-  overflow: hidden
-  box-shadow: inset 0 -1px 0 0 #D9D9D9
-  transition: height 0.1s ease
-  .search
-    width: 100%
-    border: none
-    outline: none
-    line-height: 40px
-    font-size: 15px
-    padding: 0 10px 0 30px
-    box-shadow: inset 0 0 5px 0 #E8E8E8
-    font-style: italic
-    color: #777
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAABVklEQVR4nKXTvy8lURTA8c8bRLGU/AM2L/4GolDZRqHZ16JBwV+hVyjYSNAQRLKJ126yFdU0sg1i/wHb2FDYbMQW9zwmYwaxJ7mZe37c75x7zrmNPM8VZACLmMTHsF2ijVX8UiONAqiFDfTXxN5gFodVzu4CZK9gP8Nx7EcxHD84wOcqWCPP80H8RB/+YB7bpbgZrKE3MhtSumYm1aQv9IUKCGyFT2S2VA7IpMLCRQ2kCDuL/WTZmUWacIKHF0A81W2o7MheOVgnz85lUqFh5A2A0fheVoHasW9K3amTaWkM4KgKtIrb0NcqYI2wrYf+O848A11hLvRebOJc6lKnU5vhI43KeBnUmezd+H6JwGasolzjA3qwE7b9YkYd2ZXauoxT6bp3+BG2pvSU/qIrYK3H+5de/1tkKjLpwT0+4dt75uhrKbMxnmr0HtiEVPSV/wHB91jgH5ZCSIursakDAAAAAElFTkSuQmCC) no-repeat 10px center
-    border-radius: 0
 
 #stations
   overflow-x: hidden
@@ -282,48 +282,36 @@ h1, h2, h3
         border-bottom: 1px solid #D9D9D9
   .station
     height: 32px
-    padding: 5px 10px
-    width: $width - 20px
+    margin: 0 10px
+    padding: 5px
+    width: $width - 30px
     cursor: pointer
     position: relative
     border-bottom: 1px solid #D9D9D9
     -webkit-transition: background-color .07s ease-in-out
     transition: background-color .07s ease-in-out
-    .image
-      float: left
-      width: 30px
-      height: 30px
-      margin: 0 14px 0 0
-      text-align: center
-      border: 1px solid transparent
-      //box-shadow: 0px 0px 0px 1px #d9d9d9
-      //background-color: #fafafa
-      background-repeat: no-repeat
-      background-size: contain
-      background-position: center
-      background-image: url('../../images/32.png')
-    .icon
+    .icon-stop,
+    .icon-dislike
       display: none
     .title
       font-size: 15px
-      font-weight: normal
       margin: 0
       white-space: nowrap
       overflow: hidden
       text-overflow: ellipsis
       line-height: 32px
+      .name
+        font-weight: bold
+        text-decoration: underline
+      .frequency
+        font-weight: normal
+        margin: 0 0 0 5px
+        color: #666
     &.move
       position: absolute
     &:hover, &.move
       z-index: 50
       background: #EAF5FB
-      .image
-        display: none
-      .icon
-        display: block
-      .icon-stop,
-      .icon-dislike
-        display: none
     &:last-child
       border-bottom: none
 
@@ -338,25 +326,18 @@ h1, h2, h3
     background: #0088cc !important
     color: #fff
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
-    .icon
-      @extend .icon-white
-    &:hover
-      .image
-        display: none
-      .icon-play
-        display: none
-      .icon-stop
-        display: block
+    .icon-play
+      display: none
+    .icon-stop
+      display: block
+    .title .frequency
+      color: #eee
 
 #footer
   overflow: hidden
   padding: 4px 8px 6px 12px
   position: relative
-  border-top: 1px solid #D9D9D9
-  background: #FFF
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F7F7F7), color-stop(100%,#FFF))
-  background-image: -webkit-linear-gradient(top, #F7F7F7 0%, #FFF 100%)
-  background-image: linear-gradient(top, #F7F7F7 0%, #FFF 100%)
+  background: #0088cc
   .icon
     width: auto
     font-size: 11px
@@ -364,7 +345,7 @@ h1, h2, h3
     line-height: 13px
     margin: 0 15px 0 0
     padding: 0
-    color: #464646
+    color: #fff
     -webkit-transition: color .1s ease-in-out
     transition: color .1s ease-in-out
     cursor: pointer
@@ -374,10 +355,3 @@ h1, h2, h3
     &:hover
       text-decoration: underline
       color: #000
-
-/* Retina styles */
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and ( -o-min-device-pixel-ratio: 2/1), only screen and ( min-device-pixel-ratio: 2), only screen and ( min-resolution: 192dpi), only screen and ( min-resolution: 2dppx)
-  #stations
-    .station
-      .image
-        background-image: url('../../images/96.png')

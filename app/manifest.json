@@ -6,52 +6,12 @@
   "default_locale": "en",
   "permissions": [
     "webRequest",
-    "contextMenus",
     "tabs",
     "http://*/*",
     "https://*/*"
   ],
   "web_accessible_resources": [
     "images/38.png"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "http://radio.css3.su/*"
-      ],
-      "js": [
-        "scripts/ext/proxy.js"
-      ],
-      "all_frames": true,
-      "run_at": "document_end"
-    },
-    {
-      "matches": [
-        "http://101.ru/*"
-      ],
-      "js": [
-        "scripts/ext/101.ru.js"
-      ],
-      "run_at": "document_end"
-    },
-    {
-      "matches": [
-        "http://tunein.com/*"
-      ],
-      "js": [
-        "scripts/ext/tunein.com.js"
-      ],
-      "run_at": "document_end"
-    },
-    {
-      "matches": [
-        "http://radiopotok.ru/*"
-      ],
-      "js": [
-        "scripts/ext/radiopotok.ru.js"
-      ],
-      "run_at": "document_end"
-    }
   ],
   "background": {
     "scripts": [
@@ -106,6 +66,5 @@
     "38": "images/48.png",
     "48": "images/48.png",
     "128": "images/icon.png"
-  },
-  "options_page": "options.html"
+  }
 }

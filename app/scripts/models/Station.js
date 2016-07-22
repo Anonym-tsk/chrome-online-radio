@@ -2,30 +2,16 @@ define(function() {
   'use strict';
 
   /**
-   * Array to object converter.
-   * @param {[]} arr
-   * @return {{}}
-   * @private
-   */
-  function _arrayToObject(arr) {
-    return arr.reduce(function(o, v, i) {
-      o[i] = v;
-      return o;
-    }, {});
-  }
-
-  /**
    * Station class.
    * @param {string} name
    * @param {string} title
-   * @param {string} url
-   * @param {{string: string}|[]} streams
-   * @param {string=} image
-   * @param {boolean=} isUserStation
-   * @param {boolean=} isHidden
+   * @param {string} domain
+   * @param {string} frequency
+   * @param {{}} streams
+   * @param {string=} logo
    * @constructor
    */
-  function Station(name, title, url, streams, image, isUserStation, isHidden) {
+  function Station(name, title, domain, frequency, streams, logo) {
     /**
      * Name.
      * @type {string}
@@ -42,33 +28,30 @@ define(function() {
      * Stations site url.
      * @type {string}
      */
-    this.url = url;
+    this.url = 'http://' + domain;
+
+    /**
+     * Stations frequency.
+     */
+    this.frequency = frequency;
 
     /**
      * Streams object.
      * @type {{string: string}}
      */
-    this.streams = Array.isArray(streams) ? _arrayToObject(streams) : streams;
+    this.streams = (function() {
+      var result = {};
+      streams.forEach(function(stream) {
+        result[stream.kbps + 'K'] = stream.src;
+      });
+      return result;
+    })();
 
     /**
      * Image url.
      * @type {string}
      */
-    this.image = image || '';
-
-    /**
-     * Is users station.
-     * @type {boolean}
-     * @private
-     */
-    this._userStation = !!isUserStation;
-
-    /**
-     * Is hidden.
-     * @type {boolean}
-     * @private
-     */
-    this._hidden = !!isHidden;
+    this.image = 'http://www.kp.ru/img/unisound_radioplayer/v2/' + (logo ? 'logos/' + logo : 'russia_logo.png');
 
     /**
      * Current station index.
@@ -111,38 +94,6 @@ define(function() {
       this._currentStreamName = name.toString();
     }
     return this.streams[this.getStreamName()];
-  };
-
-  /**
-   * Is hidden station.
-   * @return {boolean}
-   */
-  Station.prototype.isHidden = function() {
-    return this._hidden;
-  };
-
-  /**
-   * Set hidden attribute.
-   * @param {boolean} isHidden
-   */
-  Station.prototype.setHidden = function(isHidden) {
-    this._hidden = !!isHidden;
-  };
-
-  /**
-   * Is users station.
-   * @return {boolean}
-   */
-  Station.prototype.isUserStation = function() {
-    return this._userStation;
-  };
-
-  /**
-   * Is core station.
-   * @return {boolean}
-   */
-  Station.prototype.isCoreStation = function() {
-    return !this._userStation;
   };
 
   /**
