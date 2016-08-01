@@ -1,6 +1,6 @@
 {
   "name": {
-    "message": "Радио Онлайн"
+    "message": "Радио Комсомольская Правда"
   },
   "description": {
     "message": "Все ваши любимые радиостанции в одном дополнении."
@@ -30,68 +30,23 @@
   "dislike": {
     "message": "Удалить из избранного"
   },
-  "settings": {
-    "message": "Настройки"
+  "site": {
+    "message": "Сайт радио"
   },
-  "add": {
-    "message": "Добавить радиостанцию"
-  },
-  "added": {
-    "message": "Радиостанция добавлена"
-  },
-  "edit": {
-    "message": "Редактировать радиостанцию"
-  },
-  "save": {
-    "message": "Сохранить"
+  "schedule": {
+    "message": "Программа передач"
   },
   "feedback": {
-    "message": "Обратная связь"
-  },
-  "delete": {
-    "message": "Удалить станцию"
-  },
-  "restore": {
-    "message": "Восстановить станцию"
-  },
-  "reallyDelete": {
-    "message": "Вы действительно хотите удалить эту радиостанцию?"
+    "message": "Отзыв"
   },
   "stations": {
     "message": "Радиостанции"
-  },
-  "stationName": {
-    "message": "Название радиостанции"
-  },
-  "siteLink": {
-    "message": "Ссылка на сайт"
-  },
-  "imageLink": {
-    "message": "Ссылка на изображение"
-  },
-  "streamUrl": {
-    "message": "URL потока"
-  },
-  "optional": {
-    "message": "необязательно"
-  },
-  "flash_error": {
-    "message": "Для работы этого дополнения нужен установленный Adobe Flash Player"
-  },
-  "flash_message": {
-    "message": "Перейдите по ссылке ниже для установки плагина."
-  },
-  "flash_install": {
-    "message": "Установить Adobe Flash Player"
   },
   "mute": {
     "message": "Выключить звук"
   },
   "unmute": {
     "message": "Включить звук"
-  },
-  "hotkeys": {
-    "message": "Горячие клавиши"
   },
   "playpause": {
     "message": "Воспроизвести/Пауза"
@@ -107,57 +62,5 @@
   },
   "volumedown": {
     "message": "Громкость -"
-  },
-  "please_enable_radio": {
-    "message": "Включите радио для добавления"
-  },
-  "export_stations": {
-    "message": "Экспорт радиостанций"
-  },
-  "import_stations": {
-    "message": "Импорт радиостанций"
-  },
-  "export": {
-    "message": "Экспорт"
-  },
-  "import": {
-    "message": "Импорт"
-  },
-  "savefile": {
-    "message": "Сохранить в файл"
-  },
-  "loadfile": {
-    "message": "Загрузить из файла"
-  },
-  "import_error": {
-    "message": "Ошибка импорта"
-  },
-  "import_success": {
-    "message": "Импорт завершён успешно"
-  },
-  "changelog": {
-    "message": "История изменений"
-  },
-  "extension_updated": {
-    "message": "Дополнение обновлено"
-  },
-  "search": {
-    "message": "Найти радиостанцию"
-  },
-
-  "changelog_2_1_3": {
-    "message": "<b>2.1.3</b><br> — Добавлена возможность выбора качества потока и возможность поиска радиостанций"
-  },
-  "changelog_2_1_1": {
-    "message": "<b>2.1.1</b><br> — Экспериментальная версия. Исправлены проблемы в Opera и Яндекс.Браузере"
-  },
-  "changelog_2_0_9": {
-    "message": "<b>2.0.9</b><br> — Импорт и экспорт радиостанций<br> — Добавлены новые радиостанции"
-  },
-  "changelog_2_0_8": {
-    "message": "<b>2.0.8</b><br> — Интеграция с http://radiopotok.ru"
-  },
-  "changelog_2_0_7": {
-    "message": "<b>2.0.8</b><br> — Интеграция с http://101.ru и http://tunein.com"
   }
 }

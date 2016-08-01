@@ -30,7 +30,6 @@
   "scripts/models/HtmlPlayer.js",
   "scripts/models/Station.js",
   "scripts/utils/Translator.js",
-  "scripts/utils/Utils.js",
   "scripts/background.js",
   "scripts/options.js",
   "scripts/popup.js",

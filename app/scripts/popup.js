@@ -200,7 +200,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       $unmute.show();
     }
     if (setInputValue) {
-      $player.find('.volume > input').val(volume);
+      $player.find('.volume > input').val(volume).trigger('input');
     }
     if (!renderOnly) {
       sendMessage('volume', volume);
@@ -310,18 +310,22 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       });
 
     $('#footer')
-      .on('click', '.icon-options', function(e) {
+      .on('click', '.icon-site', function(e) {
         e.preventDefault();
-        sendMessage('options');
+        chrome.tabs.create({url: 'http://www.kp.ru/radio/'});
       })
-      .on('click', '.icon-add', function(e) {
+      .on('click', '.icon-schedule', function(e) {
         e.preventDefault();
-        sendMessage('options', 'add');
+        chrome.tabs.create({url: 'http://www.kp.ru/radio/schedule/'});
       })
       .on('click', '.icon-feedback', function(e) {
         e.preventDefault();
         chrome.tabs.create({url: 'mailto:radiokp@kp.ru?Subject=Online%20Radio%20Extension'});
       });
+
+    $('.volume > input').on('input', function() {
+      $(this).css('background', 'linear-gradient(to right, #000 0%, #000 ' + this.value + '%, #fff ' + this.value + '%, #fff 100%)');
+    }).trigger('input');
   }
 
   /**

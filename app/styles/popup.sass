@@ -5,7 +5,7 @@ $width: 420px
 body
   margin: 0
   font-size: 15px
-  font-family: Arial, Helvetica, sans-serif
+  font-family: 'Open Sans', sans-serif
   -webkit-font-smoothing: antialiased
   -webkit-user-select: none
   color: #333
@@ -31,23 +31,6 @@ h1, h2, h3
   line-height: 0
   background-repeat: no-repeat
 
-.icon-like,
-.icon-dislike
-  float: right
-  width: 32px
-  height: 32px
-  background-position: center
-
-.icon-like
-  background-image: url($asset-like)
-  &:hover
-    background-image: url($asset-like_hover)
-
-.icon-dislike
-  background-image: url($asset-dislike)
-  &:hover
-    background-image: url($asset-dislike_hover)
-
 .icon-like-big,
 .icon-dislike-big
   float: right
@@ -65,13 +48,25 @@ h1, h2, h3
   &:hover
     background-image: url($asset-icon-favorite_header)
 
+.icon-play-big,
+.icon-stop-big
+  width: 52px
+  color: #838383
+
+.icon-play-big
+  font-size: 50px
+  line-height: 89px
+
+.icon-stop-big
+  font-size: 42px
+  line-height: 88px
+
 .icon-play,
 .icon-stop
   float: left
-  width: 32px
-  height: 32px
+  width: 51px
+  height: 48px
   background-position: center
-  margin: 0 14px 0 0
 
 .icon-play
   background-image: url($asset-icon_play)
@@ -83,17 +78,22 @@ h1, h2, h3
   &:hover
     background-image: url($asset-icon_stop_hover)
 
-.icon-play-big
-  width: 52px
-  font-size: 50px
-  line-height: 89px
-  color: #838383
+.icon-like,
+.icon-dislike
+  float: right
+  width: 46px
+  height: 48px
+  background-position: center
 
-.icon-stop-big
-  width: 52px
-  font-size: 42px
-  line-height: 88px
-  color: #838383
+.icon-like
+  background-image: url($asset-like)
+  &:hover
+    background-image: url($asset-like_hover)
+
+.icon-dislike
+  background-image: url($asset-dislike)
+  &:hover
+    background-image: url($asset-dislike_hover)
 
 .icon-loader
   width: 42px
@@ -108,11 +108,50 @@ h1, h2, h3
 
 .icon-mute,
 .icon-unmute
-  width: 16px
-  height: 16px
+  width: 24px
+  height: 18px
   font-size: 13px
   line-height: 19px
   color: #707070
+
+.icon-mute
+  background-image: url($asset-icon_sound)
+
+.icon-unmute
+  background-image: url($asset-icon_sound_mute)
+
+.icon-site,
+.icon-schedule,
+.icon-feedback
+  float: left
+  height: 30px
+  line-height: 30px
+  background-position: left center
+  width: auto
+  font-size: 11px
+  font-style: normal
+  margin: 0 40px 0 0
+  padding: 0 0 0 20px
+  color: #fff
+  cursor: pointer
+  text-decoration: none
+  &:hover
+    color: #a9d3e8
+
+.icon-site
+  background-image: url($asset-site_radio)
+  &:hover
+    background-image: url($asset-site_radio_hover)
+
+.icon-schedule
+  background-image: url($asset-programma)
+  &:hover
+    background-image: url($asset-programma_hover)
+
+.icon-feedback
+  background-image: url($asset-otzyv)
+  &:hover
+    background-image: url($asset-otzyv_hover)
 
 #content
   width: 100%
@@ -120,15 +159,14 @@ h1, h2, h3
   margin: 0 auto
   max-width: $width
   min-width: $width
-  background: #fff
+  background: #F1F2F2
   overflow: hidden
 
 #player
   overflow: hidden
   padding: 10px
   position: relative
-  border-bottom: 1px solid #D9D9D9
-  background: #0088cc
+  background: #1484C8
   .image
     float: left
     width: 80px
@@ -176,7 +214,7 @@ h1, h2, h3
       padding: 0 4px
       display: inline-block
       font-size: 12px
-      line-height: 17px
+      line-height: 21px
       cursor: pointer
       outline: none
       color: #fff
@@ -191,7 +229,7 @@ h1, h2, h3
     // Должно быть значением вида "5/8 * FFT_SIZE * (SPACER_WIDTH + BAR_WIDTH) / 2 - SPACER_WIDTH" при N >= 5
     // После вычисления может уменьшаться с шагом (SPACER_WIDTH + BAR_WIDTH) обрезая правые столбцы
     width: 147px
-    height: 30px
+    height: 24px
     position: absolute
     bottom: 10px
     left: 110px
@@ -205,19 +243,15 @@ h1, h2, h3
       float: left
     input[type="range"]
       float: left
-      background: -webkit-linear-gradient(top, #ccc 0%, #999 100%)
-      background: linear-gradient(top, #ccc 0%, #999 100%)
-      width: 100px
-      height: 2px
-      margin: 7px 0 0 5px
+      width: 80px
+      height: 3px
+      margin: 8px 0 0 5px
       -webkit-appearance: none
       outline: none
       &::-webkit-slider-thumb
-        background: -webkit-radial-gradient(4px 4px, circle, #ccc, #444)
-        background: radial-gradient(4px 4px, circle, #ccc, #444)
-        width: 12px
-        height: 12px
-        border-radius: 50%
+        background: #fff
+        width: 0
+        height: 3px
         -webkit-appearance: none
         cursor: col-resize
 
@@ -276,18 +310,13 @@ h1, h2, h3
   height: 400px
   outline: none
 
-  #favorites
-    .station
-      &:last-child
-        border-bottom: 1px solid #D9D9D9
   .station
-    height: 32px
-    margin: 0 10px
-    padding: 5px
-    width: $width - 30px
+    height: 48px
+    margin: 0
+    padding: 0
+    width: 100%
     cursor: pointer
     position: relative
-    border-bottom: 1px solid #D9D9D9
     -webkit-transition: background-color .07s ease-in-out
     transition: background-color .07s ease-in-out
     .icon-stop,
@@ -299,21 +328,30 @@ h1, h2, h3
       white-space: nowrap
       overflow: hidden
       text-overflow: ellipsis
-      line-height: 32px
+      line-height: 48px
       .name
         font-weight: bold
         text-decoration: underline
       .frequency
         font-weight: normal
         margin: 0 0 0 5px
-        color: #666
+        color: #6d6e71
+    &:after
+      content: ''
+      display: block
+      position: absolute
+      height: 0
+      width: 96%
+      left: 2%
+      bottom: 0
+      border-bottom: 1px solid #b5b5b5
+    &:nth-child(even)
+      background: #f7f7f7
     &.move
       position: absolute
     &:hover, &.move
       z-index: 50
-      background: #EAF5FB
-    &:last-child
-      border-bottom: none
+      background: #eeeeee
 
   .favorite,
   .favorite:hover
@@ -323,35 +361,17 @@ h1, h2, h3
       display: block
 
   .active
-    background: #0088cc !important
-    color: #fff
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+    background: #dff1fc !important
     .icon-play
       display: none
     .icon-stop
       display: block
-    .title .frequency
-      color: #eee
+
+#stations > .station:last-child:after
+  display: none
 
 #footer
   overflow: hidden
-  padding: 4px 8px 6px 12px
+  padding: 0 15px
   position: relative
   background: #0088cc
-  .icon
-    width: auto
-    font-size: 11px
-    height: 14px
-    line-height: 13px
-    margin: 0 15px 0 0
-    padding: 0
-    color: #fff
-    -webkit-transition: color .1s ease-in-out
-    transition: color .1s ease-in-out
-    cursor: pointer
-    &:before
-      padding-right: 4px
-      text-decoration: none!important
-    &:hover
-      text-decoration: underline
-      color: #000

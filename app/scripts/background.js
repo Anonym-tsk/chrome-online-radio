@@ -5,15 +5,7 @@ require.config({
   }
 });
 
-// Check updates.
-chrome.runtime.onInstalled.addListener(function(details) {
-  'use strict';
-  require(['utils/Utils'], function(Utils) {
-    Utils.checkUpdates(details);
-  });
-});
-
-require(['utils/Utils', 'models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], function(Utils, DataStorage, HtmlPlayer, Translator) {
+require(['models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], function(DataStorage, HtmlPlayer, Translator) {
   'use strict';
 
   /**
