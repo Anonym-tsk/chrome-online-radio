@@ -317,6 +317,15 @@ module.exports = function(grunt) {
           '<%= config.path.app %>/styles/_assets.scss': '<%= config.path.app %>/assets/*.{png,jpg}'
         }
       }
+    },
+
+    // Download stations.json from KP
+    wget: {
+      stations: {
+        files: {
+          '<%= config.path.dist %>/stations.json': 'http://www.kp.ru/json/unisound_radioplayer/v2/data.json'
+        }
+      }
     }
   });
 
@@ -337,45 +346,6 @@ module.exports = function(grunt) {
     grunt.file.write(grunt.config.get('config.path.dist') + '/manifest.json', JSON.stringify(manifest, null, 2));
   });
 
-  grunt.registerTask('stationsCopy', function() {
-    // var done = this.async(),
-    //     exec = require('child_process').exec;
-    //
-    // var command = 'git show gh-pages:stations.json > ' + grunt.config.get('config.path.dist') + '/stations.json';
-    // exec(command, function(error, stdout, stderr) {
-    //   done(!stderr);
-    // });
-    // TODO: wget from http://www.kp.ru/json/unisound_radioplayer/v2/data.json
-  });
-
-  grunt.registerTask('check', function() {
-    console.log('Checking build...');
-
-    var need = grunt.file.readJSON('build.json'),
-        result = true;
-
-    grunt.file.recurse(grunt.config.get('config.path.dist'), function(abspath, rootdir, subdir, filename) {
-      var file = subdir ? subdir + '/' + filename : filename,
-        index = need.indexOf(file);
-      if (index < 0) {
-        grunt.log.error('Found unknown file %s!', file);
-        result = false;
-      } else {
-        need.splice(index, 1);
-      }
-    });
-
-    need.forEach(function(file) {
-      grunt.log.error('Required file %s not found!', file);
-      result = false;
-    });
-
-    if (result) {
-      grunt.log.ok();
-    }
-    return result;
-  });
-
   grunt.registerTask('debug', [
     'jshint',
     'datauri',
@@ -388,14 +358,13 @@ module.exports = function(grunt) {
     'jshint',
     'clean',
     'manifestCopy',
-    'stationsCopy',
+    'wget',
     'datauri',
     'sass:compressed',
     'imagemin',
     'htmlmin',
     'uglify',
     'copy:assets',
-    'check',
     'compress:chrome'
   ]);
 
@@ -403,14 +372,13 @@ module.exports = function(grunt) {
     'jshint',
     'clean',
     'manifestCopy',
-    'stationsCopy',
+    'wget',
     'datauri',
     'sass:expanded',
     'imagemin',
     'copy:html',
     'copy:js',
     'copy:assets',
-    'check',
     'compress:opera'
   ]);
 
