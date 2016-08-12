@@ -320,7 +320,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       })
       .on('click', '.icon-feedback', function(e) {
         e.preventDefault();
-        chrome.tabs.create({url: 'mailto:radiokp@kp.ru?Subject=Online%20Radio%20Extension'});
+        chrome.tabs.create({url: 'mailto:radiokp@kp.ru?Subject=Radio%20Extension'});
       });
 
     $('.volume > input').on('input', function() {
