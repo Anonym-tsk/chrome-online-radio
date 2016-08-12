@@ -1,6 +1,6 @@
 {
-  "name": "online-radio",
-  "version": "2.1.5",
+  "name": "radio-kp",
+  "version": "1.0.0",
   "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.1",
