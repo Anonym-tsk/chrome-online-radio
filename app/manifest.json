@@ -10,9 +10,6 @@
     "http://*/*",
     "https://*/*"
   ],
-  "web_accessible_resources": [
-    "images/38.png"
-  ],
   "background": {
     "scripts": [
       "scripts/chromereload.js",
