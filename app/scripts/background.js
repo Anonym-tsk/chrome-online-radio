@@ -192,24 +192,27 @@ require(['models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], functio
 
     switch (st) {
       case 'buffering':
-        chrome.browserAction.setIcon({path: {'19': 'images/19o.png', '38': 'images/38o.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('loading')});
+        chrome.browserAction.setBadgeBackgroundColor({color: '#ffbf00'});
+        chrome.browserAction.setBadgeText({text: ' '});
         break;
       case 'playing':
-        chrome.browserAction.setIcon({path: {'19': 'images/19g.png', '38': 'images/38g.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title});
+        chrome.browserAction.setBadgeBackgroundColor({color: '#33cc33'});
+        chrome.browserAction.setBadgeText({text: ' '});
         break;
       case 'stopped':
-        chrome.browserAction.setIcon({path: {'19': 'images/19.png', '38': 'images/38.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('stopped')});
+        chrome.browserAction.setBadgeText({text: ''});
         break;
       case 'error':
-        chrome.browserAction.setIcon({path: {'19': 'images/19r.png', '38': 'images/38r.png'}});
         chrome.browserAction.setTitle({title: DataStorage.getLastStation().title + ' - ' + Translator.translate('error')});
+        chrome.browserAction.setBadgeBackgroundColor({color: '#ff3300'});
+        chrome.browserAction.setBadgeText({text: ' ︎'});
         break;
       default:
-        chrome.browserAction.setIcon({path: {'19': 'images/19.png', '38': 'images/38.png'}});
         chrome.browserAction.setTitle({title: Translator.translate('name')});
+        chrome.browserAction.setBadgeText({text: ''});
     }
   }
 

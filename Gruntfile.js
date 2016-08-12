@@ -314,7 +314,7 @@ module.exports = function(grunt) {
       },
       preprocess: {
         files: {
-          '<%= config.path.app %>/styles/_assets.scss': '<%= config.path.app %>/assets/*.{png,jpg}'
+          '<%= config.path.app %>/styles/_assets.scss': '<%= config.path.app %>/assets/*.{png,jpg,gif}'
         }
       }
     },
