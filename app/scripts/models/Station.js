@@ -28,7 +28,7 @@ define(function() {
      * Stations site url.
      * @type {string}
      */
-    this.url = 'http://' + domain;
+    this.url = 'http://' + (domain || 'www.kp.ru');
 
     /**
      * Stations frequency.
