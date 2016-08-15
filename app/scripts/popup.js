@@ -112,7 +112,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
    * Renders one station for stations list.
    * @param {string} name
    * @param {string} title
-   * @param {string} frequency
+   * @param {string=} frequency
    * @return {jQuery}
    * @private
    */
@@ -122,10 +122,13 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         $play = $('<i/>', {'class': 'icon icon-play', 'title': Translator.translate('play')}),
         $stop = $('<i/>', {'class': 'icon icon-stop', 'title': Translator.translate('stop')}),
         $name = $('<span/>', {'class': 'name', 'text': title}),
-        $frequency = $('<span/>', {'class': 'frequency', 'text': '(' + frequency + ' FM)'}),
-        $title = $('<h3/>', {'class': 'title'}).append($name, $frequency),
+        $title = $('<h3/>', {'class': 'title'}).append($name),
         $like = $('<i/>', {'class': 'icon icon-like', 'title': Translator.translate('like')}),
         $dislike = $('<i/>', {'class': 'icon icon-dislike', 'title': Translator.translate('dislike')});
+
+    if (frequency) {
+      $('<span/>', {'class': 'frequency', 'text': '(' + frequency + ' FM)'}).appendTo($title);
+    }
 
     return $station.append($play, $stop, $like, $dislike, $title);
   }

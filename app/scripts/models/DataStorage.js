@@ -186,8 +186,11 @@ define(['models/Station'], function(Station) {
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         var json = JSON.parse(xhr.responseText);
+        json.sort(function(a, b) {
+          return a.name.localeCompare(b.name);
+        });
         json.forEach(function(data) {
-          _coreStations[data.frequency] = new Station(data.frequency, data.name, data.domen, data.frequency, data.streams, data.logo);
+          _coreStations[data.name] = new Station(data.name, data.name, data.domen, data.frequency, data.streams, data.logo);
         });
       }
     };
