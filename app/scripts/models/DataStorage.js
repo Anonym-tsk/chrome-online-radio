@@ -187,6 +187,11 @@ define(['models/Station'], function(Station) {
       if (xhr.readyState === 4) {
         var json = JSON.parse(xhr.responseText);
         json.sort(function(a, b) {
+          // Поднимаем "Россию" в самый верх
+          if (a.domen === 'www.kp.ru') {
+            a.frequency = '';
+            return -1;
+          }
           return a.name.localeCompare(b.name);
         });
         json.forEach(function(data) {
