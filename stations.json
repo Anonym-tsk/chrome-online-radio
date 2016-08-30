@@ -335,5 +335,13 @@
       "128K": "http://online.rockarsenal.ru:8000/rockarsenal",
       "32K": "http://online.rockarsenal.ru:8000/rockarsenal32"
     }
+  },
+  "radioradioirk": {
+    "title": "RadioRadio - Иркутск",
+    "url": "http://radioradio.ru/geo/geo_city/4.html",
+    "image": "http://radioradio.ru/img/logo.png",
+    "streams": {
+      "128K": "http://play.radioradio.ru/irk"
+    }
   }
 }
