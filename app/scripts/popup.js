@@ -140,7 +140,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
   function renderEqualizer() {
     var $container = $player.find('.equalizer');
 
-    var BAR_WIDTH = 3, // Ширина полоски
+    var BAR_WIDTH = 4, // Ширина полоски
       SPACER_WIDTH = 1, // Ширина отступа
       EMPTY_HEIGHT = 1, // Высота "пустого" бара
       CANVAS_WIDTH = parseInt($container.css('width'), 10),
