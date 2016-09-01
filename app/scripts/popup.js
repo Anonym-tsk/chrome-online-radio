@@ -127,7 +127,8 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         $dislike = $('<i/>', {'class': 'icon icon-dislike', 'title': Translator.translate('dislike')});
 
     if (frequency) {
-      $('<span/>', {'class': 'frequency', 'text': '(' + frequency + ' FM)'}).appendTo($title);
+      var freqtext = frequency === 'www.fm.kp.ru' ? '(' + frequency + ')' : '(' + frequency + ' FM)';
+      $('<span/>', {'class': 'frequency', 'text': freqtext}).appendTo($title);
     }
 
     return $station.append($play, $stop, $like, $dislike, $title);
@@ -140,9 +141,10 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
   function renderEqualizer() {
     var $container = $player.find('.equalizer');
 
-    var BAR_WIDTH = 6, // Ширина полоски
-      SPACER_WIDTH = 1, // Ширина отступа
-      EMPTY_HEIGHT = 1, // Высота "пустого" бара
+    var BAR_WIDTH = 7, // Ширина полоски
+      SPACER_WIDTH = 1, // Ширина отступа между столбцами
+      SPACER_HEIGHT = 1, // Ширина отступа между строками
+      DOT_HEIGHT = 2, // Высота "пустого" бара
       CANVAS_WIDTH = parseInt($container.css('width'), 10),
       CANVAS_HEIGHT = parseInt($container.css('height'), 10),
       NUM_BARS = Math.round(CANVAS_WIDTH / (SPACER_WIDTH + BAR_WIDTH));
@@ -155,7 +157,15 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
 
     // Canvas context
     var canvasContext = canvas.getContext('2d');
-    canvasContext.fillStyle = '#ffffff';
+
+    // canvasContext.fillStyle = '#ffffff';
+
+    var gradient = canvasContext.createLinearGradient(0, 0, 0, CANVAS_HEIGHT);
+    gradient.addColorStop(1, '#ffffff');
+    gradient.addColorStop(0.10001, '#ffffff');
+    gradient.addColorStop(0.1, '#c8efff');
+    gradient.addColorStop(0, '#c8efff');
+    canvasContext.fillStyle = gradient;
 
     // First render
     for (var i = 0; i < NUM_BARS; ++i) {
@@ -163,22 +173,24 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         i * (SPACER_WIDTH + BAR_WIDTH),
         CANVAS_HEIGHT,
         BAR_WIDTH,
-        -EMPTY_HEIGHT
+        -DOT_HEIGHT
       );
     }
 
     (function drawFrame() {
       var freqByteData = _background.getAudioData();
-      canvasContext.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT - EMPTY_HEIGHT);
+      canvasContext.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT - DOT_HEIGHT);
 
       for (var i = 0; i < NUM_BARS; ++i) {
         var magnitude = Math.ceil(freqByteData[i] * CANVAS_HEIGHT / 255); // 255 is the maximum magnitude of a value in the frequency data
-        canvasContext.fillRect(
-          i * (SPACER_WIDTH + BAR_WIDTH),
-          CANVAS_HEIGHT,
-          BAR_WIDTH,
-          -magnitude
-        );
+        for (var k = 0; k <= magnitude; k += DOT_HEIGHT + SPACER_HEIGHT) {
+          canvasContext.fillRect(
+            i * (SPACER_WIDTH + BAR_WIDTH),
+            CANVAS_HEIGHT - k,
+            BAR_WIDTH,
+            -DOT_HEIGHT
+          );
+        }
       }
 
       window.requestAnimationFrame(drawFrame, canvas);
@@ -348,7 +360,8 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
           $description = $player.find('.description').empty();
 
       $player.addClass('buffering ready').toggleClass('favorite', $station.hasClass('favorite')).data('name', station.name);
-      var $title = $player.find('.title').text(station.title + (station.frequency ? ' (' + station.frequency + ' FM)' : '')).removeClass('link');
+      var freqtext = station.frequency === 'www.fm.kp.ru' ? ' (' + station.frequency + ')' : ' (' + station.frequency + ' FM)';
+      var $title = $player.find('.title').text(station.title + freqtext).removeClass('link');
       if (station.url) {
         $title.addClass('link').attr('title', Translator.translate('link'));
       }

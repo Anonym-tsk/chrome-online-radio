@@ -51,7 +51,7 @@ define(function() {
      * Image url.
      * @type {string}
      */
-    this.image = 'http://www.kp.ru/img/unisound_radioplayer/v2/' + (logo ? 'logos/' + logo : 'russia_logo.png');
+    this.image = 'http://www.kp.ru/img/unisound_radioplayer/v2/logos/' + (logo || 'logo.png');
 
     /**
      * Current station index.

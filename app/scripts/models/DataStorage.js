@@ -189,7 +189,6 @@ define(['models/Station'], function(Station) {
         json.sort(function(a, b) {
           // Поднимаем "Россию" в самый верх
           if (a.domen === 'www.kp.ru') {
-            a.frequency = '';
             return -1;
           }
           return a.name.localeCompare(b.name);
