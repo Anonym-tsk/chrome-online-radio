@@ -348,7 +348,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
           $description = $player.find('.description').empty();
 
       $player.addClass('buffering ready').toggleClass('favorite', $station.hasClass('favorite')).data('name', station.name);
-      var $title = $player.find('.title').text(station.title).removeClass('link');
+      var $title = $player.find('.title').text(station.title + (station.frequency ? ' (' + station.frequency + ' FM)' : '')).removeClass('link');
       if (station.url) {
         $title.addClass('link').attr('title', Translator.translate('link'));
       }
