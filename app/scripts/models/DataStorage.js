@@ -188,7 +188,7 @@ define(['models/Station'], function(Station) {
         var json = JSON.parse(xhr.responseText);
         json.sort(function(a, b) {
           // Поднимаем "Россию" в самый верх
-          if (a.domen === 'www.kp.ru') {
+          if (a.name === 'Россия') {
             return -1;
           }
           return a.name.localeCompare(b.name);

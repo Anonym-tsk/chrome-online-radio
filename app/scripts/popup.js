@@ -127,7 +127,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
         $dislike = $('<i/>', {'class': 'icon icon-dislike', 'title': Translator.translate('dislike')});
 
     if (frequency) {
-      var freqtext = frequency === 'www.fm.kp.ru' ? '(' + frequency + ')' : '(' + frequency + ' FM)';
+      var freqtext = name === 'Россия' ? '(' + frequency + ')' : '(' + frequency + ' FM)';
       $('<span/>', {'class': 'frequency', 'text': freqtext}).appendTo($title);
     }
 
@@ -360,7 +360,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
           $description = $player.find('.description').empty();
 
       $player.addClass('buffering ready').toggleClass('favorite', $station.hasClass('favorite')).data('name', station.name);
-      var freqtext = station.frequency === 'www.fm.kp.ru' ? ' (' + station.frequency + ')' : ' (' + station.frequency + ' FM)';
+      var freqtext = station.name === 'Россия' ? ' (' + station.frequency + ')' : ' (' + station.frequency + ' FM)';
       var $title = $player.find('.title').text(station.title + freqtext).removeClass('link');
       if (station.url) {
         $title.addClass('link').attr('title', Translator.translate('link'));
