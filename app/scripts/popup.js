@@ -157,15 +157,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
 
     // Canvas context
     var canvasContext = canvas.getContext('2d');
-
-    // canvasContext.fillStyle = '#ffffff';
-
-    var gradient = canvasContext.createLinearGradient(0, 0, 0, CANVAS_HEIGHT);
-    gradient.addColorStop(1, '#ffffff');
-    gradient.addColorStop(0.10001, '#ffffff');
-    gradient.addColorStop(0.1, '#c8efff');
-    gradient.addColorStop(0, '#c8efff');
-    canvasContext.fillStyle = gradient;
+    canvasContext.fillStyle = '#ffffff';
 
     // First render
     for (var i = 0; i < NUM_BARS; ++i) {
