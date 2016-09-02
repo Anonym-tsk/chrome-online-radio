@@ -77,7 +77,7 @@ define(['models/DataStorage'], function(DataStorage) {
    */
   function getAudioData() {
     var getAudioAnalyser = function() {
-      var context = new window.webkitAudioContext();
+      var context = new window.AudioContext();
       var analyser = context.createAnalyser();
       analyser.smoothingTimeConstant = 0.8;
       analyser.fftSize = 128;
