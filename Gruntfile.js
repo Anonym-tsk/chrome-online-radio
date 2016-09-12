@@ -306,6 +306,26 @@ module.exports = function(grunt) {
       }
     },
 
+    // Set feedback urls
+    replace: {
+      chrome: {
+        src: '<%= config.path.dist %>/scripts/popup.js',
+        dest: '<%= config.path.dist %>/scripts/popup.js',
+        replacements: [{
+          from: '#%FEEDBACK_URL%#',
+          to: 'https://chrome.google.com/webstore/detail/enpdkdlfnbmhbbnlndpipbcfbmigpcld/reviews'
+        }]
+      },
+      opera: {
+        src: '<%= config.path.dist %>/scripts/popup.js',
+        dest: '<%= config.path.dist %>/scripts/popup.js',
+        replacements: [{
+          from: '#%FEEDBACK_URL%#',
+          to: 'http://www.kp.ru/radio/'
+        }]
+      }
+    },
+
     // Data-uri variables for assets
     datauri: {
       options: {
@@ -365,6 +385,7 @@ module.exports = function(grunt) {
     'htmlmin',
     'uglify',
     'copy:assets',
+    'replace:chrome',
     'compress:chrome'
   ]);
 
@@ -379,6 +400,7 @@ module.exports = function(grunt) {
     'copy:html',
     'copy:js',
     'copy:assets',
+    'replace:opera',
     'compress:opera'
   ]);
 

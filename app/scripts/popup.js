@@ -327,7 +327,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       })
       .on('click', '.icon-feedback', function(e) {
         e.preventDefault();
-        chrome.tabs.create({url: 'http://www.kp.ru/radio/'});
+        chrome.tabs.create({url: '#%FEEDBACK_URL%#'});
       });
 
     $('.volume > input').on('input', function() {
