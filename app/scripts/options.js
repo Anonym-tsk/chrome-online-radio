@@ -2,7 +2,8 @@ require.config({
   baseUrl: 'scripts',
   paths: {
     jquery: 'lib/jquery.min'
-  }
+  },
+  waitSeconds: 0
 });
 
 require(['jquery', 'utils/Translator'], function($, Translator) {
