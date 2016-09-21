@@ -321,7 +321,7 @@ module.exports = function(grunt) {
         dest: '<%= config.path.dist %>/scripts/popup.js',
         replacements: [{
           from: '#%FEEDBACK_URL%#',
-          to: 'http://www.kp.ru/radio/'
+          to: 'https://addons.opera.com/ru/extensions/details/radio-komsomolskaia-pravda/'
         }]
       }
     },
