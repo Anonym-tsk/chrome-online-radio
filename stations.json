@@ -343,5 +343,13 @@
     "streams": {
       "128K": "http://play.radioradio.ru/irk"
     }
+  },
+  "radiovanya": {
+    "title": "Радио Ваня",
+    "url": "http://radiovanya.ru/",
+    "image": "http://www.radiovanya.ru/img/vanya_small.png",
+    "streams": {
+      "96K": "http://icecast.piktv.cdnvideo.ru/vanya"
+    }
   }
 }
