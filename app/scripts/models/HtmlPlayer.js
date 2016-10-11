@@ -107,6 +107,9 @@ define(['models/DataStorage'], function(DataStorage) {
         audio.addEventListener('canplaythrough', function() {
           callback(true);
         }, false);
+        audio.addEventListener('stalled', function() {
+          callback(false);
+        }, false);
         audio.addEventListener('error', function() {
           callback(false, this.error);
         }, false);
