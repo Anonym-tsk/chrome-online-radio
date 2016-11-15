@@ -187,13 +187,24 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
    * Renders stations list.
    */
   function renderStations() {
-    var $container = $('#stations').empty();
-    var stations = _storage.getStations();
+    var $coreStationsContainer = $('#corestations').empty(),
+        $userStationsContainer = $('#userstations').empty(),
+        $hiddenStationsContainer = $('#hiddenstations').empty(),
+        stations = _storage.getStations();
 
     $.each(stations, function(name, station) {
       var rendered = renderStation(name, station);
-      $container.append(rendered);
+      if (station.isHidden()) {
+        $hiddenStationsContainer.append(rendered);
+      } else if (station.isUserStation()) {
+        $userStationsContainer.append(rendered);
+      } else {
+        $coreStationsContainer.append(rendered);
+      }
     });
+
+    $('.stationslist:empty').prev('h3').hide();
+    $('.stationslist:not(:empty)').prev('h3').show();
   }
 
   /**
@@ -209,46 +220,45 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       .on('click', 'li[data-page="import"]', openImportTab)
       .on('click', 'li[data-page="changelog"]', openChangelogTab);
 
-    $('#stations')
-      .on('click', '.station > .icon-edit', function(e) {
-        e.preventDefault();
-        var $station = $(this).parent('.station');
-        if ($station.hasClass('edit')) {
-          $station.removeClass('edit').find('.addStation').remove();
-          return;
-        }
+    $('#userstations').on('click', '.station > .icon-edit', function(e) {
+      e.preventDefault();
+      var $station = $(this).parent('.station');
+      if ($station.hasClass('edit')) {
+        $station.removeClass('edit').find('.addStation').remove();
+        return;
+      }
 
-        var name = $station.data('name'),
+      var name = $station.data('name'),
           station = _storage.getStationByName(name);
 
-        var $template = getFormTemplate().data('name', name);
-        $template.find('[name="title"]').val(station.title);
-        $template.find('[name="url"]').val(station.url || '');
-        $template.find('[name="image"]').val(station.image || '');
-        var names = Object.keys(station.streams);
-        var $input = $template.find('[name="streams"]').val(station.streams[names[0]]);
-        for (var i = 1, l = names.length; i < l; i++) {
-          $input = $input.clone().val(station.streams[names[i]]).insertAfter($input);
-        }
-        $template.find('[type="submit"]').val(Translator.translate('save'));
-        $station.addClass('edit').append($template);
-      })
-      .on('click', '.station > .icon-delete', function(e) {
-        e.preventDefault();
-        var $station = $(this).parent('.station'),
-          name = $station.data('name');
-        if (window.confirm(Translator.translate('reallyDelete'))) {
-          _storage.deleteStation(name);
-          renderStations();
-        }
-      })
-      .on('click', '.station > .icon-restore', function(e) {
-        e.preventDefault();
-        var $station = $(this).parent('.station'),
-          name = $station.data('name');
-        _storage.restoreStation(name);
+      var $template = getFormTemplate().data('name', name);
+      $template.find('[name="title"]').val(station.title);
+      $template.find('[name="url"]').val(station.url || '');
+      $template.find('[name="image"]').val(station.image || '');
+      var names = Object.keys(station.streams);
+      var $input = $template.find('[name="streams"]').val(station.streams[names[0]]);
+      for (var i = 1, l = names.length; i < l; i++) {
+        $input = $input.clone().val(station.streams[names[i]]).insertAfter($input);
+      }
+      $template.find('[type="submit"]').val(Translator.translate('save'));
+      $station.addClass('edit').append($template);
+    });
+    $('#corestations, #userstations').on('click', '.station > .icon-delete', function(e) {
+      e.preventDefault();
+      var $station = $(this).parent('.station'),
+        name = $station.data('name');
+      if (window.confirm(Translator.translate('reallyDelete'))) {
+        _storage.deleteStation(name);
         renderStations();
-      });
+      }
+    });
+    $('#hiddenstations').on('click', '.station > .icon-restore', function(e) {
+      e.preventDefault();
+      var $station = $(this).parent('.station'),
+        name = $station.data('name');
+      _storage.restoreStation(name);
+      renderStations();
+    });
 
     $(document)
       .on('click', '.field-streams > .icon-add', function(e) {
