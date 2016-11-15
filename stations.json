@@ -342,5 +342,13 @@
     "streams": {
       "96K": "http://icecast.piktv.cdnvideo.ru/vanya"
     }
+  },
+  "swhrock": {
+    "title": "Radio SWH Rock",
+    "url": "http://www.radioswhrock.lv/",
+    "image": "http://www.radioswhrock.lv/wp-content/themes/radioswhrock/img/logo-bez.png",
+    "streams": {
+      "96K": "http://80.232.162.149:8000/rock96mp3"
+    }
   }
 }
