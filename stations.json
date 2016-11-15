@@ -71,7 +71,7 @@
     "url": "http://montecarlo.ru/",
     "image": "http://montecarlo.ru/upload/images/rmc300.jpg",
     "streams": {
-      "96K": "http://icecast.rmg.cdnvideo.ru/mc.mp3"
+      "96K": "http://icecast.radiomontecarlo.cdnvideo.ru/mc.mp3"
     }
   },
   "echo": {
