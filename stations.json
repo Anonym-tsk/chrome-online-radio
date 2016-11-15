@@ -71,7 +71,7 @@
     "url": "http://montecarlo.ru/",
     "image": "http://montecarlo.ru/upload/images/rmc300.jpg",
     "streams": {
-      "96K": "http://icecast.radiomontecarlo.cdnvideo.ru/mc.mp3"
+      "96K": "http://icecast.rmg.cdnvideo.ru/mc.mp3"
     }
   },
   "echo": {
@@ -132,9 +132,9 @@
   "dorognoe": {
     "title": "Дорожное радио",
     "url": "http://www.dorognoe.ru/",
-    "image": "http://www.dorognoe.ru/templates/road_explo/images/logo_new.png",
+    "image": "http://support.dorognoe.ru/attachments/download/45/dor-logo.png",
     "streams": {
-      "64K": "http://dorognoe.hostingradio.ru:8000/dor_64_no"
+      "64K": "http://81.19.85.204/dorognoe64.mp3"
     }
   },
   "humour": {
@@ -150,7 +150,7 @@
   "avtoradio": {
     "title": "Авторадио",
     "url": "http://www.avtoradio.ru/",
-    "image": "http://www.avtoradio.ru/design/images/logo_avtoradio_chalet_2.gif",
+    "image": "http://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png",
     "streams": {
       "128K [1]": "http://ic3.101.ru:8000/v3_1",
       "128K [2]": "http://ic2.101.ru:8000/v3_1",
@@ -236,19 +236,10 @@
       "128K [3]": "http://ic4.101.ru:8000/v1_1"
     }
   },
-  "keks": {
-    "title": "Кекс FM",
-    "url": "http://keks.fm/",
-    "image": "http://keks.fm/media/default/images/logo.png",
-    "streams": {
-      "128K": "http://emgspb.hostingradio.ru/keksfmspb128.mp3",
-      "64K": "http://emgspb.hostingradio.ru/keksfmspb64.mp3"
-    }
-  },
   "sportfm": {
     "title": "Спорт FM",
     "url": "http://sportfm.ru/",
-    "image": "http://sportfm.ru/local/templates/sport/images/logo3.png",
+    "image": "http://sportfm.ru/local/templates/sportfm_redesign/assets/images/icon_logo.png",
     "streams": {
       "128K": "http://sportfm.hostingradio.ru:8050/sportfm128.mp3",
       "64K": "http://sportfm.hostingradio.ru:8050/sportfm64.mp3",
