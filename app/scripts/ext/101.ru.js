@@ -4,8 +4,12 @@
 (function() {
   'use strict';
 
-  var btnContainer = document.querySelector('.channel-base');
-  var playButton = document.querySelector('.general_play');
+  var playerWrapper = document.querySelector('#top-channel-block'),
+      btnContainer = playerWrapper.querySelector('.ch-name'),
+      playButton = playerWrapper.querySelector('.player-control'),
+      link = document.querySelector('.ch-about h4 a'),
+      title = btnContainer.querySelector('h1'),
+      image = btnContainer.querySelector('.logo');
   if (!btnContainer) {
     return;
   }
@@ -19,7 +23,7 @@
   }
 
   function getPlaylistUrl() {
-    var script = document.querySelector('#player-site .channel-base script'),
+    var script = document.querySelector('#footer-line script:last-of-type'),
         scriptContent = script && script.innerText,
         playlist = scriptContent && scriptContent.match(/[\'\"]pl[\"\']\s?\:\s?[\'\"]([^\'^\"]+)[\"\']/);
     return playlist && playlist[1] && decodeURIComponent(playlist[1].split('|').join('&'));
@@ -27,18 +31,20 @@
 
   function injectStyles() {
     var css = '.online-radio-add-button {' +
-        'display:block;' +
-        'cursor:pointer;' +
-        'width:19px;' +
-        'height:19px;' +
-        'margin:5px 0 0 0;' +
-        'float:left;' +
-        'background:#fff;' +
-        '-webkit-mask:url("' + chrome.extension.getURL('images/38.png') + '") no-repeat center;' +
-        '-webkit-mask-size:19px 19px;' +
+        'background: #fff;' +
+        'display: inline-block;' +
+        'margin: 0 0 0 10px;' +
+        'width: 42px;' +
+        'height: 42px;' +
+        'cursor: pointer;' +
+        '-webkit-mask: url("' + chrome.extension.getURL('images/38.png') + '") no-repeat center bottom;' +
+        '-webkit-mask-size: 30px 30px;' +
       '}' +
       '.online-radio-add-button:hover {' +
-        'background:#ef8800;' +
+        'background: #ef8800;' +
+      '}' +
+      '#top-channel-block .ch-name h1 {' +
+        'width: auto;' +
       '}';
     var style = document.createElement('style');
     style.appendChild(document.createTextNode(css));
@@ -77,11 +83,6 @@
   button.onclick = function() {
     loadPlaylist(playlistUrl, function(streams) {
       stop();
-
-      var link = document.querySelector('#channel_infoblock a:not([target])'),
-          title = document.querySelector('#player-site .channel-base h1'),
-          image = document.querySelector('#chan_cover img');
-
       sendMessage('add', {
         title: title ? '101.ru ● ' + title.innerText : '101.ru',
         streams: streams,
@@ -92,5 +93,5 @@
     });
   };
   injectStyles();
-  btnContainer.insertBefore(button, btnContainer.querySelector('#airfavmsg'));
+  btnContainer.insertBefore(button, title.nextSibling);
 })();
