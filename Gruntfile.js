@@ -334,34 +334,6 @@ module.exports = function(grunt) {
     });
   });
 
-  grunt.registerTask('check', function() {
-    console.log('Checking build...');
-
-    var need = grunt.file.readJSON('build.json'),
-        result = true;
-
-    grunt.file.recurse(grunt.config.get('config.path.dist'), function(abspath, rootdir, subdir, filename) {
-      var file = subdir ? subdir + '/' + filename : filename,
-        index = need.indexOf(file);
-      if (index < 0) {
-        grunt.log.error('Found unknown file %s!', file);
-        result = false;
-      } else {
-        need.splice(index, 1);
-      }
-    });
-
-    need.forEach(function(file) {
-      grunt.log.error('Required file %s not found!', file);
-      result = false;
-    });
-
-    if (result) {
-      grunt.log.ok();
-    }
-    return result;
-  });
-
   grunt.registerTask('debug', [
     'jshint',
     'sass:debug',
@@ -379,7 +351,6 @@ module.exports = function(grunt) {
     'htmlmin',
     'uglify',
     'copy:assets',
-    'check',
     'compress:chrome'
   ]);
 
@@ -393,7 +364,6 @@ module.exports = function(grunt) {
     'copy:html',
     'copy:js',
     'copy:assets',
-    'check',
     'compress:opera'
   ]);
 
