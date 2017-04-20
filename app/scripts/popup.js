@@ -342,6 +342,21 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
    */
   function setPlayerState(state) {
     state = state || _background.getStatus();
+
+    var stop = function() {
+      $('.active').removeClass('active');
+      $player.removeClass('buffering playing error');
+    };
+
+    var error = function() {
+      stop();
+      $player.addClass('error');
+    };
+
+    var play = function() {
+      $player.removeClass('buffering error').addClass('playing');
+    };
+
     var start = function() {
       stop();
       var station = _storage.getLastStation();
@@ -370,20 +385,6 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
             .appendTo($description)
             .toggleClass('__active', currentStreamName === name);
       });
-    };
-
-    var error = function() {
-      stop();
-      $player.addClass('error');
-    };
-
-    var stop = function() {
-      $('.active').removeClass('active');
-      $player.removeClass('buffering playing error');
-    };
-
-    var play = function() {
-      $player.removeClass('buffering error').addClass('playing');
     };
 
     if (!$player.hasClass('ready') && state !== 'buffering') {
