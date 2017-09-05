@@ -93,15 +93,6 @@
       "32K": "http://stream01.emgsound.ru/europaplus32.mp3"
     }
   },
-  "europa_ua": {
-    "title": "Europa Plus Ukraine",
-    "url": "http://europaplus.ua/",
-    "image": "http://europaplus.ua/media/default/images/logo.png",
-    "streams": {
-      "128K [1]": "http://cast.radiogroup.com.ua:8000/europaplus",
-      "128K [2]": "http://cast.europaplus.ua/europaplus"
-    }
-  },
   "relax": {
     "title": "Relax FM",
     "url": "http://www.relax-fm.ru/",
