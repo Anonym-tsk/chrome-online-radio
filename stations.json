@@ -96,7 +96,7 @@
   "relax": {
     "title": "Relax FM",
     "url": "http://www.relax-fm.ru/",
-    "image": "http://www.relax-fm.ru/design/images/logo.png",
+    "image": "http://relax-fm.ru/design/images/site-design/logo.png",
     "streams": {
       "128K [1]": "http://ic3.101.ru:8000/v13_1",
       "128K [2]": "http://ic2.101.ru:8000/v13_1",
