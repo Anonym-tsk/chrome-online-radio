@@ -260,10 +260,8 @@
     "url": "http://www.silver.ru/",
     "image": "http://www.silver.ru/_/i/logo.png",
     "streams": {
-      "128K [1]": "http://radiosilver.corbina.net:8000/silver128a.mp3",
-      "128K [2]": "http://radiosilver.corbina.net:8000/silver128.mp3",
-      "48K [1]": "http://radiosilver.corbina.net:8000/silver48a.mp3",
-      "48K [2]": "http://radiosilver.corbina.net:8000/silver48.mp3"
+      "128K": "http://213.59.4.27:8000/silver128.mp3",
+      "48K": "http://213.59.4.27:8000/stream48.mp3"
     }
   },
   "rddfm": {
