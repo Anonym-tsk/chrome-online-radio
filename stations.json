@@ -264,14 +264,6 @@
       "48K": "http://213.59.4.27:8000/stream48.mp3"
     }
   },
-  "rddfm": {
-    "title": "Радио для двоих",
-    "url": "http://www.rddfm.ru/",
-    "image": "http://www.rddfm.ru/template/i/logo.png",
-    "streams": {
-      "128K": "http://icecast.piktv.cdnvideo.ru/rdd128"
-    }
-  },
   "radiocyclone": {
     "title": "Radio Cyclone",
     "url": "http://radiocyclone.com/",
@@ -324,20 +316,22 @@
       "128K": "http://play.radioradio.ru/irk"
     }
   },
-  "radiovanya": {
-    "title": "Радио Ваня",
-    "url": "http://radiovanya.ru/",
-    "image": "http://www.radiovanya.ru/img/vanya_small.png",
-    "streams": {
-      "96K": "http://icecast.piktv.cdnvideo.ru/vanya"
-    }
-  },
   "swhrock": {
     "title": "Radio SWH Rock",
     "url": "http://www.radioswhrock.lv/",
     "image": "http://www.radioswhrock.lv/wp-content/themes/radioswhrock/img/logo-bez.png",
     "streams": {
       "96K": "http://80.232.162.149:8000/rock96mp3"
+    }
+  },
+  "shanson": {
+    "title": "Радио Шансон",
+    "url": "http://radioshanson.fm/",
+    "image": "http://radioshanson.fm/assets/2a380c6a/img/logo-09-06-2016.png",
+    "streams": {
+      "256K": "http://chanson.hostingradio.ru:8041/chanson256.mp3",
+      "128K": "http://chanson.hostingradio.ru:8041/chanson128.mp3",
+      "64K": "http://chanson.hostingradio.ru:8041/chanson64.mp3"
     }
   }
 }
