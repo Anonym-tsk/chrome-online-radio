@@ -7,7 +7,7 @@
   var playerWrapper = document.querySelector('#top-channel-block'),
       btnContainer = playerWrapper.querySelector('.ch-name'),
       playButton = playerWrapper.querySelector('.player-control'),
-      link = document.querySelector('.ch-about h4 a'),
+      link = document.querySelector('.ch-about .h4 a'),
       title = btnContainer.querySelector('h1'),
       image = btnContainer.querySelector('.logo');
   if (!btnContainer) {
@@ -23,10 +23,8 @@
   }
 
   function getPlaylistUrl() {
-    var script = document.querySelector('#footer-line script:last-of-type'),
-        scriptContent = script && script.innerText,
-        playlist = scriptContent && scriptContent.match(/[\'\"]pl[\"\']\s?\:\s?[\'\"]([^\'^\"]+)[\"\']/);
-    return playlist && playlist[1] && decodeURIComponent(playlist[1].split('|').join('&'));
+    var audio = document.querySelector('#footer-player');
+    return audio && audio.getAttribute('data-playlist');
   }
 
   function injectStyles() {

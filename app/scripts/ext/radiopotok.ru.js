@@ -81,19 +81,17 @@
     });
   }
 
-  var playButtons = document.querySelectorAll('.btn.play-radio');
-  if (!playButtons.length) {
-    return;
-  }
+  var actionButton = document.querySelector('.btn-toolbar .btn-group .btn'),
+      playButton = document.querySelector('.btn.play-radio');
 
-  injectStyles();
+  if (actionButton && playButton) {
+    injectStyles();
 
-  for (var i = 0, l = playButtons.length; i < l; i++) {
     var button = document.createElement('button');
     button.type = 'button';
     button.className = 'online-radio-add-button btn btn-default';
     button.title = chrome.i18n.getMessage('add');
-    button.onclick = buttonClickHandler.bind(button, playButtons[i]);
-    playButtons[i].parentNode.insertBefore(button, playButtons[i]);
+    button.onclick = buttonClickHandler.bind(button, playButton);
+    actionButton.parentNode.insertBefore(button, actionButton);
   }
 })();

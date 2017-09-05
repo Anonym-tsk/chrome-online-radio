@@ -27,7 +27,7 @@
     },
     {
       "matches": [
-        "http://101.ru/*"
+        "*://101.ru/*"
       ],
       "js": [
         "scripts/ext/101.ru.js"
@@ -36,7 +36,7 @@
     },
     {
       "matches": [
-        "http://tunein.com/*"
+        "*://tunein.com/*"
       ],
       "js": [
         "scripts/ext/tunein.com.js"
@@ -45,7 +45,7 @@
     },
     {
       "matches": [
-        "http://radiopotok.ru/*"
+        "*://radiopotok.ru/*"
       ],
       "js": [
         "scripts/ext/radiopotok.ru.js"
