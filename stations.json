@@ -69,9 +69,9 @@
   "montecarlo": {
     "title": "Монте-Карло",
     "url": "http://montecarlo.ru/",
-    "image": "http://montecarlo.ru/upload/images/rmc300.jpg",
+    "image": "https://montecarlo.ru/dist/footer-logo-26f497.svg",
     "streams": {
-      "96K": "http://icecast.rmg.cdnvideo.ru/mc.mp3"
+      "96K": "http://icecast.radiomontecarlo.cdnvideo.ru/mc.mp3"
     }
   },
   "echo": {
