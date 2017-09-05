@@ -1,6 +1,6 @@
 {
   "name": "online-radio",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.1",
