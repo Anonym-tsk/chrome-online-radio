@@ -38,7 +38,7 @@ define(['models/DataStorage'], function(DataStorage) {
     _audio.src = url;
     _audio.play().catch(function() {
       // pass
-    })
+    });
   }
 
   /**
