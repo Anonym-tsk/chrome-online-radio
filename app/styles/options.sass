@@ -209,8 +209,6 @@ ul.menu
       color: #037699
     &:active
       box-shadow: inset 0px 1px 0px 0px #bdbdbd, inset 0px -1px 0px 0px #fff
-    &[data-page="flash"]
-      display: none
 
 section
   display: none
@@ -253,14 +251,6 @@ body[data-page="changelog"]
     display: block
   ul.menu
     li[data-page="changelog"]
-      @extend .active
-
-body[data-page="flash"]
-  section[data-page="flash"]
-    display: block
-  ul.menu
-    li[data-page="flash"]
-      display: block
       @extend .active
 
 .icon-delete

@@ -14,8 +14,9 @@ chrome.runtime.onInstalled.addListener(function(details) {
   });
 });
 
-require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
-  'models/HtmlPlayer', 'utils/Translator'], function(Utils, DataStorage, FlashPlayer, HtmlPlayer, Translator) {
+require([
+    'utils/Utils', 'models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'
+], function(Utils, DataStorage, HtmlPlayer, Translator) {
   'use strict';
 
   /**
@@ -52,36 +53,30 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
   var _foundStreams = [];
 
   /**
-   * @type {HtmlPlayer|FlashPlayer}
-   * @private
-   */
-  var _player = HtmlPlayer;
-
-  /**
    * Init player events.
    */
   function initEvents() {
-    _player.attachEvent('play', function() {
+    HtmlPlayer.attachEvent('play', function() {
       setStatus(STATUS.BUFFERING);
       sendMessage(_status);
     });
-    _player.attachEvent('playing', function() {
+    HtmlPlayer.attachEvent('playing', function() {
       _attempts = 0;
       setStatus(STATUS.PLAYING);
       sendMessage(_status);
     });
-    _player.attachEvent('abort', function() {
+    HtmlPlayer.attachEvent('abort', function() {
       setStatus(STATUS.STOPPED);
       sendMessage(_status);
     });
-    _player.attachEvent('error', function() {
+    HtmlPlayer.attachEvent('error', function() {
       if (_status === STATUS.STOPPED) {
         return;
       }
 
       if (_attempts++ < 10) {
         var station = DataStorage.getLastStation();
-        _player.play(station ? station.getNextStream() : null);
+        HtmlPlayer.play(station ? station.getNextStream() : null);
       }
       else {
         _attempts = 0;
@@ -108,18 +103,18 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
 
     switch (action) {
       case 'play':
-        if (data === DataStorage.getLastName() && _player.isPlaying()) {
-          _player.stop();
+        if (data === DataStorage.getLastName() && HtmlPlayer.isPlaying()) {
+          HtmlPlayer.stop();
         }
         else {
           DataStorage.setLast(data);
-          _player.play(DataStorage.getStationByName(data).getStream());
+          HtmlPlayer.play(DataStorage.getStationByName(data).getStream());
         }
         break;
 
       case 'playpause':
-        if (_player.isPlaying()) {
-          _player.stop();
+        if (HtmlPlayer.isPlaying()) {
+          HtmlPlayer.stop();
         }
         else {
           station = DataStorage.getLastStation();
@@ -133,7 +128,7 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
               }
             }
           }
-          _player.play(station.getStream());
+          HtmlPlayer.play(station.getStream());
         }
         break;
 
@@ -150,25 +145,25 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
           }
         }
         DataStorage.setLast(name);
-        _player.play(stations[name].getStream());
+        HtmlPlayer.play(stations[name].getStream());
         break;
 
       case 'volume':
         DataStorage.setVolume(data);
-        _player.setVolume(data);
+        HtmlPlayer.setVolume(data);
         break;
 
       case 'volumeup':
-        volume = _player.getVolume();
+        volume = HtmlPlayer.getVolume();
         if (volume < 100) {
-          _player.setVolume(Math.min(volume + volStep, 100));
+          HtmlPlayer.setVolume(Math.min(volume + volStep, 100));
         }
         break;
 
       case 'volumedown':
-        volume = _player.getVolume();
+        volume = HtmlPlayer.getVolume();
         if (volume > 0) {
-          _player.setVolume(Math.max(volume - volStep, 0));
+          HtmlPlayer.setVolume(Math.max(volume - volStep, 0));
         }
         break;
 
@@ -191,13 +186,13 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
       case 'add':
         station = DataStorage.addStation(data);
         DataStorage.setLast(station.name);
-        _player.play(station.getStream());
+        HtmlPlayer.play(station.getStream());
         window.alert(station.title + '\n' + Translator.translate('added'));
         break;
 
       case 'stream':
         station = DataStorage.getLastStation();
-        _player.play(station.getStream(data));
+        HtmlPlayer.play(station.getStream(data));
         break;
     }
   }
@@ -297,36 +292,31 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
   }
 
   // Run!
-  HtmlPlayer.canPlayMP3(function(status) {
-    if (!status) {
-      _player = FlashPlayer;
-    }
-    _player.init();
+  HtmlPlayer.init();
 
-    // Listen messages from popup and options
-    chrome.runtime.onMessage.addListener(messageDispatcher);
+  // Listen messages from popup and options
+  chrome.runtime.onMessage.addListener(messageDispatcher);
 
-    // Hotkeys listener
-    chrome.commands.onCommand.addListener(messageDispatcher);
+  // Hotkeys listener
+  chrome.commands.onCommand.addListener(messageDispatcher);
 
-    // Detect audio
-    chrome.webRequest.onHeadersReceived.addListener(function(details) {
-      var i = details.responseHeaders.length;
-      while (i--) {
-        if (details.responseHeaders[i].name === 'Content-Type') {
-          if (details.responseHeaders[i].value === 'audio/mpeg' && details.tabId > 0) {
-            addAudioHistory(details);
-          }
-          break;
+  // Detect audio
+  chrome.webRequest.onHeadersReceived.addListener(function(details) {
+    var i = details.responseHeaders.length;
+    while (i--) {
+      if (details.responseHeaders[i].name === 'Content-Type') {
+        if (details.responseHeaders[i].value === 'audio/mpeg' && details.tabId > 0) {
+          addAudioHistory(details);
         }
+        break;
       }
-    }, {urls: ['http://*/*', 'https://*/*'], types: ['other', 'object']}, ['responseHeaders']);
+    }
+  }, {urls: ['http://*/*', 'https://*/*'], types: ['other', 'object']}, ['responseHeaders']);
 
-    // Init background page
-    updateContextMenu();
-    initEvents();
-    setStatus();
-  });
+  // Init background page
+  updateContextMenu();
+  initEvents();
+  setStatus();
 
   /**
    * @public
@@ -352,6 +342,6 @@ require(['utils/Utils', 'models/DataStorage', 'models/FlashPlayer',
    * @return {Uint8Array}
    */
   window.getAudioData = function() {
-    return _player.getAudioData();
+    return HtmlPlayer.getAudioData();
   };
 });

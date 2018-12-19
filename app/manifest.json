@@ -1,5 +1,5 @@
 {
-  "version": "2.1.9",
+  "version": "2.2.0",
   "name": "__MSG_name__",
   "description": "__MSG_description__",
   "manifest_version": 2,
@@ -15,16 +15,6 @@
     "images/38.png"
   ],
   "content_scripts": [
-    {
-      "matches": [
-        "http://radio.css3.su/*"
-      ],
-      "js": [
-        "scripts/ext/proxy.js"
-      ],
-      "all_frames": true,
-      "run_at": "document_end"
-    },
     {
       "matches": [
         "*://101.ru/*"

@@ -75,15 +75,6 @@
   "optional": {
     "message": "optionnel"
   },
-  "flash_error": {
-    "message": "Adobe Flash Player requis pour cette extension"
-  },
-  "flash_message": {
-    "message": "Cliquer sur le lien en dessous pour installer le plugin."
-  },
-  "flash_install": {
-    "message": "Installer Adobe Flash Player"
-  },
   "mute": {
     "message": "Couper le son"
   },

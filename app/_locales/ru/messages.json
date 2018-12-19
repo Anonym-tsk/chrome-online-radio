@@ -75,15 +75,6 @@
   "optional": {
     "message": "необязательно"
   },
-  "flash_error": {
-    "message": "Для работы этого дополнения нужен установленный Adobe Flash Player"
-  },
-  "flash_message": {
-    "message": "Перейдите по ссылке ниже для установки плагина."
-  },
-  "flash_install": {
-    "message": "Установить Adobe Flash Player"
-  },
   "mute": {
     "message": "Выключить звук"
   },

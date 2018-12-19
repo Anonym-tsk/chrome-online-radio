@@ -94,9 +94,6 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       case 'add':
         openAddStationTab.apply(null, hash);
         break;
-      case 'flash':
-        openFlashTab();
-        break;
       case 'changelog':
         $('#changelog').find('.message').show();
         openChangelogTab();
@@ -145,13 +142,6 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
   function openStationsTab() {
     $('body').attr('data-page', 'stations');
     $('section[data-page="stations"]').find('.edit').removeClass('edit').find('.addStation').remove();
-  }
-
-  /**
-   * Open flash error page.
-   */
-  function openFlashTab() {
-    $('body').attr('data-page', 'flash');
   }
 
   /**
@@ -214,7 +204,6 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
     $('ul.menu')
       .on('click', 'li[data-page="add"]', openAddStationTab)
       .on('click', 'li[data-page="stations"]', openStationsTab)
-      .on('click', 'li[data-page="flash"]', openFlashTab)
       .on('click', 'li[data-page="hotkeys"]', openHotkeysTab)
       .on('click', 'li[data-page="export"]', openExportTab)
       .on('click', 'li[data-page="import"]', openImportTab)
