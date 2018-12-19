@@ -59,8 +59,8 @@
   },
   "rockfm": {
     "title": "Rock FM",
-    "url": "http://www.rockfm.ru",
-    "image": "http://archicompany.com/wp-content/uploads/2012/09/rock-fm_ru.jpg",
+    "url": "https://www.rockfm.ru/",
+    "image": "https://www.rockfm.ru/wp-content/themes/rockfm/images/logo.png",
     "streams": {
       "128K": "http://nashe1.hostingradio.ru/rock-128.mp3",
       "64K": "http://nashe1.hostingradio.ru/rock-64.mp3"
@@ -68,18 +68,18 @@
   },
   "montecarlo": {
     "title": "Монте-Карло",
-    "url": "http://montecarlo.ru/",
+    "url": "https://montecarlo.ru/",
     "image": "https://montecarlo.ru/dist/footer-logo-26f497.svg",
     "streams": {
-      "96K": "http://icecast.radiomontecarlo.cdnvideo.ru/mc.mp3"
+      "96K": "https://montecarlo.gcdn.co/mc_m.aac"
     }
   },
   "echo": {
     "title": "Эхо Москвы",
-    "url": "http://www.echo.msk.ru/",
-    "image": "http://www.echo.msk.ru/i/logo.png",
+    "url": "https://echo.msk.ru/",
+    "image": "https://echo.msk.ru/i/Echo_of_Moscow_Radio.svg",
     "streams": {
-      "140K": "http://81.19.85.197/echo.mp3"
+      "32K": "http://ice912.echo.msk.ru:9120/stream"
     }
   },
   "europa": {
@@ -88,9 +88,7 @@
     "image": "http://www.europaplus.ru/template/2012/img/new_player/logo-europa.png",
     "streams": {
       "256K": "http://ep256.hostingradio.ru:8052/europaplus256.mp3",
-      "128K": "http://ep128.hostingradio.ru:8030/ep128",
-      "64K": "http://stream01.emgsound.ru/europaplus64.mp3",
-      "32K": "http://stream01.emgsound.ru/europaplus32.mp3"
+      "128K": "http://ep128.hostingradio.ru:8030/ep128"
     }
   },
   "relax": {
@@ -99,16 +97,15 @@
     "image": "http://relax-fm.ru/design/images/site-design/logo.png",
     "streams": {
       "128K [1]": "http://ic3.101.ru:8000/v13_1",
-      "128K [2]": "http://ic2.101.ru:8000/v13_1",
-      "128K [3]": "http://ic4.101.ru:8000/v13_1"
+      "128K [2]": "http://ic2.101.ru:8000/v13_1"
     }
   },
   "rostov": {
     "title": "Радио Ростова",
-    "url": "http://www.radiorostov.ru/",
-    "image": "http://www.radiorostov.ru/images/logo-scull.jpg",
+    "url": "https://radiorostov.ru/",
+    "image": "https://radiorostov.ru/images/logo-scull.jpg",
     "streams": {
-      "0": "http://81.19.85.200/rostov.mp3",
+      "0": "https://streams.radio.co/s971be83ad/listen",
       "1": "http://live.radiorostov.ru:8000/rostovradio"
     }
   },
