@@ -119,20 +119,19 @@
   },
   "dorognoe": {
     "title": "Дорожное радио",
-    "url": "http://www.dorognoe.ru/",
-    "image": "http://support.dorognoe.ru/attachments/download/45/dor-logo.png",
+    "url": "https://dorognoe.ru/",
+    "image": "https://dorognoe.ru/assets/default/multiplayer/img/logo_dr.svg",
     "streams": {
-      "64K": "http://81.19.85.204/dorognoe64.mp3"
+      "64K": "http://dorognoe.hostingradio.ru:8000/dorognoe"
     }
   },
   "humour": {
     "title": "Юмор FM",
     "url": "http://www.veseloeradio.ru/",
-    "image": "http://www.veseloeradio.ru/design/images/logonew.png",
+    "image": "http://www.veseloeradio.ru/design/images/assets/img/logo.svg",
     "streams": {
       "128K [1]": "http://ic3.101.ru:8000/v5_1",
-      "128K [2]": "http://ic2.101.ru:8000/v5_1",
-      "128K [3]": "http://ic4.101.ru:8000/v5_1"
+      "128K [2]": "http://ic2.101.ru:8000/v5_1"
     }
   },
   "avtoradio": {
@@ -141,14 +140,13 @@
     "image": "http://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png",
     "streams": {
       "128K [1]": "http://ic3.101.ru:8000/v3_1",
-      "128K [2]": "http://ic2.101.ru:8000/v3_1",
-      "128K [3]": "http://ic4.101.ru:8000/v3_1"
+      "128K [2]": "http://ic2.101.ru:8000/v3_1"
     }
   },
   "radiorecord": {
     "title": "Радио Рекорд",
     "url": "http://www.radiorecord.ru/",
-    "image": "http://www.radiorecord.ru/upload/iblock/4a0/4a0276d033142aaa48fb9e2920f89763.jpg",
+    "image": "http://www.radiorecord.ru/bitrix/templates/flat-new/img/logo-rr-transparent.png",
     "streams": {
       "128K": "http://air.radiorecord.ru:8101/rr_128"
     }
@@ -156,11 +154,10 @@
   "radioromantika": {
     "title": "Радио Romantika",
     "url": "http://www.radioromantika.ru/",
-    "image": "http://www.radioromantika.ru/design/images/header-logo.png",
+    "image": "http://www.radioromantika.ru/design/images/new_romantika_images/img_for_design/main-logo-2.png",
     "streams": {
       "128K [1]": "http://ic3.101.ru:8000/v4_1",
-      "128K [2]": "http://ic2.101.ru:8000/v4_1",
-      "128K [3]": "http://ic4.101.ru:8000/v4_1"
+      "128K [2]": "http://ic2.101.ru:8000/v4_1"
     }
   },
   "comedy": {
@@ -169,16 +166,15 @@
     "image": "http://comedy-radio.ru/design/images/logo.png",
     "streams": {
       "128K [1]": "http://ic2.101.ru:8000/v11_1",
-      "128K [2]": "http://ic3.101.ru:8000/v11_1",
-      "128K [3]": "http://ic4.101.ru:8000/v11_1"
+      "128K [2]": "http://ic3.101.ru:8000/v11_1"
     }
   },
   "megapolis": {
     "title": "Мегаполис FM",
     "url": "http://www.megapolisfm.ru/",
-    "image": "http://www.megapolisfm.ru/images/main-logo.png",
+    "image": "http://megapolisfm.ru/cover.jpg",
     "streams": {
-      "128K": "http://stream04.media.rambler.ru/megapolis128.mp3"
+      "48K": "http://109.239.129.43:8010/megapolis-48.aac"
     }
   },
   "medlyakfm": {
@@ -194,8 +190,7 @@
     "url": "http://www.loveradio.ru/",
     "image": "http://download.loveradio.ru/pub/685040.jpg",
     "streams": {
-      "128K": "http://77.73.90.46:9150/loveradio",
-      "64K": "http://87.76.13.136:8000/;stream/1"
+      "72K": "http://eu4.radioboss.fm:8098/,?type=.aac"
     }
   },
   "radiosibir": {
@@ -220,14 +215,13 @@
     "image": "http://www.energyfm.ru/design/images/site-design/logo-min.png",
     "streams": {
       "128K [1]": "http://ic3.101.ru:8000/v1_1",
-      "128K [2]": "http://ic2.101.ru:8000/v1_1",
-      "128K [3]": "http://ic4.101.ru:8000/v1_1"
+      "128K [2]": "http://ic2.101.ru:8000/v1_1"
     }
   },
   "sportfm": {
     "title": "Спорт FM",
     "url": "http://sportfm.ru/",
-    "image": "http://sportfm.ru/local/templates/sportfm_redesign/assets/images/icon_logo.png",
+    "image": "https://studio21.ru/wp-content/uploads/2017/10/s21_logo.png",
     "streams": {
       "128K": "http://sportfm.hostingradio.ru:8050/sportfm128.mp3",
       "64K": "http://sportfm.hostingradio.ru:8050/sportfm64.mp3",
@@ -240,8 +234,7 @@
     "image": "http://www.radiolikefm.ru/design/images/full_logo.png",
     "streams": {
       "128K [1]": "http://ic3.101.ru:8000/v12_1",
-      "128K [2]": "http://ic2.101.ru:8000/v12_1",
-      "128K [3]": "http://ic4.101.ru:8000/v12_1"
+      "128K [2]": "http://ic2.101.ru:8000/v12_1"
     }
   },
   "mfm": {
@@ -261,21 +254,12 @@
       "48K": "http://213.59.4.27:8000/stream48.mp3"
     }
   },
-  "radiocyclone": {
-    "title": "Radio Cyclone",
-    "url": "http://radiocyclone.com/",
-    "image": "http://radiocyclone.com/img/logo.png",
-    "streams": {
-      "320K": "http://107.170.157.15:8005/;stream",
-      "192K": "http://107.170.157.15:8000/;stream"
-    }
-  },
   "chocoradio": {
     "title": "Radio Chocolate",
     "url": "http://www.chocoradio.ru/",
     "image": "http://www.chocoradio.ru/images/about_logo.png",
     "streams": {
-      "128K": "http://choco.hostingradio.ru:10010/fm128"
+      "128K": "http://choco.hostingradio.ru:10010/fm"
     }
   },
   "komsomol": {
