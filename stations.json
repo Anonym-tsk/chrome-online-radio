@@ -2,7 +2,7 @@
   "nashe": {
     "title": "Наше Радио",
     "url": "http://www.nashe.ru/",
-    "image": "http://www.nashe.ru/wp-content/themes/nashe/img/sh-nashe.jpg",
+    "image": "https://www.nashe.ru/wp-content/themes/nashe/images/logo.png",
     "streams": {
       "128K": "http://nashe1.hostingradio.ru/nashe-128.mp3",
       "64K": "http://nashe1.hostingradio.ru/nashe-64.mp3"
@@ -11,7 +11,7 @@
   "nashe_spb": {
     "title": "Наше Радио Питер",
     "url": "http://www.nashe.ru/?city=spb",
-    "image": "http://www.nashe.ru/wp-content/themes/nashe/img/sh-nashe.jpg",
+    "image": "https://www.nashe.ru/wp-content/themes/nashe/images/logo.png",
     "streams": {
       "128K": "http://nashe1.hostingradio.ru/nashespb128.mp3"
     }
@@ -19,7 +19,7 @@
   "nashe20": {
     "title": "Наше 2.0",
     "url": "http://www.nashe.ru/nashe20/",
-    "image": "http://www.nashe.ru/wp-content/themes/nashe/img/sh-nashe.jpg",
+    "image": "https://www.nashe.ru/wp-content/themes/nashe/images/nashe20/logo-nashe20.svg",
     "streams": {
       "128K": "http://nashe1.hostingradio.ru/nashe20-128.mp3",
       "64K": "http://nashe1.hostingradio.ru/nashe20-64.mp3"
@@ -28,33 +28,33 @@
   "maximum": {
     "title": "Максимум",
     "url": "http://www.maximum.ru/online/",
-    "image": "http://onlainradio.ru/image/radio/radio_maxsimum.jpg",
+    "image": "http://maximum.ru/dist/logo-b6f7b5.svg",
     "streams": {
-      "96K": "http://icecast.radiomaximum.cdnvideo.ru/maximum.mp3"
+      "96K": "https://maximum.hostingradio.ru/maximum96.aacp"
     }
   },
   "hitfm": {
     "title": "Хит FМ",
-    "url": "http://www.hitfm.ru/online_player.asp",
-    "image": "http://onlainradio.ru/image/radio/hit_fm_pryamoi_efir.jpg",
+    "url": "http://hitfm.ru/",
+    "image": "http://hitfm.ru/_nuxt/img/lgo.271ebb0.svg",
     "streams": {
-      "96K": "http://icecast.radiohitfm.cdnvideo.ru/hit.mp3"
+      "96K": "https://hitfm.hostingradio.ru/hitfm96.aacp"
     }
   },
   "dfm": {
     "title": "DFM",
-    "url": "http://www.dfm.ru/listen/dfmonline/",
-    "image": "http://onlainradio.ru/image/radio/dfm_radio.jpg",
+    "url": "https://dfm.ru/",
+    "image": "https://dfm.ru/dist/main-logo-2419c1.svg",
     "streams": {
-      "96K": "http://icecast.radiodfm.cdnvideo.ru/dfm.mp3"
+      "96K": "https://dfm.hostingradio.ru/dfm96.aacp"
     }
   },
   "russkoe": {
     "title": "Русское Радио",
-    "url": "http://www.rusradio.ru/",
-    "image": "http://onlainradio.ru/image/radio/russkoe_radio1.jpg",
+    "url": "https://rusradio.ru/",
+    "image": "https://rusradio.ru/dist/logo-b78f36.svg",
     "streams": {
-      "96K": "http://icecast.russkoeradio.cdnvideo.ru/rr.mp3"
+      "96K": "https://rusradio.hostingradio.ru/rusradio96.aacp"
     }
   },
   "rockfm": {
