@@ -128,6 +128,7 @@ define(['models/DataStorage'], function(DataStorage) {
   function init() {
     _audio = new Audio();
     _audio.preload = 'auto';
+    _audio.crossOrigin = 'anonymous';
     setVolume(DataStorage.getVolume());
   }
 
