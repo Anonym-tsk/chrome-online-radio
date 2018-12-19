@@ -314,5 +314,41 @@
       "128K": "http://chanson.hostingradio.ru:8041/chanson128.mp3",
       "64K": "http://chanson.hostingradio.ru:8041/chanson64.mp3"
     }
-  }
+  },
+  "ultra": {
+    "title": "Радио ULTRA",
+    "url": "http://radioultra.ru/",
+    "image": "http://player.radioultra.ru/images/logos/ultra.jpg",
+    "streams": {
+      "192K": "http://nashe1.hostingradio.ru/ultra-192.mp3",
+      "128K": "http://nashe2.hostingradio.ru/ultra-128.mp3"
+    }
+  },
+  "govoritmoskva": {
+    "title": "Говорит Москва",
+    "url": "https://govoritmoskva.ru/",
+    "image": "https://govoritmoskva.ru/static/images/new-logo.png",
+    "streams": {
+      "96K": "https://govoritmoskva.ru/radio/rufm.mp3",
+      "64K": "https://govoritmoskva.ru/radio/ru64.mp3",
+      "32K": "https://govoritmoskva.ru/radio/ru32.mp3"
+    }
+  },
+  "anonymous": {
+    "title": "Радио Анонимус",
+    "url": "http://anon.fm/",
+    "image": "http://anon.fm/imgs/logos/2.png",
+    "streams": {
+      "192K": "http://anon.fm:8000/radio",
+      "64K": "http://anon.fm:8000/radio-low"
+    }
+  },
+  "madfm": {
+    "title": "MADFM",
+    "url": "http://mad.pub/",
+    "image": "http://mad.pub/images/logo.png",
+    "streams": {
+      "128K": "http://mad.pub:8000/live"
+    }
+  },
 }
