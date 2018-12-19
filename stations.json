@@ -348,7 +348,7 @@
     "url": "http://mad.pub/",
     "image": "http://mad.pub/images/logo.png",
     "streams": {
-      "128K": "http://mad.pub:8000/live"
+      "128K": "http://mad.pub/radio/live"
     }
   }
 }
