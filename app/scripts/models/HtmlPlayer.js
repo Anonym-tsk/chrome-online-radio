@@ -95,36 +95,12 @@ define(['models/DataStorage'], function(DataStorage) {
   }
 
   /**
-   * Check browser can play mp3.
-   * @param {function} callback
-   */
-  function canPlayMP3(callback) {
-    try {
-      var audio = new Audio();
-      if (!audio.canPlayType('audio/mpeg; codecs="mp3"')) {
-        callback(false);
-      } else {
-        audio.addEventListener('canplaythrough', function() {
-          callback(true);
-        }, false);
-        audio.addEventListener('error', function() {
-          callback(false, this.error);
-        }, false);
-      }
-      audio.src = 'data:audio/mpeg;base64,/+MYxAAAAANIAUAAAASEEB/jwOFM/0MM/90b/+RhST//w4NFwOjf///PZu////9lns5GFDv//l9GlUIEEIAAAgIg8Ir/JGq3/+MYxDsLIj5QMYcoAP0dv9HIjUcH//yYSg+CIbkGP//8w0bLVjUP///3Z0x5QCAv/yLjwtGKTEFNRTMuOTeqqqqqqqqqqqqq/+MYxEkNmdJkUYc4AKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
-      audio.load();
-    }
-    catch (e) {
-      callback(false, e);
-    }
-  }
-
-  /**
    * Init player.
    */
   function init() {
     _audio = new Audio();
     _audio.preload = 'auto';
+    _audio.crossOrigin = 'anonymous';
     setVolume(DataStorage.getVolume());
   }
 
@@ -139,7 +115,6 @@ define(['models/DataStorage'], function(DataStorage) {
     setVolume: setVolume,
     getVolume: getVolume,
     isPlaying: isPlaying,
-    getAudioData: getAudioData,
-    canPlayMP3: canPlayMP3
+    getAudioData: getAudioData
   };
 });

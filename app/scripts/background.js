@@ -36,36 +36,30 @@ require(['models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], functio
   var _attempts = 0;
 
   /**
-   * @type {HtmlPlayer}
-   * @private
-   */
-  var _player = HtmlPlayer;
-
-  /**
    * Init player events.
    */
   function initEvents() {
-    _player.attachEvent('play', function() {
+    HtmlPlayer.attachEvent('play', function() {
       setStatus(STATUS.BUFFERING);
       sendMessage(_status);
     });
-    _player.attachEvent('playing', function() {
+    HtmlPlayer.attachEvent('playing', function() {
       _attempts = 0;
       setStatus(STATUS.PLAYING);
       sendMessage(_status);
     });
-    _player.attachEvent('abort', function() {
+    HtmlPlayer.attachEvent('abort', function() {
       setStatus(STATUS.STOPPED);
       sendMessage(_status);
     });
-    _player.attachEvent('error', function() {
+    HtmlPlayer.attachEvent('error', function() {
       if (_status === STATUS.STOPPED) {
         return;
       }
 
       if (_attempts++ < 10) {
         var station = DataStorage.getLastStation();
-        _player.play(station ? station.getNextStream() : null);
+        HtmlPlayer.play(station ? station.getNextStream() : null);
       }
       else {
         _attempts = 0;
@@ -92,18 +86,18 @@ require(['models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], functio
 
     switch (action) {
       case 'play':
-        if (data === DataStorage.getLastName() && _player.isPlaying()) {
-          _player.stop();
+        if (data === DataStorage.getLastName() && HtmlPlayer.isPlaying()) {
+          HtmlPlayer.stop();
         }
         else {
           DataStorage.setLast(data);
-          _player.play(DataStorage.getStationByName(data).getStream());
+          HtmlPlayer.play(DataStorage.getStationByName(data).getStream());
         }
         break;
 
       case 'playpause':
-        if (_player.isPlaying()) {
-          _player.stop();
+        if (HtmlPlayer.isPlaying()) {
+          HtmlPlayer.stop();
         }
         else {
           station = DataStorage.getLastStation();
@@ -117,7 +111,7 @@ require(['models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], functio
               }
             }
           }
-          _player.play(station.getStream());
+          HtmlPlayer.play(station.getStream());
         }
         break;
 
@@ -134,25 +128,25 @@ require(['models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], functio
           }
         }
         DataStorage.setLast(name);
-        _player.play(stations[name].getStream());
+        HtmlPlayer.play(stations[name].getStream());
         break;
 
       case 'volume':
         DataStorage.setVolume(data);
-        _player.setVolume(data);
+        HtmlPlayer.setVolume(data);
         break;
 
       case 'volumeup':
-        volume = _player.getVolume();
+        volume = HtmlPlayer.getVolume();
         if (volume < 100) {
-          _player.setVolume(Math.min(volume + volStep, 100));
+          HtmlPlayer.setVolume(Math.min(volume + volStep, 100));
         }
         break;
 
       case 'volumedown':
-        volume = _player.getVolume();
+        volume = HtmlPlayer.getVolume();
         if (volume > 0) {
-          _player.setVolume(Math.max(volume - volStep, 0));
+          HtmlPlayer.setVolume(Math.max(volume - volStep, 0));
         }
         break;
 
@@ -170,7 +164,7 @@ require(['models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], functio
 
       case 'stream':
         station = DataStorage.getLastStation();
-        _player.play(station.getStream(data));
+        HtmlPlayer.play(station.getStream(data));
         break;
     }
   }
@@ -218,23 +212,17 @@ require(['models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], functio
   }
 
   // Run!
-  HtmlPlayer.canPlayMP3(function(status) {
-    if (!status) {
-      // TODO: show error
-      return;
-    }
-    _player.init();
+  HtmlPlayer.init();
 
-    // Listen messages from popup and options
-    chrome.runtime.onMessage.addListener(messageDispatcher);
+  // Listen messages from popup and options
+  chrome.runtime.onMessage.addListener(messageDispatcher);
 
-    // Hotkeys listener
-    chrome.commands.onCommand.addListener(messageDispatcher);
+  // Hotkeys listener
+  chrome.commands.onCommand.addListener(messageDispatcher);
 
-    // Init background page
-    initEvents();
-    setStatus();
-  });
+  // Init background page
+  initEvents();
+  setStatus();
 
   /**
    * @public
@@ -260,6 +248,6 @@ require(['models/DataStorage', 'models/HtmlPlayer', 'utils/Translator'], functio
    * @return {Uint8Array}
    */
   window.getAudioData = function() {
-    return _player.getAudioData();
+    return HtmlPlayer.getAudioData();
   };
 });
