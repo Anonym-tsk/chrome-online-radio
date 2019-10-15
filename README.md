@@ -22,3 +22,9 @@ Chrome Online Radio
 ---
 
 ##### P.S. Буду рад помощи дизайнера. Магазины приложений хотят красивые картинки, а я ну совсем не дизайнер.
+
+---
+
+Enjoy my work? Help me out for a couple of :beers: or a :coffee:!
+
+[![coffee](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](http://yasobe.ru/na/esphome)
