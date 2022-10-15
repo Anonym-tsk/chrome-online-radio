@@ -1,0 +1,166 @@
+{
+  "name": {
+    "message": "Онлайн Радио"
+  },
+  "description": {
+    "message": "Всички твои любими радиостанции!"
+  },
+
+  "loading": {
+    "message": "Зареждане"
+  },
+  "error": {
+    "message": "Грешка"
+  },
+  "link": {
+    "message": "Отвори страницата на радиостанцията"
+  },
+  "play": {
+    "message": "Пусни"
+  },
+  "stop": {
+    "message": "Спри"
+  },
+  "stopped": {
+    "message": "Спряно"
+  },
+  "like": {
+    "message": "Добави в любими"
+  },
+  "dislike": {
+    "message": "Премахни от любими"
+  },
+  "settings": {
+    "message": "Настройки"
+  },
+  "add": {
+    "message": "Добавяне на радиостанция"
+  },
+  "added": {
+    "message": "Радиостанция е добавена"
+  },
+  "edit": {
+    "message": "Редакция на радиостанция"
+  },
+  "save": {
+    "message": "Запази"
+  },
+  "feedback": {
+    "message": "Обратна връзка"
+  },
+  "delete": {
+    "message": "Изтрий станция"
+  },
+  "restore": {
+    "message": "Възстанови станция"
+  },
+  "reallyDelete": {
+    "message": "Сигурни ли сте, че искате да изтриете радиостанцията?"
+  },
+  "stations": {
+    "message": "Радиостанции"
+  },
+  "stationName": {
+    "message": "Име на радиостанция"
+  },
+  "siteLink": {
+    "message": "Интернет страница на радиостанцията"
+  },
+  "imageLink": {
+    "message": "Лого на радиостанцията"
+  },
+  "streamUrl": {
+    "message": "Адрес за възпроизвеждане"
+  },
+  "optional": {
+    "message": "По избор"
+  },
+  "mute": {
+    "message": "Заглуши"
+  },
+  "unmute": {
+    "message": "Озвучи"
+  },
+  "hotkeys": {
+    "message": "Клавишни комбинации"
+  },
+  "playpause": {
+    "message": "Пусни/Пауза"
+  },
+  "next": {
+    "message": "Следваща станция"
+  },
+  "prev": {
+    "message": "Предишна станция"
+  },
+  "volumeup": {
+    "message": "Увеличи звук"
+  },
+  "volumedown": {
+    "message": "Намали звук"
+  },
+  "please_enable_radio": {
+    "message": "Включете радиото за да добавите станция"
+  },
+  "export_stations": {
+    "message": "Извличане на радиостанции"
+  },
+  "import_stations": {
+    "message": "Вмъкване на радиостанции"
+  },
+  "export": {
+    "message": "Извеждане"
+  },
+  "import": {
+    "message": "Въвеждане"
+  },
+  "savefile": {
+    "message": "Запази като файл"
+  },
+  "loadfile": {
+    "message": "Грешка при зареждане от файл"
+  },
+  "import_error": {
+    "message": "Грешка при въвеждането на данни"
+  },
+  "import_success": {
+    "message": "Въвеждането завърши успешно"
+  },
+  "changelog": {
+    "message": "История на промените"
+  },
+  "extension_updated": {
+    "message": "Разширението е обновено"
+  },
+  "search": {
+    "message": "Търсене..."
+  },
+  "core_stations": {
+    "message": "Текущи радиостанции"
+  },
+  "user_stations": {
+    "message": "Потребителски радиостанции"
+  },
+  "hidden_stations": {
+    "message": "Скрити радиостанции"
+  },
+
+  "changelog_2_2_0": {
+    "message": "<b>2.2.0</b><br> — Bugfix"
+  },
+  "changelog_2_1_3": {
+    "message": "<b>2.1.3</b><br> — Added quality selector and stations search"
+  },
+  "changelog_2_1_1": {
+    "message": "<b>2.1.1</b><br> — Experimental version. Bugfix for Opera and Yandex.Browser"
+  },
+  "changelog_2_0_9": {
+    "message": "<b>2.0.9</b><br> — Import and export stations<br> — Added a new stations"
+  },
+  "changelog_2_0_8": {
+    "message": "<b>2.0.8</b><br> — Integration with http://radiopotok.ru"
+  },
+  "changelog_2_0_7": {
+    "message": "<b>2.0.8</b><br> — Integration with http://101.ru and http://tunein.com"
+  }
+}
