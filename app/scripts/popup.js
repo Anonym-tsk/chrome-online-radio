@@ -328,7 +328,7 @@ require(['jquery', 'utils/Translator'], function($, Translator) {
       })
       .on('click', '.icon-feedback', function(e) {
         e.preventDefault();
-        chrome.tabs.create({url: 'mailto:chrome@css3.su?Subject=Online%20Radio%20Extension'});
+        chrome.tabs.create({url: 'mailto:chrome@vasilchuk.net?Subject=Online%20Radio%20Extension'});
       });
 
     $('#search')
