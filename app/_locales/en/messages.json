@@ -145,6 +145,9 @@
     "message": "Hidden stations"
   },
 
+  "changelog_2_3_1": {
+    "message": "<b>2.3.1</b><br> — Application functionality restored, radio stations fixed"
+  },
   "changelog_2_2_0": {
     "message": "<b>2.2.0</b><br> — Bugfix"
   },
