@@ -2,18 +2,25 @@
   "version": "2.2.0",
   "name": "__MSG_name__",
   "description": "__MSG_description__",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "default_locale": "en",
   "permissions": [
     "webRequest",
     "contextMenus",
-    "tabs",
+    "tabs"
+  ],
+  "host_permissions": [
     "http://*/*",
     "https://*/*"
   ],
-  "web_accessible_resources": [
-    "images/38.png"
-  ],
+  "web_accessible_resources": [{
+    "resources": [
+      "images/38.png"
+    ],
+    "matches": [
+      "*://*/*"
+    ]
+  }],
   "content_scripts": [
     {
       "matches": [
