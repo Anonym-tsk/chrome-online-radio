@@ -310,7 +310,7 @@ define(['models/Station'], function(Station) {
   }
 
   // Load core stations list
-  _loadCoreStations('http://radio.vasilchuk.net/stations.json', function() {
+  _loadCoreStations('https://radio.vasilchuk.net/stations.json', function() {
     _loadCoreStations(chrome.extension.getURL('stations.json'));
   });
 
