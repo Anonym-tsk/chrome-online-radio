@@ -79,6 +79,7 @@ export default class Station {
             title: this.title,
             url: this.url,
             image: this.image,
+            streams: this.streams,
             streamName: this.getStreamName(),
             stream: this.getStream(),
             isUser: this.isUserStation(),
