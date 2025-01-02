@@ -7,7 +7,9 @@
   "permissions": [
     "webRequest",
     "contextMenus",
-    "tabs"
+    "tabs",
+    "offscreen",
+    "storage"
   ],
   "host_permissions": [
     "http://*/*",
@@ -51,13 +53,10 @@
     }
   ],
   "background": {
-    "scripts": [
-      "scripts/chromereload.js",
-      "scripts/lib/require.js",
-      "scripts/background.js"
-    ]
+    "service_worker": "scripts/background/background.js",
+    "type": "module"
   },
-  "browser_action": {
+  "action": {
     "default_icon": {
       "19": "images/19.png",
       "38": "images/38.png"
