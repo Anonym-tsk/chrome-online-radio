@@ -24,7 +24,7 @@ export default class Station {
      * @param isUserStation {boolean}
      * @param isHidden {boolean}
      */
-    constructor(name, title, url, streams, image, isUserStation, isHidden) {
+    constructor(name, title, url, streams, image, isUserStation = false, isHidden = false) {
         this.name = name;
         this.title = title;
         this.url = url;
@@ -73,8 +73,8 @@ export default class Station {
         return !this._userStation;
     }
 
-    toJSON() {
-        return JSON.stringify({
+    plain() {
+        return {
             name: this.name,
             title: this.title,
             url: this.url,
@@ -83,6 +83,10 @@ export default class Station {
             stream: this.getStream(),
             isUser: this.isUserStation(),
             isHidden: this.isHidden(),
-        });
+        };
+    }
+
+    toJSON() {
+        return JSON.stringify(this.plain());
     }
 }
