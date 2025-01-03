@@ -1,5 +1,4 @@
 import AudioPlayer from './AudioPlayer.js';
-import {translate} from '../common/Translator.js';
 
 async function sendMessageToBackground(action, data) {
     return chrome.runtime.sendMessage({
@@ -154,19 +153,6 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             if (volume > 0) {
                 player.setVolume(Math.max(volume - volStep, 0));
             }
-            break;
-
-        case 'link':
-            station = await sendMessageToBackground('getStationByName', data);
-            chrome.tabs.create({url: station.url});
-            break;
-
-        case 'add':
-            station = await sendMessageToBackground('addStation', data);
-            await sendMessageToBackground('setLast', station.name);
-            player.play(station.stream);
-            // TODO: alert from offscreen?
-            window.alert(station.title + '\n' + translate('added'));
             break;
 
         case 'stream':
