@@ -145,6 +145,9 @@
     "message": "Stations cachées"
   },
 
+  "changelog_3_0_1": {
+    "message": "<b>3.0.1</b><br> — Fonctionnalité de l'application restaurée, stations de radio corrigées"
+  },
   "changelog_2_3_1": {
     "message": "<b>2.3.1</b><br> — Fonctionnalité de l'application restaurée, stations de radio corrigées"
   },
