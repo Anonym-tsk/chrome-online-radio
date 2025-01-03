@@ -5,24 +5,10 @@
   "manifest_version": 3,
   "default_locale": "en",
   "permissions": [
-    "webRequest",
-    "contextMenus",
     "tabs",
     "offscreen",
     "storage"
   ],
-  "host_permissions": [
-    "http://*/*",
-    "https://*/*"
-  ],
-  "web_accessible_resources": [{
-    "resources": [
-      "images/38.png"
-    ],
-    "matches": [
-      "*://*/*"
-    ]
-  }],
   "background": {
     "service_worker": "scripts/background/background.js",
     "type": "module"
