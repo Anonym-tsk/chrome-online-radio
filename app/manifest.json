@@ -23,35 +23,6 @@
       "*://*/*"
     ]
   }],
-  "content_scripts": [
-    {
-      "matches": [
-        "*://101.ru/*"
-      ],
-      "js": [
-        "scripts/ext/101.ru.js"
-      ],
-      "run_at": "document_end"
-    },
-    {
-      "matches": [
-        "*://tunein.com/*"
-      ],
-      "js": [
-        "scripts/ext/tunein.com.js"
-      ],
-      "run_at": "document_end"
-    },
-    {
-      "matches": [
-        "*://radiopotok.ru/*"
-      ],
-      "js": [
-        "scripts/ext/radiopotok.ru.js"
-      ],
-      "run_at": "document_end"
-    }
-  ],
   "background": {
     "service_worker": "scripts/background/background.js",
     "type": "module"
