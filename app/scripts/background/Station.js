@@ -86,8 +86,4 @@ export default class Station {
             isHidden: this.isHidden(),
         };
     }
-
-    toJSON() {
-        return JSON.stringify(this.plain());
-    }
 }
