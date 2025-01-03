@@ -166,6 +166,9 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     }
 });
 
-const player = new AudioPlayer(await sendMessageToBackground('getVolume'));
-initPlayerEvents();
-setStatus();
+let player;
+(async () => {
+    player = new AudioPlayer(await sendMessageToBackground('getVolume'));
+    initPlayerEvents();
+    setStatus();
+})();
