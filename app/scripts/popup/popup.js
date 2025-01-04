@@ -58,30 +58,31 @@ const $search = document.getElementById('search');
  */
 function renderLike(name) {
     const $station = $stations.querySelector('.station[data-name="' + name + '"]');
-    const $prev = $station.previousElementSibling;
-    const height = $station.outerHeight;
-    const top = $station.offsetTop + $stations.scrollTop;
+    const height = $station.offsetHeight;
+    const top = $station.offsetTop;
 
     $station.classList.add('favorite');
     $station.classList.add('move');
-    $station.style.top = top;
-    $station.style.marginBottom = height;
 
-    $stations.style.scrollTop = 0;
-    $favorites.style.paddingTop = height;
-    if ($prev) {
-        $prev.style.marginBottom = 0;
-    }
-    $station.style.top = 0;
+    $station.addEventListener('transitionend', function trEnd(e) {
+        if (e.propertyName !== 'transform') {
+            return;
+        }
+        $station.removeEventListener('transitionend', trEnd);
 
-    $favorites.style.paddingTop = 0;
-    if ($prev) {
-        $prev.style.marginBottom = 0;
-    }
+        $favorites.classList.remove('move');
+        $favorites.style.paddingTop = 0;
+        $favorites.prepend($station);
+        $station.style.transform = 'none';
+        $station.style.marginBottom = 0;
+        $station.classList.remove('move');
+    });
 
-    $favorites.prepend($station);
-    $station.style.top = 'auto';
-    $station.classList.remove('move');
+    $stations.scrollTop = 0;
+    $favorites.classList.add('move');
+    $favorites.style.paddingTop = `${height}px`;
+    $station.style.transform = `translateY(-${top + height}px)`;
+    $station.style.marginBottom = `-${height}px`;
 
     if ($player.dataset.name === name) {
         $player.classList.add('favorite');
@@ -95,27 +96,32 @@ function renderLike(name) {
  */
 function renderDislike(name) {
     const $station = document.querySelector('.station[data-name="' + name + '"]');
-    const $next = $station.nextElementSibling || $favorites.nextElementSibling;
     const height = $station.offsetHeight;
-    const top = $station.offsetTop + $stations.scrollTop;
-    const newTop = $favorites.offsetHeight - height;
+    const top = $station.offsetTop;
+    const newTop = $favorites.offsetHeight - height - top;
 
     $station.classList.remove('favorite');
-
     $station.classList.add('move');
-    $station.style.top = top;
-    $next.style.marginTop = height;
 
-    $favorites.style.paddingBottom = height;
-    $next.style.marginTop = 0;
-    $station.style.top = newTop;
+    $station.addEventListener('transitionend', function trEnd(e) {
+        if (e.propertyName !== 'transform') {
+            return;
+        }
+        $station.removeEventListener('transitionend', trEnd);
 
-    $favorites.style.paddingBottom = 0;
-    $next.style.marginTop = 0;
+        $favorites.classList.remove('move');
+        $favorites.style.paddingBottom = 0;
+        $favorites.after($station);
+        $station.style.transform = 'none';
+        $station.style.marginBottom = 0;
+        $station.classList.remove('move');
+    });
 
-    $favorites.after($station);
-    $station.style.top = 'auto';
-    $station.classList.remove('move');
+    $station.style.transform = `translateY(${newTop}px)`;
+    $station.style.marginBottom = `-${height}px`;
+
+    $favorites.classList.add('move');
+    $favorites.style.paddingBottom = `${height}px`;
 
     if ($player.dataset.name === name) {
         $player.classList.remove('favorite');

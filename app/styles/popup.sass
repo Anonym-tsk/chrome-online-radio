@@ -275,8 +275,11 @@ h1, h2, h3
   width: 100%
   height: 400px
   outline: none
+  scroll-behavior: smooth
 
   #favorites
+    &.move
+      transition: padding-top .5s ease, padding-bottom .5s ease
     .station
       &:last-child
         border-bottom: 1px solid #D9D9D9
@@ -287,7 +290,7 @@ h1, h2, h3
     cursor: pointer
     position: relative
     border-bottom: 1px solid #D9D9D9
-    -webkit-transition: background-color .07s ease-in-out
+    overflow: hidden
     transition: background-color .07s ease-in-out
     .image
       float: left
@@ -312,11 +315,12 @@ h1, h2, h3
       overflow: hidden
       text-overflow: ellipsis
       line-height: 32px
-    &.move
-      position: absolute
     &:hover, &.move
       z-index: 50
       background: #EAF5FB
+    &.move
+      transition: background-color .07s ease-in-out, transform .5s ease, margin-bottom .5s ease
+    &:hover
       .image
         display: none
       .icon
