@@ -1,5 +1,5 @@
 import {translate, translateAll} from '../common/Translator.js';
-import {sendMessageToOffscreen} from "../common/Utils.js";
+import {sendMessageToBackground, sendMessageToOffscreen} from "../common/Utils.js";
 
 /**
  * Stations container.

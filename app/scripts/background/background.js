@@ -1,8 +1,8 @@
-import {setupOffscreenDocument} from './OffscreenDocument.js';
+import {setupOffscreenDocument} from '../common/OffscreenDocument.js';
 import {translate} from "../common/Translator.js";
 import * as DataStorage from './DataStorage.js';
 import {getStationByName} from "./DataStorage.js";
-import {checkUpdates, openOptions} from "../common/Utils.js";
+import {checkUpdates, openOptions, sendMessageToOffscreen} from "../common/Utils.js";
 
 // Check updates.
 chrome.runtime.onInstalled.addListener(function(details) {
@@ -10,17 +10,9 @@ chrome.runtime.onInstalled.addListener(function(details) {
     checkUpdates(details);
 });
 
-async function getDataFromOffscreen(dataType, data) {
-    return chrome.runtime.sendMessage({
-        target: 'offscreen',
-        action: dataType,
-        data: typeof data !== 'undefined' ? data : null,
-    });
-}
-
 // Hotkeys listener
 chrome.commands.onCommand.addListener(async (command) => {
-    await getDataFromOffscreen(command);
+    await sendMessageToOffscreen(command);
 });
 
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {

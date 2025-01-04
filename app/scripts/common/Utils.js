@@ -1,3 +1,5 @@
+import {setupOffscreenDocument} from "./OffscreenDocument.js";
+
 /**
  * Open options page.
  * @param {string} page
@@ -60,6 +62,7 @@ export async function sendMessageToBackground(action, data) {
  * @param {string=} data
  */
 export async function sendMessageToOffscreen(action, data) {
+    await setupOffscreenDocument();
     return chrome.runtime.sendMessage({
         action,
         target: 'offscreen',
