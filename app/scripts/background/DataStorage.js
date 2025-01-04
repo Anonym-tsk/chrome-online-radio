@@ -302,7 +302,11 @@ async function _loadUserStations() {
     }
 }
 
-(async () => {
+export async function init() {
+    if (Object.keys(_coreStations).length > 0) {
+        return;
+    }
+
     // Load core stations list
     try {
         await _loadCoreStations('https://radio.vasilchuk.net/stations.json');
@@ -326,5 +330,4 @@ async function _loadUserStations() {
     if (typeof _volume !== 'object') {
         _volume = {};
     }
-})();
-
+}
