@@ -3,9 +3,7 @@
  * @private
  */
 const updates = {
-    '3.0.0': function() {
-        // TODO:
-    },
+    '3.0.1': function() {},
 };
 
 /**
