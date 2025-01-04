@@ -1,5 +1,5 @@
 import AudioPlayer from './AudioPlayer.js';
-import {sendMessageToBackground, sendMessageToPopup} from "../common/Utils";
+import {sendMessageToBackground, sendMessageToPopup} from "../common/Utils.js";
 
 /**
  * Retry on error counter.

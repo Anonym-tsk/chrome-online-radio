@@ -2,7 +2,7 @@ import {setupOffscreenDocument} from './OffscreenDocument.js';
 import {translate} from "../common/Translator.js";
 import * as DataStorage from './DataStorage.js';
 import {getStationByName} from "./DataStorage.js";
-import {checkUpdates, openOptions} from "../common/Utils";
+import {checkUpdates, openOptions} from "../common/Utils.js";
 
 // Check updates.
 chrome.runtime.onInstalled.addListener(function(details) {
@@ -127,21 +127,25 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             chrome.action.setIcon({path: {'19': '../../images/19o.png', '38': '../../images/38o.png'}});
             chrome.action.setTitle({title: station?.title + ' - ' + translate('loading')});
             break;
+
         case 'playing':
             station = DataStorage.getLastStation();
             chrome.action.setIcon({path: {'19': '../../images/19g.png', '38': '../../images/38g.png'}});
             chrome.action.setTitle({title: station?.title});
             break;
+
         case 'stopped':
             station = DataStorage.getLastStation();
             chrome.action.setIcon({path: {'19': '../../images/19.png', '38': '../../images/38.png'}});
             chrome.action.setTitle({title: station?.title + ' - ' + translate('stopped')});
             break;
+
         case 'error':
             station = DataStorage.getLastStation();
             chrome.action.setIcon({path: {'19': '../../images/19r.png', '38': '../../images/38r.png'}});
             chrome.action.setTitle({title: station?.title + ' - ' + translate('error')});
             break;
+
         default:
             chrome.action.setIcon({path: {'19': '../../images/19.png', '38': '../../images/38.png'}});
             chrome.action.setTitle({title: translate('name')});

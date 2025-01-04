@@ -1,5 +1,5 @@
 import {translate, translateAll} from '../common/Translator.js';
-import {sendMessageToOffscreen} from "../common/Utils";
+import {sendMessageToOffscreen} from "../common/Utils.js";
 
 /**
  * Stations container.
@@ -400,7 +400,7 @@ function initEvents() {
  * @param {string=} state
  */
 async function setPlayerState(state) {
-    state = state || await sendMessageToOffscreen('getStatus');
+    state = state || (await sendMessageToOffscreen('getStatus'));
     const start = async () => {
         stop();
         const station = await sendMessageToBackground('getLastStation');

@@ -50,7 +50,7 @@ export async function sendMessageToBackground(action, data) {
     return chrome.runtime.sendMessage({
         action,
         target: 'background',
-        data,
+        data: typeof data !== 'undefined' ? data : null,
     });
 }
 

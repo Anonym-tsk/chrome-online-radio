@@ -1,5 +1,5 @@
 import {translate, translateAll} from '../common/Translator.js';
-import {sendMessageToBackground} from "../common/Utils";
+import {sendMessageToBackground} from "../common/Utils.js";
 
 /**
  * Save options data to file.
