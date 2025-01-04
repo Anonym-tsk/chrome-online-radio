@@ -1,4 +1,3 @@
-import {setupOffscreenDocument} from '../common/OffscreenDocument.js';
 import {translate} from "../common/Translator.js";
 import * as DataStorage from './DataStorage.js';
 import {getStationByName} from "./DataStorage.js";
@@ -6,7 +5,6 @@ import {checkUpdates, openOptions, sendMessageToOffscreen} from "../common/Utils
 
 // Check updates.
 chrome.runtime.onInstalled.addListener(function(details) {
-    'use strict';
     checkUpdates(details);
 });
 
@@ -142,12 +140,4 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             chrome.action.setIcon({path: {'19': '../../images/19.png', '38': '../../images/38.png'}});
             chrome.action.setTitle({title: translate('name')});
     }
-});
-
-async function initBackground() {
-    await setupOffscreenDocument();
-}
-
-initBackground().catch((e) => {
-    console.error('Background error', e);
 });
