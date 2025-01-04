@@ -66,89 +66,93 @@ function setStatus(st) {
     sendMessageToBackground(_status);
 }
 
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.target !== 'offscreen') {
         return;
     }
     console.log('Message to offscreen', message);
 
-    const action = message.action;
-    const data = message.data;
-    const volStep = 5;
+    (async () => {
+        const action = message.action;
+        const data = message.data;
+        const volStep = 5;
 
-    let volume;
-    let stations;
-    let station;
-    let name;
+        let volume;
+        let stations;
+        let station;
+        let name;
 
-    switch (action) {
-        case 'getAudioData':
-            sendResponse(player.getAudioData());
-            break;
+        switch (action) {
+            case 'getAudioData':
+                sendResponse(player.getAudioData());
+                break;
 
-        case 'getStatus':
-            sendResponse(_status);
-            break;
+            case 'getStatus':
+                sendResponse(_status);
+                break;
 
-        case 'play':
-            name = await sendMessageToBackground('getLastName')
-            if (data === name && player.isPlaying()) {
-                player.stop();
-            } else {
-                station = await sendMessageToBackground('setLast', data);
+            case 'play':
+                name = await sendMessageToBackground('getLastName')
+                if (data === name && player.isPlaying()) {
+                    player.stop();
+                } else {
+                    station = await sendMessageToBackground('setLast', data);
+                    player.play(station.stream);
+                }
+                break;
+
+            case 'playpause':
+                if (player.isPlaying()) {
+                    player.stop();
+                } else {
+                    station = await sendMessageToBackground('getLastStation');
+                    player.play(station.stream);
+                }
+                break;
+
+            case 'prev':
+            case 'next':
+                stations = await sendMessageToBackground('getStations');
+                const keys = Object.keys(stations);
+                const length = keys.length;
+                const lastName = await sendMessageToBackground('getLastName');
+                const i = keys.indexOf(lastName);
+                name = (action === 'next') ? keys[(i + 1) % length] : keys[(length + i - 1) % length];
+                station = await sendMessageToBackground('setLast', name);
                 player.play(station.stream);
-            }
-            break;
+                break;
 
-        case 'playpause':
-            if (player.isPlaying()) {
-                player.stop();
-            } else {
-                station = await sendMessageToBackground('getLastStation');
-                player.play(station.stream);
-            }
-            break;
+            case 'volume':
+                await sendMessageToBackground('setVolume', data);
+                player.setVolume(data);
+                break;
 
-        case 'prev':
-        case 'next':
-            stations = await sendMessageToBackground('getStations');
-            const keys = Object.keys(stations);
-            const length = keys.length;
-            const lastName = await sendMessageToBackground('getLastName');
-            const i = keys.indexOf(lastName);
-            name = (action === 'next') ? keys[(i + 1) % length] : keys[(length + i - 1) % length];
-            station = await sendMessageToBackground('setLast', name);
-            player.play(station.stream);
-            break;
+            case 'volumeup':
+                volume = player.getVolume();
+                if (volume < 100) {
+                    player.setVolume(Math.min(volume + volStep, 100));
+                }
+                break;
 
-        case 'volume':
-            await sendMessageToBackground('setVolume', data);
-            player.setVolume(data);
-            break;
+            case 'volumedown':
+                volume = player.getVolume();
+                if (volume > 0) {
+                    player.setVolume(Math.max(volume - volStep, 0));
+                }
+                break;
 
-        case 'volumeup':
-            volume = player.getVolume();
-            if (volume < 100) {
-                player.setVolume(Math.min(volume + volStep, 100));
-            }
-            break;
+            case 'stream':
+                const stream = await sendMessageToBackground('getStream', data);
+                player.play(stream);
+                break;
 
-        case 'volumedown':
-            volume = player.getVolume();
-            if (volume > 0) {
-                player.setVolume(Math.max(volume - volStep, 0));
-            }
-            break;
+            default:
+                console.warn(`Unexpected message type received: '${message.type}'.`);
+                return false;
+        }
+    })();
 
-        case 'stream':
-            const stream = await sendMessageToBackground('getStream', data);
-            player.play(stream);
-            break;
-
-        default:
-            console.warn(`Unexpected message type received: '${message.type}'.`);
-            return false;
-    }
+    return true; // async response indicator
 });
 
 let player;

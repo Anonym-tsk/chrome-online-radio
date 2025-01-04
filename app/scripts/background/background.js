@@ -1,6 +1,5 @@
 import {translate} from "../common/Translator.js";
 import * as DataStorage from './DataStorage.js';
-import {getStationByName} from "./DataStorage.js";
 import {checkUpdates, openOptions, sendMessageToOffscreen} from "../common/Utils.js";
 
 // Check updates.
@@ -10,134 +9,141 @@ chrome.runtime.onInstalled.addListener(function(details) {
 
 // Hotkeys listener
 chrome.commands.onCommand.addListener(async (command) => {
+    await DataStorage.init();
     await sendMessageToOffscreen(command);
 });
 
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.target !== 'background') {
         return;
     }
     console.log('Message to background', message);
 
-    let station;
-    switch (message.action) {
-        case 'link':
-            station = DataStorage.getStationByName(message.data);
-            chrome.tabs.create({url: station.url});
-            break;
+    (async () => {
+        await DataStorage.init();
 
-        case 'options':
-            openOptions(message.data);
-            break;
+        let station;
+        switch (message.action) {
+            case 'link':
+                station = DataStorage.getStationByName(message.data);
+                chrome.tabs.create({url: station.url});
+                break;
 
-        case 'like':
-            DataStorage.like(message.data);
-            break;
+            case 'options':
+                openOptions(message.data);
+                break;
 
-        case 'dislike':
-            DataStorage.dislike(message.data);
-            break;
+            case 'like':
+                DataStorage.like(message.data);
+                break;
 
-        case 'exportData':
-            sendResponse(DataStorage.exportData());
-            break;
+            case 'dislike':
+                DataStorage.dislike(message.data);
+                break;
 
-        case 'importData':
-            sendResponse(DataStorage.importData(message.data));
-            break;
+            case 'exportData':
+                sendResponse(DataStorage.exportData());
+                break;
 
-        case 'getStationByName':
-            station = DataStorage.getStationByName(message.data);
-            sendResponse(station.plain());
-            break;
+            case 'importData':
+                sendResponse(DataStorage.importData(message.data));
+                break;
 
-        case 'getLastName':
-            sendResponse(DataStorage.getLastName());
-            break;
+            case 'getStationByName':
+                station = DataStorage.getStationByName(message.data);
+                sendResponse(station.plain());
+                break;
 
-        case 'setLast':
-            DataStorage.setLast(message.data);
-            station = DataStorage.getStationByName(message.data);
-            sendResponse(station.plain());
-            break;
+            case 'getLastName':
+                sendResponse(DataStorage.getLastName());
+                break;
 
-        case 'getStream':
-            station = DataStorage.getLastStation();
-            sendResponse(station.getStream(message.data));
-            break;
+            case 'setLast':
+                DataStorage.setLast(message.data);
+                station = DataStorage.getStationByName(message.data);
+                sendResponse(station.plain());
+                break;
 
-        case 'getNextStream':
-            station = DataStorage.getLastStation();
-            sendResponse(station.getNextStream());
-            break;
+            case 'getStream':
+                station = DataStorage.getLastStation();
+                sendResponse(station.getStream(message.data));
+                break;
 
-        case 'setVolume':
-            DataStorage.setVolume(message.data);
-            break;
+            case 'getNextStream':
+                station = DataStorage.getLastStation();
+                sendResponse(station.getNextStream());
+                break;
 
-        case 'deleteStation':
-            DataStorage.deleteStation(message.data);
-            break;
+            case 'setVolume':
+                DataStorage.setVolume(message.data);
+                break;
 
-        case 'restoreStation':
-            DataStorage.restoreStation(message.data);
-            break;
+            case 'deleteStation':
+                DataStorage.deleteStation(message.data);
+                break;
 
-        case 'addStation':
-            DataStorage.addStation(message.data);
-            break;
+            case 'restoreStation':
+                DataStorage.restoreStation(message.data);
+                break;
 
-        case 'isFavorite':
-            sendResponse(DataStorage.isFavorite(message.data));
-            break;
+            case 'addStation':
+                DataStorage.addStation(message.data);
+                break;
 
-        case 'getStations':
-            sendResponse(DataStorage.getStations());
-            break;
+            case 'isFavorite':
+                sendResponse(DataStorage.isFavorite(message.data));
+                break;
 
-        case 'getFavorites':
-            sendResponse(DataStorage.getFavorites());
-            break;
+            case 'getStations':
+                sendResponse(DataStorage.getStations());
+                break;
 
-        case 'getVolumeLast':
-            sendResponse(DataStorage.getVolumeLast());
-            break;
+            case 'getFavorites':
+                sendResponse(DataStorage.getFavorites());
+                break;
 
-        case 'getVolume':
-            sendResponse(DataStorage.getVolume());
-            break;
+            case 'getVolumeLast':
+                sendResponse(DataStorage.getVolumeLast());
+                break;
 
-        case 'getLastStation':
-            station = DataStorage.getLastStation();
-            sendResponse(station.plain());
-            break;
+            case 'getVolume':
+                sendResponse(DataStorage.getVolume());
+                break;
 
-        case 'buffering':
-            station = DataStorage.getLastStation();
-            chrome.action.setIcon({path: {'19': '../../images/19o.png', '38': '../../images/38o.png'}});
-            chrome.action.setTitle({title: station?.title + ' - ' + translate('loading')});
-            break;
+            case 'getLastStation':
+                station = DataStorage.getLastStation();
+                sendResponse(station.plain());
+                break;
 
-        case 'playing':
-            station = DataStorage.getLastStation();
-            chrome.action.setIcon({path: {'19': '../../images/19g.png', '38': '../../images/38g.png'}});
-            chrome.action.setTitle({title: station?.title});
-            break;
+            case 'buffering':
+                station = DataStorage.getLastStation();
+                chrome.action.setIcon({path: {'19': '../../images/19o.png', '38': '../../images/38o.png'}});
+                chrome.action.setTitle({title: station?.title + ' - ' + translate('loading')});
+                break;
 
-        case 'stopped':
-            station = DataStorage.getLastStation();
-            chrome.action.setIcon({path: {'19': '../../images/19.png', '38': '../../images/38.png'}});
-            chrome.action.setTitle({title: station?.title + ' - ' + translate('stopped')});
-            break;
+            case 'playing':
+                station = DataStorage.getLastStation();
+                chrome.action.setIcon({path: {'19': '../../images/19g.png', '38': '../../images/38g.png'}});
+                chrome.action.setTitle({title: station?.title});
+                break;
 
-        case 'error':
-            station = DataStorage.getLastStation();
-            chrome.action.setIcon({path: {'19': '../../images/19r.png', '38': '../../images/38r.png'}});
-            chrome.action.setTitle({title: station?.title + ' - ' + translate('error')});
-            break;
+            case 'stopped':
+                station = DataStorage.getLastStation();
+                chrome.action.setIcon({path: {'19': '../../images/19.png', '38': '../../images/38.png'}});
+                chrome.action.setTitle({title: station?.title + ' - ' + translate('stopped')});
+                break;
 
-        default:
-            chrome.action.setIcon({path: {'19': '../../images/19.png', '38': '../../images/38.png'}});
-            chrome.action.setTitle({title: translate('name')});
-    }
+            case 'error':
+                station = DataStorage.getLastStation();
+                chrome.action.setIcon({path: {'19': '../../images/19r.png', '38': '../../images/38r.png'}});
+                chrome.action.setTitle({title: station?.title + ' - ' + translate('error')});
+                break;
+
+            default:
+                chrome.action.setIcon({path: {'19': '../../images/19.png', '38': '../../images/38.png'}});
+                chrome.action.setTitle({title: translate('name')});
+        }
+    })();
+
+    return true; // async response indicator
 });
