@@ -1,20 +1,5 @@
 import {translate, translateAll} from '../common/Translator.js';
-
-async function sendMessageToOffscreen(dataType, data) {
-    return chrome.runtime.sendMessage({
-        target: 'offscreen',
-        action: dataType,
-        data: typeof data !== 'undefined' ? data : null,
-    });
-}
-
-async function sendMessageToBackground(dataType, data) {
-    return chrome.runtime.sendMessage({
-        target: 'background',
-        action: dataType,
-        data: typeof data !== 'undefined' ? data : null,
-    });
-}
+import {sendMessageToBackground} from "../common/Utils";
 
 /**
  * Save options data to file.

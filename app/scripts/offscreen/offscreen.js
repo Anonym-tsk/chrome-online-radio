@@ -1,20 +1,5 @@
 import AudioPlayer from './AudioPlayer.js';
-
-async function sendMessageToBackground(action, data) {
-    return chrome.runtime.sendMessage({
-        action,
-        target: 'background',
-        data,
-    });
-}
-
-async function sendMessageToPopup(action, data) {
-    return chrome.runtime.sendMessage({
-        action,
-        target: 'popup',
-        data: typeof data !== 'undefined' ? data : null,
-    });
-}
+import {sendMessageToBackground, sendMessageToPopup} from "../common/Utils";
 
 /**
  * Retry on error counter.

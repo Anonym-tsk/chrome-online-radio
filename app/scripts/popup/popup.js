@@ -1,30 +1,5 @@
 import {translate, translateAll} from '../common/Translator.js';
-
-/**
- * Send message to offscreen.
- * @param {string} action
- * @param {string=} data
- */
-function sendMessageToOffscreen(action, data) {
-    return chrome.runtime.sendMessage({
-        target: 'offscreen',
-        action,
-        data: typeof data !== 'undefined' ? data : null,
-    });
-}
-
-/**
- * Send message to background.
- * @param {string} action
- * @param {string=} data
- */
-function sendMessageToBackground(action, data) {
-    return chrome.runtime.sendMessage({
-        target: 'background',
-        action,
-        data: typeof data !== 'undefined' ? data : null,
-    });
-}
+import {sendMessageToOffscreen} from "../common/Utils";
 
 /**
  * Stations container.

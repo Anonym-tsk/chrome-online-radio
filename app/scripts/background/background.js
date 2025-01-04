@@ -1,13 +1,13 @@
-import * as Utils from './Utils.js';
 import {setupOffscreenDocument} from './OffscreenDocument.js';
 import {translate} from "../common/Translator.js";
 import * as DataStorage from './DataStorage.js';
 import {getStationByName} from "./DataStorage.js";
+import {checkUpdates, openOptions} from "../common/Utils";
 
 // Check updates.
 chrome.runtime.onInstalled.addListener(function(details) {
     'use strict';
-    Utils.checkUpdates(details);
+    checkUpdates(details);
 });
 
 async function getDataFromOffscreen(dataType, data) {
@@ -37,7 +37,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             break;
 
         case 'options':
-            Utils.openOptions(message.data);
+            openOptions(message.data);
             break;
 
         case 'like':
