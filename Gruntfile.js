@@ -28,10 +28,6 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: ['<%= config.path.app %>/scripts/{,*/}*.js'],
-        tasks: ['jshint'],
-        options: {
-          livereload: true
-        }
       },
       sass: {
         files: ['<%= config.path.app %>/styles/{,*/}*.{scss,sass}'],
@@ -43,21 +39,7 @@ module.exports = function(grunt) {
       styles: {
         files: ['<%= config.path.app %>/styles/{,*/}*.css'],
         tasks: [],
-        options: {
-          livereload: true
-        }
       },
-      livereload: {
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
-        files: [
-          '<%= config.path.app %>/*.html',
-          '<%= config.path.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= config.path.app %>/manifest.json',
-          '<%= config.path.app %>/_locales/{,*/}*.json'
-        ]
-      }
     },
 
     // Grunt server and debug server setting
@@ -91,44 +73,7 @@ module.exports = function(grunt) {
       }
     },
 
-    // Make sure code styles are up to par and there are no obvious mistakes
-    jshint: {
-      options: {
-        node: true,
-        browser: true,
-        esnext: true,
-        bitwise: true,
-        camelcase: true,
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        indent: 2,
-        latedef: false,
-        newcap: true,
-        noarg: true,
-        quotmark: 'single',
-        regexp: true,
-        undef: true,
-        unused: true,
-        strict: true,
-        trailing: true,
-        smarttabs: true,
-        validthis: true,
-        globals: {
-          chrome: true,
-          opr: true,
-          define: true
-        },
-        reporter: require('jshint-stylish')
-      },
-      all: [
-        'Gruntfile.js',
-        '<%= config.path.app %>/scripts/{,*/}*.js',
-        '!<%= config.path.app %>/scripts/lib/*'
-      ]
-    },
-
-     // Compiles Sass to CSS and generates necessary files if requested
+    // Compiles Sass to CSS and generates necessary files if requested
     sass: {
       options: {
         style: 'compressed',
@@ -209,8 +154,7 @@ module.exports = function(grunt) {
           cwd: '<%= config.path.app %>/scripts',
           src: [
             '{,*/}*.js',
-            '!lib/*.js',
-            '!chromereload.js'
+            '!lib/*.js'
           ],
           dest: '<%= config.path.dist %>/scripts'
         }]
@@ -248,8 +192,7 @@ module.exports = function(grunt) {
           dest: '<%= config.path.dist %>/scripts',
           src: [
             '{,*/}*.js',
-            '!lib/*.js',
-            '!chromereload.js'
+            '!lib/*.js'
           ]
         }]
       }
@@ -297,52 +240,32 @@ module.exports = function(grunt) {
         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
         globalReplace: false
       }
-    },
-
-    // Excluded scripts from manifest
-    manifestCopy: {
-      options: {
-        exclude: ['scripts/chromereload.js']
-      }
     }
   });
 
   grunt.registerTask('manifestCopy', function() {
-    var options = this.options({exclude: []});
-    var manifest = grunt.config.get('config.manifest');
-
-    // exclude the scripts from background
-    var backgroundScripts = [];
-    grunt.util._.each(manifest.background.scripts, function(script) {
-      if (grunt.util._.indexOf(options.exclude, script) === -1) {
-        backgroundScripts.push(script);
-      }
-    });
-    manifest.background.scripts = backgroundScripts;
-
+    const manifest = grunt.config.get('config.manifest');
     // Write updated manifest to destination.
     grunt.file.write(grunt.config.get('config.path.dist') + '/manifest.json', JSON.stringify(manifest, null, 2));
   });
 
   grunt.registerTask('stationsCopy', function() {
-    var done = this.async(),
-        exec = require('child_process').exec;
+    const done = this.async();
+    const exec = require('child_process').exec;
 
-    var command = 'git show gh-pages:stations.json > ' + grunt.config.get('config.path.dist') + '/stations.json';
+    const command = 'git show gh-pages:stations.json > ' + grunt.config.get('config.path.dist') + '/stations.json';
     exec(command, function(error, stdout, stderr) {
       done(!stderr);
     });
   });
 
   grunt.registerTask('debug', [
-    'jshint',
     'sass:debug',
     'connect:debug',
     'watch'
   ]);
 
   grunt.registerTask('build-chrome', [
-    'jshint',
     'clean',
     'manifestCopy',
     'stationsCopy',
@@ -355,7 +278,6 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build-opera', [
-    'jshint',
     'clean',
     'manifestCopy',
     'stationsCopy',
