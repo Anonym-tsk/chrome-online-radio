@@ -36,7 +36,7 @@
   "hitfm": {
     "title": "Хит FМ",
     "url": "https://hitfm.ru/",
-    "image": "https://hitfm.ru/_nuxt/img/sidebar-logo.82249fa.svg",
+    "image": "https://toplogos.ru/images/logo-hit-fm.png",
     "streams": {
       "96K": "https://hitfm.hostingradio.ru/hitfm96.aacp"
     }
@@ -44,7 +44,7 @@
   "dfm": {
     "title": "DFM",
     "url": "https://dfm.ru/",
-    "image": "https://dfm.ru/_nuxt/img/03e69e7.svg",
+    "image": "https://upload.wikimedia.org/wikipedia/ru/0/02/Dfm_logo.jpg",
     "streams": {
       "96K": "https://dfm.hostingradio.ru/dfm96.aacp"
     }
@@ -86,7 +86,7 @@
   "europa": {
     "title": "Европа Плюс",
     "url": "https://europaplus.ru/",
-    "image": "https://st.europaplus.ru/assets/dist/images/no-img_gray.png?id=16c0df32e84d5347c13d",
+    "image": "https://upload.wikimedia.org/wikipedia/ru/8/8f/EuropaPlus.png",
     "streams": {
       "256K": "http://ep256.hostingradio.ru:8052/europaplus256.mp3",
       "128K": "http://ep128.hostingradio.ru:8030/ep128"
@@ -97,14 +97,13 @@
     "url": "https://relax-fm.ru/",
     "image": "https://top-radio.ru/assets/image/radio/180/relax-fm.png",
     "streams": {
-      "128K": "http://ic4.101.ru:8000/a200",
       "64K ": "https://pub0301.101.ru:8443/stream/air/aac/64/200"
     }
   },
   "retro": {
     "title": "Ретро FM",
     "url": "https://retrofm.ru/",
-    "image": "https://retrofm.ru/template/Retro-2012/img/siteimage/logo_top.png",
+    "image": "https://upload.wikimedia.org/wikipedia/ru/c/cb/RetroFM.png",
     "streams": {
       "128K": "http://retroserver.streamr.ru:8043/retro128"
     }
@@ -112,7 +111,7 @@
   "dorognoe": {
     "title": "Дорожное радио",
     "url": "https://dorognoe.ru/",
-    "image": "https://dorognoe.ru/assets/default/multiplayer/img/logo_dr.svg",
+    "image": "https://toplogos.ru/images/logo-dorozhnoe-radio.png",
     "streams": {
       "64K": "http://dorognoe.hostingradio.ru:8000/dorognoe"
     }
@@ -122,7 +121,6 @@
     "url": "https://www.veseloeradio.ru/",
     "image": "https://www.veseloeradio.ru/design/images/assets/img/logo.svg",
     "streams": {
-      "128K": "http://ic4.101.ru:8000/a102",
       "64K" : "https://pub0301.101.ru:8443/stream/air/aac/64/102"
     }
   },
@@ -131,7 +129,6 @@
     "url": "https://www.avtoradio.ru/",
     "image": "https://www.avtoradio.ru/design/images/site-design/avtoradio-logo.png",
     "streams": {
-      "128K": "http://ic4.101.ru:8000/a100",
       "64K" : "https://pub0301.101.ru:8443/stream/air/aac/64/100"
     }
   },
@@ -140,7 +137,7 @@
     "url": "https://www.radiorecord.ru/",
     "image": "https://upload.wikimedia.org/wikipedia/commons/8/83/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%A0%D0%B0%D0%B4%D0%B8%D0%BE_%D0%A0%D0%B5%D0%BA%D0%BE%D1%80%D0%B4_%282015%29.jpg",
     "streams": {
-      "128K": "https://hls-01-radiorecord.hostingradio.ru/record/playlist.m3u8"
+      "128K": "https://radio-srv1.11one.ru/record192k.mp3"
     }
   },
   "radioromantika": {
@@ -156,7 +153,6 @@
     "url": "https://comedy-radio.ru/",
     "image": "https://comedy-radio.ru/design/images/logo.png",
     "streams": {
-      "128K": "http://ic4.101.ru:8000/a202",
       "64K" : "https://pub0301.101.ru:8443/stream/air/aac/64/202"
     }
   },
@@ -165,7 +161,7 @@
     "url": "https://www.loveradio.ru/",
     "image": "https://download.loveradio.ru/pub/685040.jpg",
     "streams": {
-      "128K": "https://stream.gakku.tv:8443/love128.mp3"
+      "64K": "https://microit2.n340.ru:8443/VgMv0WV17ZVx1uuo_12_love_64"
     }
   },
   "radiosibir": {
@@ -173,7 +169,7 @@
     "url": "https://radiosibir.ru/",
     "image": "https://upload.wikimedia.org/wikipedia/commons/8/81/%D0%A0%D0%B0%D0%B4%D0%B8%D0%BE_%D0%A1%D0%B8%D0%B1%D0%B8%D1%80%D1%8C_12%2B.png",
     "streams": {
-      "192K": "https://stream.radiosibir.ru:8093/HQ"
+      "192K": "https://www.liveradio.es/http://stream.radiosibir.ru:8090/HQ"
     }
   },
   "energy": {
@@ -181,7 +177,6 @@
     "url": "https://www.energyfm.ru/",
     "image": "https://cdn1.energyfm.ru/design/images/site-design/logo.svg?ver=4",
     "streams": {
-      "128K": "http://ic4.101.ru:8000/a99",
       "64K" : "https://pub0301.101.ru:8443/stream/air/aac/64/99"
     }
   },
@@ -190,7 +185,6 @@
     "url": "https://www.radiolikefm.ru/",
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/73/LikeFM_logo.jpg",
     "streams": {
-      "128K": "http://ic4.101.ru:8000/a219",
       "64K" : "https://pub0302.101.ru:8443/stream/air/aac/64/219"
     }
   },
@@ -199,8 +193,8 @@
     "url": "https://www.silver.ru/",
     "image": "https://www.silver.ru/_/i/logo.png",
     "streams": {
-      "128K": "http://213.59.4.27:8000/silver128.mp3",
-      "48K": "http://213.59.4.27:8000/stream48.mp3"
+      "128K": "https://silverrain.hostingradio.ru/silver128.mp3",
+      "48K": "https://silverrain.hostingradio.ru/silver48.mp3"
     }
   },
   "chocoradio": {
@@ -234,14 +228,13 @@
     "url": "https://www.rockarsenal.ru/",
     "image": "https://www.rockarsenal.ru/upload/iblock/8c6/8c6dd49295831cb291951d42344af2f8.png",
     "streams": {
-      "128K": "http://online.rockarsenal.ru:8000/rockarsenal",
-      "32K": "http://online.rockarsenal.ru:8000/rockarsenal32"
+      "128K": "http://online.rockarsenal.ru:8000/rockarsenal"
     }
   },
   "swhrock": {
     "title": "Radio SWH Rock",
     "url": "https://www.radioswhrock.lv/",
-    "image": "https://radioswhrock.lv/wp-content/themes/rock/template/images/img-header2.svg",
+    "image": "https://www.prfm.ru/logo/swh-rock-130.jpg",
     "streams": {
       "96K": "http://80.232.162.149:8000/rock96mp3"
     }
@@ -270,9 +263,9 @@
     "url": "https://govoritmoskva.ru/",
     "image": "https://govoritmoskva.ru/static/images/new-logo.png",
     "streams": {
-      "96K": "https://govoritmoskva.ru/radio/rufm.mp3",
-      "64K": "https://govoritmoskva.ru/radio/ru64.mp3",
-      "32K": "https://govoritmoskva.ru/radio/ru32.mp3"
+      "96K": "https://media.govoritmoskva.ru:8000/rufm.mp3",
+      "64K": "https://media.govoritmoskva.ru:8000/gm64.aac",
+      "32K": "https://media.govoritmoskva.ru:8000/ru32.mp3"
     }
   },
   "anonymous": {
@@ -303,7 +296,7 @@
   "madfm": {
     "title": "MADFM",
     "url": "https://mad.pub/",
-    "image": "https://mad.pub/images/logo.png",
+    "image": "https://static-cdn.jtvnw.net/jtv_user_pictures/f8e0b973-7242-43f3-8286-dd10afe2fb97-profile_image-300x300.png",
     "streams": {
       "128K": "http://mad.pub/radio/live"
     }
