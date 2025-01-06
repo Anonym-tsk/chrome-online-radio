@@ -495,7 +495,9 @@ async function scrollToLastStation() {
     }
 
     const $station = document.querySelector('.station[data-name="' + station.name + '"]');
+    $stations.style.scrollBehavior = 'auto';
     $stations.scrollTop = $stations.scrollTop + $station.offsetTop - $station.offsetHeight;
+    $stations.style.scrollBehavior = 'smooth';
 }
 
 // Listen messages from background
