@@ -19,7 +19,7 @@ export default class Station {
      * @param name {string}
      * @param title {string}
      * @param url {string}
-     * @param streams {{string: string}}
+     * @param streams {{string: string} | []}
      * @param image {string}
      * @param isUserStation {boolean}
      * @param isHidden {boolean}

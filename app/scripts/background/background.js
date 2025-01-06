@@ -34,11 +34,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 break;
 
             case 'like':
-                DataStorage.like(message.data);
+                sendResponse(await DataStorage.like(message.data));
                 break;
 
             case 'dislike':
-                DataStorage.dislike(message.data);
+                sendResponse(await DataStorage.dislike(message.data));
                 break;
 
             case 'exportData':
@@ -59,9 +59,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 break;
 
             case 'setLast':
-                DataStorage.setLast(message.data);
+                await DataStorage.setLast(message.data);
                 station = DataStorage.getStationByName(message.data);
-                sendResponse(station.plain());
+                sendResponse(station?.plain());
                 break;
 
             case 'getStream':
@@ -75,19 +75,19 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 break;
 
             case 'setVolume':
-                DataStorage.setVolume(message.data);
+                sendResponse(await DataStorage.setVolume(message.data));
                 break;
 
             case 'deleteStation':
-                DataStorage.deleteStation(message.data);
+                sendResponse(await DataStorage.deleteStation(message.data));
                 break;
 
             case 'restoreStation':
-                DataStorage.restoreStation(message.data);
+                sendResponse(await DataStorage.restoreStation(message.data));
                 break;
 
             case 'addStation':
-                DataStorage.addStation(message.data);
+                sendResponse(await DataStorage.addStation(message.data));
                 break;
 
             case 'isFavorite':
@@ -112,7 +112,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
             case 'getLastStation':
                 station = DataStorage.getLastStation();
-                sendResponse(station.plain());
+                sendResponse(station?.plain());
                 break;
 
             case 'buffering':

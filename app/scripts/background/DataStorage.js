@@ -32,7 +32,7 @@ const _coreStations = {};
 
 /**
  * User stations.
- * @type {{}}
+ * @type {[key: string], Station}
  */
 const _userStations = {};
 
@@ -49,11 +49,11 @@ async function _get(name, defaultValue) {
  * @param {string} name Station name.
  * @public
  */
-export function like(name) {
+export async function like(name) {
     if (!isFavorite(name)) {
         _favorites.push(name);
     }
-    _save('_favorites', _favorites);
+    await _save('_favorites', _favorites);
 }
 
 /**
@@ -61,12 +61,12 @@ export function like(name) {
  * @param {string} name Station name.
  * @public
  */
-export function dislike(name) {
+export async function dislike(name) {
     const index = _favorites.indexOf(name);
     if (index >= 0) {
         _favorites.splice(index, 1);
     }
-    _save('_favorites', _favorites);
+    await _save('_favorites', _favorites);
 }
 
 /**
@@ -92,9 +92,9 @@ export function getFavorites() {
  * Set all favorites.
  * @param {[]} favorites
  */
-export function setFavorites(favorites) {
+export async function setFavorites(favorites) {
     _favorites = favorites;
-    _save('_favorites', _favorites);
+    await _save('_favorites', _favorites);
 }
 
 /**
@@ -178,9 +178,9 @@ export function importData(data) {
  * @param {string} name Station name.
  * @public
  */
-export function setLast(name) {
+export async function setLast(name) {
     _last = name;
-    _save('_last', _last);
+    await _save('_last', _last);
 }
 
 /**
@@ -224,10 +224,10 @@ export function getVolumeLast() {
  * @param {number} volume Volume.
  * @public
  */
-export function setVolume(volume) {
+export async function setVolume(volume) {
     const last = _volume.current;
     _volume = {current: volume, last};
-    _save('_volume', _volume);
+    await _save('_volume', _volume);
 }
 
 /**
@@ -236,12 +236,12 @@ export function setVolume(volume) {
  * @return {Station}
  * @public
  */
-export function addStation(stationMap) {
+export async function addStation(stationMap) {
     if (!stationMap.name) { // Создаем новую станцию
         stationMap.name = (+new Date()).toString() + Object.keys(_userStations).length.toString();
     }
     _userStations[stationMap.name] = new Station(stationMap.name, stationMap.title, stationMap.url || '', stationMap.streams, stationMap.image || '', true);
-    _save('_stations', _userStations);
+    await _save('_stations', _userStations);
     return _userStations[stationMap.name];
 }
 
@@ -250,14 +250,14 @@ export function addStation(stationMap) {
  * @param {string} name Station name.
  * @public
  */
-export function deleteStation(name) {
+export async function deleteStation(name) {
     if (_userStations.hasOwnProperty(name)) {
         delete _userStations[name];
-        _save('_stations', _userStations);
+        await _save('_stations', _userStations);
     } else if (_coreStations.hasOwnProperty(name)) {
         _coreStations[name].setHidden(true);
         _hidden[name] = 1;
-        _save('_hidden', _hidden);
+        await _save('_hidden', _hidden);
     }
 }
 
@@ -266,11 +266,11 @@ export function deleteStation(name) {
  * @param {string} name Station name.
  * @public
  */
-export function restoreStation(name) {
+export async function restoreStation(name) {
     if (_hidden.hasOwnProperty(name)) {
         _coreStations[name].setHidden(false);
         delete _hidden[name];
-        _save('_hidden', _hidden);
+        await _save('_hidden', _hidden);
     }
 }
 
