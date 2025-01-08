@@ -369,9 +369,6 @@ export async function init() {
         return;
     }
 
-    await _loadStations();
-    await _setCorsRules();
-
     _favorites = await _get('_favorites', []);
     if (typeof _favorites !== 'object') {
         _favorites = [];
@@ -385,4 +382,7 @@ export async function init() {
     if (typeof _volume !== 'object') {
         _volume = {};
     }
+
+    await _loadStations();
+    await _setCorsRules();
 }
