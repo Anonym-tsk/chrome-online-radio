@@ -7,8 +7,10 @@
   "permissions": [
     "tabs",
     "offscreen",
-    "storage"
+    "storage",
+    "declarativeNetRequest"
   ],
+  "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "scripts/background/background.js",
     "type": "module"

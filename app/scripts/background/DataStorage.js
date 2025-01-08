@@ -26,13 +26,13 @@ let _volume = {current: 80, last: 80};
 
 /**
  * Core stations.
- * @type {{}}
+ * @type {{[key: string]: Station}}
  */
 const _coreStations = {};
 
 /**
  * User stations.
- * @type {[key: string], Station}
+ * @type {{[key: string]: Station}}
  */
 const _userStations = {};
 
@@ -99,7 +99,7 @@ export async function setFavorites(favorites) {
 
 /**
  * Get all stations.
- * @return {{[key: string], Station}}
+ * @return {{[key: string]: Station}}
  * @public
  */
 export function getStations() {
@@ -242,6 +242,7 @@ export async function addStation(stationMap) {
     }
     _userStations[stationMap.name] = new Station(stationMap.name, stationMap.title, stationMap.url || '', stationMap.streams, stationMap.image || '', true);
     await _save('_stations', _userStations);
+    await _addCorsRule(_userStations[stationMap.name]);
     return _userStations[stationMap.name];
 }
 
@@ -302,11 +303,7 @@ async function _loadUserStations() {
     }
 }
 
-export async function init() {
-    if (Object.keys(_coreStations).length > 0) {
-        return;
-    }
-
+async function _loadStations() {
     // Load core stations list
     try {
         await _loadCoreStations('https://radio.vasilchuk.net/stations.json');
@@ -316,6 +313,64 @@ export async function init() {
 
     // Load users stations list
     await _loadUserStations();
+}
+
+function _createCorsRule(id, stream) {
+    const url = new URL(stream);
+    return {
+        id,
+        action: {
+            type: 'modifyHeaders',
+            responseHeaders: [{
+                operation: 'set',
+                header: 'Access-Control-Allow-Origin',
+                value: url.origin,
+            }]
+        },
+        condition: {
+            urlFilter: stream,
+        }
+    };
+}
+
+async function _setCorsRules() {
+    const oldRules = await chrome.declarativeNetRequest.getSessionRules();
+    const oldRuleIds = oldRules.map(rule => rule.id);
+    await chrome.declarativeNetRequest.updateSessionRules({removeRuleIds: oldRuleIds});
+
+    let id = 1;
+    const newRules = [];
+    for (let station of [...Object.values(_coreStations), ...Object.values(_userStations)]) {
+        for (let stream of Object.values(station.streams)) {
+            newRules.push(_createCorsRule(id, stream));
+            id++;
+        }
+    }
+
+    await chrome.declarativeNetRequest.updateSessionRules({addRules: newRules});
+}
+
+async function _addCorsRule(station) {
+    const oldRules = await chrome.declarativeNetRequest.getSessionRules();
+    oldRules.sort((a, b) => (b.id - a.id));
+
+    let id = (oldRules[0]?.id || 0) + 1;
+    const newRules = [];
+    for (let stream of Object.values(station.streams)) {
+        newRules.push(_createCorsRule(id, stream));
+        id++;
+    }
+
+    await chrome.declarativeNetRequest.updateSessionRules({addRules: newRules});
+}
+
+export async function init() {
+    if (Object.keys(_coreStations).length > 0) {
+        return;
+    }
+
+    await _loadStations();
+    await _setCorsRules();
 
     _favorites = await _get('_favorites', []);
     if (typeof _favorites !== 'object') {
