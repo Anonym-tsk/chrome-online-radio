@@ -319,7 +319,7 @@ export async function init() {
 
     _favorites = await _get('_favorites', []);
     if (typeof _favorites !== 'object') {
-        _hidden = [];
+        _favorites = [];
     }
     _last = await _get('_last', Object.keys(_coreStations)[0]);
     _hidden = await _get('_hidden', {});

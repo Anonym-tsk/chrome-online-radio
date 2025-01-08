@@ -375,7 +375,7 @@ function initEvents() {
 
     $footer.querySelector('.icon-feedback').addEventListener('click', (e) => {
         e.preventDefault();
-        chrome.tabs.create({url: 'mailto:chrome@vasilchuk.net?Subject=Online%20Radio%20Extension'});
+        chrome.tabs.create({url: 'https://github.com/Anonym-tsk/chrome-online-radio/issues'});
     });
 
     const $searchBox = $search.querySelector('.search');
