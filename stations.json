@@ -300,5 +300,21 @@
     "streams": {
       "128K": "http://mad.pub/radio/live"
     }
+  },
+  "radio7": {
+    "title": "Радио 7",
+    "url": "https://radio7.ru/",
+    "image": "https://top-radio.ru/assets/image/radio/180/7-Na-semi-xolmax.png",
+    "streams": {
+      "256K": "https://radio7.hostingradio.ru:8040/radio7256.mp3"
+    }
+  },
+  "newradio": {
+    "title": "Новое Радио",
+    "url": "https://newradio.ru/",
+    "image": "https://top-radio.ru/assets/image/radio/180/novoe-v2.png",
+    "streams": {
+      "96K": "https://stream.newradio.ru/novoe96.aacp"
+    }
   }
 }
